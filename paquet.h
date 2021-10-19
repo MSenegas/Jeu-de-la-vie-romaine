@@ -8,7 +8,7 @@ class Joueur;
 
 class Paquet { // Paquet de cartes initial
 public:
-    std::vector<Carte> paquet;
+    std::vector<Carte*> paquet;
     Paquet(std::vector<std::string> paragraph,Game& G);
     Paquet(const Paquet&)=delete;
     Paquet& operator=(const Paquet&)=delete;

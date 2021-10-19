@@ -8,7 +8,7 @@ class Game;
 class Joueur;
 
 class Periode {
-    std::vector<Case> cases;
+    std::vector<Case*> cases;
 public:
     Periode()=default;
     Periode(std::vector<std::string> paragraph,Game& G);
