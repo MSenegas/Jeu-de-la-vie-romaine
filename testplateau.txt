@@ -1,0 +1,17 @@
+commerçant 1
+stop
+cash 10
+salaire 250
+tresor
+cash_cagnotte -10
+
+politicien 1
+stop
+salaire 150
+cash_cagnotte_joueurs -10
+chance
+
+esclave
+stop
+cash_joueurs -50
+stop
