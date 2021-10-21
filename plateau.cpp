@@ -40,10 +40,6 @@ Periode::Periode(const std::vector<std::string> paragraph,Game& G) {
     }
 }
 
-Periode::~Periode() { // NE PAS METTRE 2 FOIS LA MÊME CASE DANS UN MÊME PLATEAU: Toujours allouer la mémoire directement dans l'appel de std::vector::push_back de sorte à ne pas avoir de pointeur en double
-    for (unsigned int i=0;i<cases.size();i++)
-        delete cases.at(i);}
-
 bool Periode::is_empty() const {return cases.empty();}
 
 unsigned int Periode::size() const {return cases.size();}

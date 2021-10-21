@@ -12,7 +12,6 @@ class Periode {
 public:
     Periode()=default;
     Periode(std::vector<std::string> paragraph,Game& G);
-    ~Periode();
     static void interprete_ligne(const std::string& ligne,std::string& comm,int& arg);
     bool is_empty() const;
     unsigned int size() const;
