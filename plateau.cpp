@@ -16,24 +16,24 @@ Periode::Periode(const std::vector<std::string> paragraph,Game& G) {
     int case_cash=0;
     for (unsigned int i=0;i<paragraph.size();i++) {
         interprete_ligne(paragraph.at(i),case_type,case_cash);
-        if (case_type=="stop") cases.push_back(CaseStop());
-        else if (case_type=="chance") cases.push_back(CaseChance(G));
-        else if (case_type=="tresor") cases.push_back(CaseTresor(G));
-        else if (case_type=="salaire") cases.push_back(CaseSalaire(G,case_cash));
-        else if (case_type=="pari") cases.push_back(CasePari(G));
-        else if (case_type=="loto") cases.push_back(CaseLoto(G));
-        else if (case_type=="justice") cases.push_back(CaseJustice(G));
-        else if (case_type=="rejouez") cases.push_back(CaseRejouez(G));
-        else if (case_type=="reculez_avancez") cases.push_back(CaseReculezAvancez(G));
-        else if (case_type=="enfant") cases.push_back(CaseEnfant(G));
-        else if (case_type=="prison") cases.push_back(CasePrison());
-        else if (case_type=="esclave") cases.push_back(CaseEsclave());
-        else if (case_type=="vacances") cases.push_back(CaseVacances());
-        else if (case_type=="conseil") cases.push_back(CaseConseil());
-        else if (case_type=="cash") cases.push_back(CaseCash(case_cash));
-        else if (case_type=="cash_cagnotte") cases.push_back(CaseCashCagnotte(G,case_cash));
-        else if (case_type=="cash_joueurs") cases.push_back(CaseCashJoueurs(G,case_cash));
-        else if (case_type=="cash_cagnotte_joueurs") cases.push_back(CaseCashCagnotteJoueurs(G,case_cash));
+        if (case_type=="stop") cases.push_back(new CaseStop());
+        else if (case_type=="chance") cases.push_back(new CaseChance(G));
+        else if (case_type=="tresor") cases.push_back(new CaseTresor(G));
+        else if (case_type=="salaire") cases.push_back(new CaseSalaire(G,case_cash));
+        else if (case_type=="pari") cases.push_back(new CasePari(G));
+        else if (case_type=="loto") cases.push_back(new CaseLoto(G));
+        else if (case_type=="justice") cases.push_back(new CaseJustice(G));
+        else if (case_type=="rejouez") cases.push_back(new CaseRejouez(G));
+        else if (case_type=="reculez_avancez") cases.push_back(new CaseReculezAvancez(G));
+        else if (case_type=="enfant") cases.push_back(new CaseEnfant(G));
+        else if (case_type=="prison") cases.push_back(new CasePrison());
+        else if (case_type=="esclave") cases.push_back(new CaseEsclave());
+        else if (case_type=="vacances") cases.push_back(new CaseVacances());
+        else if (case_type=="conseil") cases.push_back(new CaseConseil());
+        else if (case_type=="cash") cases.push_back(new CaseCash(case_cash));
+        else if (case_type=="cash_cagnotte") cases.push_back(new CaseCashCagnotte(G,case_cash));
+        else if (case_type=="cash_joueurs") cases.push_back(new CaseCashJoueurs(G,case_cash));
+        else if (case_type=="cash_cagnotte_joueurs") cases.push_back(new CaseCashCagnotteJoueurs(G,case_cash));
         else {
             std::string err_msg=" n'est pas un nom de case reconnu";
             throw std::invalid_argument(case_type+err_msg);}
