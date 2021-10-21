@@ -58,7 +58,7 @@ void Periode::reset_cases() {
     for (unsigned int i=0;i<cases.size();i++)
         cases.at(i)->reset_case();}
 
-void Periode::affichage(int i0, int j0) {
+void Periode::affichage(int i0, int j0) const {
     for (unsigned int i=0;i<cases.size();i++)
         cases.at(i)->affichage(i0,j0+TAILLE_CASES_AFFICHAGE*i);}
 
@@ -109,7 +109,7 @@ void Plateau::reset_cases() {
     for (unsigned int i=0;i<plateau.size();i++)
         plateau.at(i).reset_cases();}
 
-void Plateau::affichage() {
+void Plateau::affichage() const {
     plateau.at(0).affichage(0,0);
     for (int n_carr=1;n_carr<=N_CARRIERES;n_carr++) {
         int n_per=1;

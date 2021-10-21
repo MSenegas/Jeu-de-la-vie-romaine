@@ -13,7 +13,7 @@ public:
     virtual void tomber(Joueur&) {} // Effet déclenché lorsque le joueur J tombe sur la case
     virtual void passer(Joueur&) {} // Paye le salaire du joueur J (seul. salaire)
     virtual void reset_case() {} // Réinitialise la case
-    virtual void affichage(int i0,int j0); // Affiche la case
+    virtual void affichage(int i0,int j0) const; // Affiche la case
 };
 
 class CaseStop: public Case {};

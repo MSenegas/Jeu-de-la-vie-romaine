@@ -5,7 +5,7 @@
 #include "case.h"
 #include "game.h"
 
-void Case::affichage(int i0, int j0) {
+void Case::affichage(int i0, int j0) const {
     Imagine::drawRect(i0,j0,TAILLE_CASES_AFFICHAGE,TAILLE_CASES_AFFICHAGE,Imagine::BLACK);
 }
 
