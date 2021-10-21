@@ -82,7 +82,7 @@ void Joueur::carriere_nouv_periode() {
         carriere=decision_chemin_risque_sur();}
 
 int Joueur::decision_chemin_risque_sur() {
-    return Imagine::intRandom(1,2);}// à améliorer
+    return Imagine::intRandom(1,2);} // à améliorer
 
 void Joueur::mouv(Plateau& P,const int& de) {
     if (esclave) {

@@ -12,26 +12,26 @@ void Case::affichage(int i0, int j0) {
 CaseChance::CaseChance(Game& G):
     current_game(G) {}
 
-void CaseChance::tomber(Joueur& J) {}
-    // pioche_chance->back()->tirer(J);
-    // METTRE J.add_carte_chance_tresor(&this); DANS CarteSortezPrison::tirer(Joueur& J)
-    // pioche_chance->pop_back();
+//void CaseChance::tomber(Joueur& J) {}
+//    // pioche_chance->back()->tirer(J);
+//    // METTRE J.add_carte_chance_tresor(&this); DANS CarteSortezPrison::tirer(Joueur& J)
+//    // pioche_chance->pop_back();
 
 CaseTresor::CaseTresor(Game& G):
     current_game(G) {}
 
-void CaseTresor::tomber(Joueur& J) {}
-    // pioche_tresor->back()->tirer(J);
-    // METTRE J.add_carte_chance_tresor(&this); DANS CarteSortezPrison::tirer(Joueur& J)
-    // pioche_tresor->pop_back();
+//void CaseTresor::tomber(Joueur& J) {}
+//    // pioche_tresor->back()->tirer(J);
+//    // METTRE J.add_carte_chance_tresor(&this); DANS CarteSortezPrison::tirer(Joueur& J)
+//    // pioche_tresor->pop_back();
 
 CaseSalaire::CaseSalaire(Game& G,const int& sal):
     current_game(G),salaire(sal) {}
 
-void CaseSalaire::tomber(Joueur& J) {}
-    // pioche_bonus->back()->tirer(J);
-    // METTRE J.cash_flow(gift); DANS CarteCash::tirer(Joueur& J)
-    // pioche_bonus->pop_back();
+//void CaseSalaire::tomber(Joueur& J) {}
+//    // pioche_bonus->back()->tirer(J);
+//    // METTRE J.cash_flow(gift); DANS CarteCash::tirer(Joueur& J)
+//    // pioche_bonus->pop_back();
 
 void CaseSalaire::passer(Joueur& J) {
     bool a_payer=true;
@@ -56,13 +56,13 @@ CasePari::CasePari(Game& G):
 CaseLoto::CaseLoto(Game& G):
     current_game(G) {}
 
-void CasePari::tomber(Joueur& J) {} // Laissés vides pour l'instant
-void CaseLoto::tomber(Joueur& J) {}
+//void CasePari::tomber(Joueur& J) {} // Laissés vides pour l'instant
+//void CaseLoto::tomber(Joueur& J) {}
 
 CaseJustice::CaseJustice(Game& G):
     current_game(G) {}
 
-void CaseJustice::tomber(Joueur& J) {} // IA NÉCESSAIRE
+//void CaseJustice::tomber(Joueur& J) {} // IA NÉCESSAIRE
 
 CaseRejouez::CaseRejouez(Game& G):
     current_game(G) {}
@@ -83,9 +83,9 @@ void CaseReculezAvancez::tomber(Joueur& J) {
 CaseEnfant::CaseEnfant(Game& G):
     current_game(G) {}
 
-void CaseEnfant::tomber(Joueur& J) {}
-    // J.add_enfant(pioche_enfant->back()->nb_enfants());
-    // pioche_enfant->pop_back();
+//void CaseEnfant::tomber(Joueur& J) {}
+//    // J.add_enfant(pioche_enfant->back()->nb_enfants());
+//    // pioche_enfant->pop_back();
 
 void CasePrison::tomber(Joueur& J) {
     J.aller_prison();}
@@ -96,9 +96,9 @@ void CaseEsclave::tomber(Joueur& J) {
 CaseMarche::CaseMarche(Game& G):
     current_game(G) {}
 
-void CaseMarche::tomber(Joueur& J) {}
+//void CaseMarche::tomber(Joueur& J) {}
 
-void CaseConseil::tomber(Joueur& J) {}
+//void CaseConseil::tomber(Joueur& J) {}
 
 CaseCash::CaseCash(const int& gain):
     gift(gain) {}
@@ -117,20 +117,20 @@ void CaseCashCagnotte::tomber(Joueur& J) {
 CaseCashJoueurs::CaseCashJoueurs(Game& G,const int& gain):
     CaseCash(gain), current_game(G) {}
 
-void CaseCashJoueurs::tomber(Joueur& J) {
-//    unsigned int N_joueurs=liste_joueurs.size();
-//    for (unsigned int i=0;i<N_joueurs;i++)
-//        liste_joueurs.at(i)->cash_flow(-gift);
-//    J.cash_flow(N_joueurs*gift);
-}
+//void CaseCashJoueurs::tomber(Joueur& J) {
+// //   unsigned int N_joueurs=liste_joueurs.size();
+// //   for (unsigned int i=0;i<N_joueurs;i++)
+// //       liste_joueurs.at(i)->cash_flow(-gift);
+// //   J.cash_flow(N_joueurs*gift);
+//}
 
 CaseCashCagnotteJoueurs::CaseCashCagnotteJoueurs(Game& G,const int& gain):
     CaseCashJoueurs(G,gain) {
     if (gift>0) throw std::domain_error("La cagnotte ne verse pas d'argent de cette manière.");}
 
-void CaseCashCagnotteJoueurs::tomber(Joueur& J) {
-//    unsigned int N_joueurs=liste_joueurs.size();
-//    for (unsigned int i=0;i<N_joueurs;i++)
-//        liste_joueurs.at(i)->cash_flow(gift);
-//    argent_cagnotte-=N_joueurs*gift;
-}
+//void CaseCashCagnotteJoueurs::tomber(Joueur& J) {
+// //   unsigned int N_joueurs=liste_joueurs.size();
+// //   for (unsigned int i=0;i<N_joueurs;i++)
+// //       liste_joueurs.at(i)->cash_flow(gift);
+// //   argent_cagnotte-=N_joueurs*gift;
+//}
