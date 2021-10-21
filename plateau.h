@@ -19,6 +19,7 @@ public:
     void tomber(const unsigned int& n_case,Joueur& J);
     void passer(const unsigned int& n_case,Joueur& J);
     void reset_cases(); // Réinitialise les cases de la période
+    void affichage(int i0,int j0); // Affiche la période
 };
 
 class Plateau {
@@ -40,5 +41,6 @@ public:
     void tomber(const int& n_carr,const int& n_per,const unsigned int& n_case,Joueur& J);
     void passer(const int& n_carr,const int& n_per,const unsigned int& n_case,Joueur& J);
     void reset_cases(); // Réinitialise les cases du plateau
+    void affichage(); // Affiche le plateau
     inline static unsigned int indice_plateau(const int& n_carr,const int& n_per) {return N_CARRIERES*(n_per-1)+n_carr;}
 };

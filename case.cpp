@@ -1,12 +1,13 @@
 #include <Imagine/Common.h>
+#include <Imagine/Graphics.h>
 #include <stdexcept>
 
 #include "case.h"
 #include "game.h"
 
-void Case::tomber(Joueur&) {}
-void Case::passer(Joueur&) {}
-void Case::reset_case() {}
+void Case::affichage(int i0, int j0) {
+    Imagine::drawRect(i0,j0,TAILLE_CASES_AFFICHAGE,TAILLE_CASES_AFFICHAGE,Imagine::BLACK);
+}
 
 CaseChance::CaseChance(Game& G):
     current_game(G) {}
