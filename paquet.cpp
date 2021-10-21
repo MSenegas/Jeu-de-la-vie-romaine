@@ -27,7 +27,7 @@ Pioche::Pioche(const Paquet& Pq): paquet_source(Pq) {melanger();}
 
 void Pioche::melanger() {
     for (unsigned int i=0;i<paquet_source.paquet.size();i++)
-        pioche.push_back(&paquet_source.paquet.at(i));}
+        pioche.push_back(paquet_source.paquet.at(i));}
 
 Banque::Banque(const Collection& Coll): collection_source(Coll),
     pioche_chance(Coll.paquet_chance),pioche_tresor(Coll.paquet_tresor),

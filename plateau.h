@@ -12,8 +12,7 @@ class Periode {
 public:
     Periode()=default;
     Periode(std::vector<std::string> paragraph,Game& G);
-    Periode(const Periode&)=delete;
-    Periode& operator=(const Periode&)=delete;
+    ~Periode();
     static void interprete_ligne(const std::string& ligne,std::string& comm,int& arg);
     bool is_empty() const;
     unsigned int size() const;
@@ -34,8 +33,6 @@ class Plateau {
     //         chemin_risqué: n_carr = 2
 public:
     Plateau(const std::string path,Game& G);
-    Plateau(const Plateau&)=delete;
-    Plateau& operator=(const Plateau&)=delete;
     bool depasse_periode(const int& n_carr,const int& n_per,const unsigned int& n_case) const;
     // Indique si cette position dépasse de la période (la partie se charge de changer de période ensuite)
     bool derniere_periode(const int& n_per) const; // Indique si dette période est la dernière (REMARQUE: Une hypothèse sous-jacente est que la carrière 0 est définie pour toutes les périodes. La période en argument doit également être définie)

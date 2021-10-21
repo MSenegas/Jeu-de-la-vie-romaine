@@ -7,6 +7,7 @@ class Game;
 class Case {
 public:
     Case()=default;
+    virtual ~Case()=default;
     Case(const Case&)=delete;
     Case& operator=(const Case&)=delete;
     virtual void tomber(Joueur&); // Effet déclenché lorsque le joueur J tombe sur la case

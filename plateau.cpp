@@ -40,19 +40,23 @@ Periode::Periode(const std::vector<std::string> paragraph,Game& G) {
     }
 }
 
+Periode::~Periode() { // NE PAS METTRE 2 FOIS LA MÊME CASE DANS UN MÊME PLATEAU: Toujours allouer la mémoire directement dans l'appel de std::vector::push_back de sorte à ne pas avoir de pointeur en double
+    for (unsigned int i=0;i<cases.size();i++)
+        delete cases.at(i);}
+
 bool Periode::is_empty() const {return cases.empty();}
 
 unsigned int Periode::size() const {return cases.size();}
 
 void Periode::tomber(const unsigned int &n_case, Joueur &J) {
-    cases.at(n_case).tomber(J);}
+    cases.at(n_case)->tomber(J);}
 
 void Periode::passer(const unsigned int &n_case, Joueur &J) {
-    cases.at(n_case).passer(J);}
+    cases.at(n_case)->passer(J);}
 
 void Periode::reset_cases() {
     for (unsigned int i=0;i<cases.size();i++)
-        cases.at(i).reset_case();}
+        cases.at(i)->reset_case();}
 
 Plateau::Plateau(const std::string path,Game& G) {
     std::vector<std::vector<std::string>> paragraph_list;

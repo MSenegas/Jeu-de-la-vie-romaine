@@ -28,8 +28,6 @@ class Joueur {
     std::vector<Carte*> cartes_symboles;
 public:
     Joueur(const int& n_carr);
-    Joueur(const Joueur&)=delete;
-    Joueur& operator=(const Joueur&)=delete;
     void cash_flow(const int& gain); // Augmente l'argent du joueur de gain (peut être négatif)
     void verif_dettes(); // Vérifie s'il faut emprunter ou s'il est possible de rembourser des dettes
     void add_conseil();

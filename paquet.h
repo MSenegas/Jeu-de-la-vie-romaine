@@ -10,8 +10,6 @@ class Paquet { // Paquet de cartes initial
 public:
     std::vector<Carte*> paquet;
     Paquet(std::vector<std::string> paragraph,Game& G);
-    Paquet(const Paquet&)=delete;
-    Paquet& operator=(const Paquet&)=delete;
     static void interprete_ligne(const std::string& ligne,std::string& comm,int& arg1,int& arg2,double& arg3);
 };
 
@@ -25,8 +23,6 @@ public:
     Paquet paquet_propriete;
     Paquet paquet_symboles;
     Collection(const std::string path,Game& G);
-    Collection(const Collection&)=delete;
-    Collection& operator=(const Collection&)=delete;
 };
 
 class Pioche { // Pioche utilisée en jeu

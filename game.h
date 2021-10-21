@@ -12,8 +12,6 @@ class Game {
 public:
     unsigned int cagnotte;
     Game(const std::string path_plateau,const std::string path_cartes,const unsigned int nb_joueurs);
-    Game(const Game&)=delete;
-    Game& operator=(const Game&)=delete;
     static std::vector<int> tirage_carrieres(const unsigned int nb_joueurs); // Effectue le tirage au sort pour les carrières des joueurs !!! À CHANGER SI L'ON RAJOUTE DES CARRIERES !!!
     static void lire_fichier(std::vector<std::vector<std::string>>& paragraph_list,const std::string path);
 //    void play();
