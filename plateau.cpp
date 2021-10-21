@@ -56,7 +56,7 @@ void Periode::reset_cases() {
 
 void Periode::affichage(int i0, int j0) const {
     for (unsigned int i=0;i<cases.size();i++)
-        cases.at(i)->affichage(j0+TAILLE_CASES_AFFICHAGE*i,i0);}
+        cases.at(i)->affichage(i0,j0+TAILLE_CASES_AFFICHAGE*i);}
 
 Plateau::Plateau(const std::string path,Game& G) {
     std::vector<std::vector<std::string>> paragraph_list;
@@ -111,7 +111,7 @@ void Plateau::affichage() const {
         int n_per=1;
         int n_tot_cases=0;
         while (!derniere_periode(n_per-1)) {
-            plateau.at(indice_plateau(n_carr,n_per)).affichage(TAILLE_CASES_AFFICHAGE*n_tot_cases,TAILLE_CASES_AFFICHAGE*n_carr);
+            plateau.at(indice_plateau(n_carr,n_per)).affichage(TAILLE_CASES_AFFICHAGE*n_carr,TAILLE_CASES_AFFICHAGE*n_tot_cases);
             n_tot_cases+=plateau.at(indice_plateau(n_carr,n_per)).size();
             n_per++;}}
 }
