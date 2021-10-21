@@ -6,7 +6,7 @@
 #include "game.h"
 
 void Case::affichage(int i0, int j0) const {
-    Imagine::drawRect(i0,j0,TAILLE_CASES_AFFICHAGE,TAILLE_CASES_AFFICHAGE,Imagine::BLACK);
+    Imagine::drawRect(j0,i0,TAILLE_CASES_AFFICHAGE,TAILLE_CASES_AFFICHAGE,Imagine::BLACK);
 }
 
 CaseChance::CaseChance(Game& G):
