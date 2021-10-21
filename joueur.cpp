@@ -1,4 +1,5 @@
 #include <Imagine/Common.h>
+#include <Imagine/Graphics.h>
 
 #include "joueur.h"
 #include "plateau.h"
@@ -125,4 +126,21 @@ void Joueur::reset(const int& n_carr) {
     cartes_achetez.clear();
     cartes_propriete.clear();
     cartes_symboles.clear();
+}
+
+void Joueur::dessine_icone(int i0, int j0) const {
+    int lx[3]={j0+int(TAILLE_CASES_AFFICHAGE/2),j0+int(TAILLE_CASES_AFFICHAGE*0.79),j0+int(TAILLE_CASES_AFFICHAGE*0.21)};
+    int ly[3]={i0+int(TAILLE_CASES_AFFICHAGE*0.25),i0+int(TAILLE_CASES_AFFICHAGE*0.75),i0+int(TAILLE_CASES_AFFICHAGE*0.75)};
+    Imagine::drawPoly(lx,ly,3,Imagine::RED);
+}
+
+void Joueur::affichage(const Plateau& P) const {
+    if (esclave)
+        dessine_icone(0,TAILLE_CASES_AFFICHAGE*case_esclave);
+    else {
+        int sm=0;
+        for (int pp=1;pp<periode;pp++)
+            sm+=P.size_periode(carriere,pp); // HYPOTHÈSE: Les périodes des mêmes carrières ont la même longueur
+        dessine_icone(TAILLE_CASES_AFFICHAGE*carriere,TAILLE_CASES_AFFICHAGE*(sm+case_libre));
+    }
 }
