@@ -28,6 +28,7 @@ Periode::Periode(const std::vector<std::string> paragraph,Game& G) {
         else if (case_type=="enfant") cases.push_back(new CaseEnfant(G));
         else if (case_type=="prison") cases.push_back(new CasePrison());
         else if (case_type=="esclave") cases.push_back(new CaseEsclave());
+        else if (case_type=="marche") cases.push_back(new CaseMarche(G));
         else if (case_type=="vacances") cases.push_back(new CaseVacances());
         else if (case_type=="conseil") cases.push_back(new CaseConseil());
         else if (case_type=="cash") cases.push_back(new CaseCash(case_cash));
@@ -70,9 +71,9 @@ Plateau::Plateau(const std::string path,Game& G) {
         Periode::interprete_ligne(entete,nom_periode,n_per);
         if (nom_periode=="esclave") n_carr=0;
         else if (nom_periode=="politicien") n_carr=1;
-        else if (nom_periode=="commerçant") n_carr=2;
-        else if (nom_periode=="chemin_sûr") n_carr=1;
-        else if (nom_periode=="chemin_risqué") n_carr=2;
+        else if (nom_periode=="commercant") n_carr=2;
+        else if (nom_periode=="chemin_sur") n_carr=1;
+        else if (nom_periode=="chemin_risque") n_carr=2;
         else {
             std::string err_msg=" n'est pas un nom de période reconnu. Si vous avez rajouté des carrières, merci de mettre à jour sans oublier d'augmenter const int N_C";
             throw std::invalid_argument(nom_periode+err_msg);}

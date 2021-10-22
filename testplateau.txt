@@ -1,4 +1,4 @@
-commerçant 1
+commercant 1
 stop
 cash 10
 salaire 250
@@ -10,6 +10,21 @@ stop
 salaire 150
 cash_cagnotte_joueurs -10
 chance
+
+politicien 2
+stop
+cash 10
+esclave
+loto
+salaire 240
+justice
+
+commercant 2
+stop
+prison
+marche
+salaire 50
+marche
 
 esclave
 stop
