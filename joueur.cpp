@@ -88,25 +88,31 @@ int Joueur::decision_chemin_risque_sur() {
 void Joueur::mouv(Plateau& P,const int& de) {
     if (esclave) {
         case_esclave+=de;
-        if (P.depasse_periode(0,1,case_esclave))
-            sortir_esclavage();
-        else // Pas de salaire à passer en esclavage
-            P.tomber(0,1,case_esclave,*this);}
+        if (case_esclave>=0) {
+            if (P.depasse_periode(0,1,case_esclave))
+                sortir_esclavage();
+            else // Pas de salaire à passer en esclavage
+                P.tomber(0,1,case_esclave,*this);}
+        else
+            case_esclave=0;} // Case 0 de toute période est un stop
     else {
         unsigned int ancienne_case_libre=case_libre;
         case_libre+=de;
-        if (P.depasse_periode(carriere,periode,case_libre)) {
-            case_libre=P.size_periode(carriere,periode)-1;
-            for (unsigned int i=ancienne_case_libre+1;i<=case_libre;i++)
+        if (case_libre>=0) {
+            if (P.depasse_periode(carriere,periode,case_libre)) {
+                case_libre=P.size_periode(carriere,periode)-1;
+                for (int i=ancienne_case_libre+1;i<=case_libre;i++)
+                    P.passer(carriere,periode,i,*this);
+                if (P.derniere_periode(periode))
+                    a_fini=true;
+                else {case_libre=0;
+                    periode++;
+                    carriere_nouv_periode();}}
+            else for (int i=ancienne_case_libre+1;i<=case_libre;i++)
                 P.passer(carriere,periode,i,*this);
-            if (P.derniere_periode(periode))
-                a_fini=true;
-            else {case_libre=0;
-                periode++;
-                carriere_nouv_periode();}}
-        else for (unsigned int i=ancienne_case_libre+1;i<=case_libre;i++)
-            P.passer(carriere,periode,i,*this);
-        P.tomber(carriere,periode,case_libre,*this);}
+            P.tomber(carriere,periode,case_libre,*this);}
+        else
+            case_libre=0;} // Case 0 de toute période est un stop, pas de salaire en reculant
 }
 
 void Joueur::reset(const int& n_carr) {

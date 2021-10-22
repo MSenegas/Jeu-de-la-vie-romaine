@@ -11,13 +11,13 @@ class Joueur {
     // Position
     int carriere;
     int periode;
-    unsigned int case_libre;
+    int case_libre;
     bool a_fini;
     // Prison & Esclave
     bool prison;
     unsigned int essais_prison;
     bool esclave;
-    unsigned int case_esclave;
+    int case_esclave;
     // Autres
     unsigned int conseils;
     unsigned int enfants;

@@ -109,9 +109,7 @@ void Plateau::affichage() const {
     plateau.at(0).affichage(0,0);
     for (int n_carr=1;n_carr<=N_CARRIERES;n_carr++) {
         int n_per=1;
-        int n_tot_cases=0;
         while (!derniere_periode(n_per-1)) {
-            plateau.at(indice_plateau(n_carr,n_per)).affichage(TAILLE_CASES_AFFICHAGE*n_carr,TAILLE_CASES_AFFICHAGE*n_tot_cases);
-            n_tot_cases+=plateau.at(indice_plateau(n_carr,n_per)).size();
+            plateau.at(indice_plateau(n_carr,n_per)).affichage(TAILLE_CASES_AFFICHAGE*indice_plateau(n_carr,n_per),0);
             n_per++;}}
 }
