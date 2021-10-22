@@ -13,8 +13,8 @@ void Periode::interprete_ligne(const std::string& ligne,std::string& comm,int& a
 
 Periode::Periode(const std::vector<std::string> paragraph,Game& G) {
     std::string case_type;
-    int case_cash=0;
     for (unsigned int i=0;i<paragraph.size();i++) {
+        int case_cash=0;
         interprete_ligne(paragraph.at(i),case_type,case_cash);
         if (case_type=="stop") cases.push_back(new CaseStop());
         else if (case_type=="chance") cases.push_back(new CaseChance(G));
@@ -64,9 +64,9 @@ Plateau::Plateau(const std::string path,Game& G) {
     Game::lire_fichier(paragraph_list,path);
     plateau=std::vector<Periode>(indice_plateau(N_CARRIERES,paragraph_list.size())+1,Periode());
     std::string nom_periode;
-    int n_carr;
-    int n_per=1;
     for (unsigned int i=0;i<paragraph_list.size();i++) {
+        int n_carr;
+        int n_per=1;
         std::string entete=paragraph_list.at(i).front();
         Periode::interprete_ligne(entete,nom_periode,n_per);
         if (nom_periode=="esclave") n_carr=0;
