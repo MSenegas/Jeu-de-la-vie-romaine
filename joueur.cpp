@@ -143,10 +143,6 @@ void Joueur::dessine_icone(int i0, int j0) const {
 void Joueur::affichage(const Plateau& P) const {
     if (esclave)
         dessine_icone(0,TAILLE_CASES_AFFICHAGE*case_esclave);
-    else {
-        int sm=0;
-        for (int pp=1;pp<periode;pp++)
-            sm+=P.size_periode(carriere,pp); // HYPOTHÈSE: Les périodes des mêmes carrières ont la même longueur
-        dessine_icone(TAILLE_CASES_AFFICHAGE*carriere,TAILLE_CASES_AFFICHAGE*(sm+case_libre));
-    }
+    else
+        dessine_icone(TAILLE_CASES_AFFICHAGE*Plateau::indice_plateau(carriere,periode),TAILLE_CASES_AFFICHAGE*case_libre);
 }
