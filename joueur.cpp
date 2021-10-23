@@ -81,7 +81,7 @@ void Joueur::carriere_nouv_periode() {
     if (periode==PERIODE_CHEMIN_SUR_RISQUE)
         carriere=decision_chemin_risque_sur();}
 
-int Joueur::decision_chemin_risque_sur() {
+int Joueur::decision_chemin_risque_sur() const {
     return Imagine::intRandom(1,2);} // à améliorer
 
 void Joueur::play(Plateau& P,unsigned int& cag) {
@@ -125,6 +125,8 @@ void Joueur::mouv(Plateau& P,const int& de) {
         else
             case_libre=0;} // Case 0 de toute période est un stop, pas de salaire en reculant
 }
+
+bool Joueur::is_over() const {return a_fini;}
 
 void Joueur::reset(const int& n_carr) {
     money=ARGENT_INITIAL;

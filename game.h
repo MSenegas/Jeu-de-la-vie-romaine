@@ -15,6 +15,8 @@ public:
     Game(const std::string path_plateau,const std::string path_cartes,const unsigned int nb_joueurs);
     static std::vector<int> tirage_carrieres(const unsigned int nb_joueurs); // Effectue le tirage au sort pour les carrières des joueurs !!! À CHANGER SI L'ON RAJOUTE DES CARRIERES !!!
     static void lire_fichier(std::vector<std::vector<std::string>>& paragraph_list,const std::string path);
+    void play_full_game(); // Lance une partie en entier
+    bool is_over() const; // Regarde si la partie est terminée
     void game_loop(); // Gestion du tour
     void mouv_joueur(Joueur& J,const int& de); // Appelle la fonction mouv du joueur (utilisée par les cases, cartes)
     void reset(); // Réinitialise la partie

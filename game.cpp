@@ -54,6 +54,18 @@ std::vector<int> Game::tirage_carrieres(const unsigned int nb_joueurs) {
     return liste_carrieres;
 }
 
+void Game::play_full_game() {
+    while (!is_over()) {
+        game_loop();}
+    reset();
+}
+
+bool Game::is_over() const {
+    for (unsigned int i=0;i<liste_joueurs.size();i++)
+        if (!liste_joueurs.at(i).is_over())
+            return false;
+    return true;}
+
 void Game::game_loop() {
     for (unsigned int i=0;i<liste_joueurs.size();i++)
         liste_joueurs.at(i).play(plateau,cagnotte);
