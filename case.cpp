@@ -98,7 +98,7 @@ CaseMarche::CaseMarche(Game& G):
 
 //void CaseMarche::tomber(Joueur& J) {}
 
-//void CaseConseil::tomber(Joueur& J) {}
+void CaseConseil::tomber(Joueur& J) {J.add_conseil();}
 
 CaseCash::CaseCash(const int& gain):
     gift(gain) {}
@@ -117,20 +117,18 @@ void CaseCashCagnotte::tomber(Joueur& J) {
 CaseCashJoueurs::CaseCashJoueurs(Game& G,const int& gain):
     CaseCash(gain), current_game(G) {}
 
-//void CaseCashJoueurs::tomber(Joueur& J) {
-// //   unsigned int N_joueurs=liste_joueurs.size();
-// //   for (unsigned int i=0;i<N_joueurs;i++)
-// //       liste_joueurs.at(i)->cash_flow(-gift);
-// //   J.cash_flow(N_joueurs*gift);
-//}
+void CaseCashJoueurs::tomber(Joueur& J) {
+    for (unsigned int i=0;i<current_game.liste_joueurs.size();i++)
+        current_game.liste_joueurs.at(i).cash_flow(-gift);
+    J.cash_flow(current_game.liste_joueurs.size()*gift);
+}
 
 CaseCashCagnotteJoueurs::CaseCashCagnotteJoueurs(Game& G,const int& gain):
     CaseCashJoueurs(G,gain) {
     if (gift>0) throw std::domain_error("La cagnotte ne verse pas d'argent de cette manière.");}
 
-//void CaseCashCagnotteJoueurs::tomber(Joueur& J) {
-// //   unsigned int N_joueurs=liste_joueurs.size();
-// //   for (unsigned int i=0;i<N_joueurs;i++)
-// //       liste_joueurs.at(i)->cash_flow(gift);
-// //   argent_cagnotte-=N_joueurs*gift;
-//}
+void CaseCashCagnotteJoueurs::tomber(Joueur& J) {
+    for (unsigned int i=0;i<current_game.liste_joueurs.size();i++)
+        current_game.liste_joueurs.at(i).cash_flow(gift);
+    current_game.cagnotte-=current_game.liste_joueurs.size()*gift;
+}
