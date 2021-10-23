@@ -23,8 +23,6 @@ void Game::lire_fichier(std::vector<std::vector<std::string>>& paragraph_list,co
     paragraph_list.push_back(paragraph);
 }
 
-// void melanger(const std::vector<Carte>& paquet,std::vector<Carte*>& pioche) {}
-
 Game::Game(const std::string path_plateau,const std::string path_cartes,const unsigned int nb_joueurs):
     t(0),plateau(path_plateau,*this),collection(path_cartes,*this),banque(collection),cagnotte(0) {
     std::vector<int> liste_n_carr=tirage_carrieres(nb_joueurs);
@@ -55,6 +53,11 @@ std::vector<int> Game::tirage_carrieres(const unsigned int nb_joueurs) {
                 throw std::logic_error("Fonction tirage_carrieres mal mise à jour.");}}
     return liste_carrieres;
 }
+
+void Game::game_loop() {
+    for (unsigned int i=0;i<liste_joueurs.size();i++)
+        liste_joueurs.at(i).play(plateau,cagnotte);
+    t++;}
 
 void Game::mouv_joueur(Joueur& J, const int& de) {J.mouv(plateau,de);}
 
