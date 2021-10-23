@@ -75,7 +75,7 @@ Plateau::Plateau(const std::string path,Game& G) {
         else if (nom_periode=="chemin_sur") n_carr=1;
         else if (nom_periode=="chemin_risque") n_carr=2;
         else {
-            std::string err_msg=" n'est pas un nom de période reconnu. Si vous avez rajouté des carrières, merci de mettre à jour sans oublier d'augmenter const int N_C";
+            std::string err_msg=" n'est pas un nom de période reconnu. Si vous avez rajouté des carrières, merci de mettre à jour sans oublier les paramètres";
             throw std::invalid_argument(nom_periode+err_msg);}
         paragraph_list.at(i).erase(paragraph_list.at(i).begin());
         plateau.at(indice_plateau(n_carr,n_per))=Periode(paragraph_list.at(i),G);

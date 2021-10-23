@@ -53,6 +53,6 @@ public:
     void remove_carte_symbole();
     void reset(const int& n_carr); // Réinitialise le joueur
     void dessine_icone(int i0,int j0) const;
-    void affichage(const Plateau& P) const;// Affiche le joueur
+    void affichage() const;// Affiche le joueur
     // évtl. faire variante générations
 };

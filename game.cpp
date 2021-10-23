@@ -57,3 +57,12 @@ std::vector<int> Game::tirage_carrieres(const unsigned int nb_joueurs) {
 }
 
 void Game::mouv_joueur(Joueur& J, const int& de) {J.mouv(plateau,de);}
+
+void Game::reset() {
+    t=0;
+    plateau.reset_cases();
+    banque.melange_pioches();
+    std::vector<int> liste_n_carr=tirage_carrieres(liste_joueurs.size());
+    for (unsigned int i=0;i<liste_joueurs.size();i++)
+        liste_joueurs.at(i).reset(liste_n_carr.at(i));
+}

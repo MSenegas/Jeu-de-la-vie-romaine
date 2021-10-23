@@ -140,7 +140,7 @@ void Joueur::dessine_icone(int i0, int j0) const {
     Imagine::drawPoly(lx,ly,3,Imagine::RED);
 }
 
-void Joueur::affichage(const Plateau& P) const {
+void Joueur::affichage() const {
     if (esclave)
         dessine_icone(0,TAILLE_CASES_AFFICHAGE*case_esclave);
     else
