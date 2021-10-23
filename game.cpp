@@ -60,6 +60,7 @@ void Game::mouv_joueur(Joueur& J, const int& de) {J.mouv(plateau,de);}
 
 void Game::reset() {
     t=0;
+    cagnotte=0;
     plateau.reset_cases();
     banque.melange_pioches();
     std::vector<int> liste_n_carr=tirage_carrieres(liste_joueurs.size());

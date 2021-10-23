@@ -27,10 +27,9 @@ void Joueur::verif_dettes() {
             money%=MIN_DETTES;}}
 }
 
-void Joueur::prendre_cagnotte(unsigned int& cag, const int& de) {
-    if (de==FACE_CAGNOTTE) {
-        cash_flow(cag);
-        cag=0;}
+void Joueur::prendre_cagnotte(unsigned int& cag) {
+    cash_flow(cag);
+    cag=0;
 }
 
 void Joueur::add_conseil() {conseils++;}
@@ -85,6 +84,17 @@ void Joueur::carriere_nouv_periode() {
 int Joueur::decision_chemin_risque_sur() {
     return Imagine::intRandom(1,2);} // à améliorer
 
+void Joueur::play(Plateau& P,unsigned int& cag) {
+    if (!a_fini) {
+        int de=Imagine::intRandom(1,FACES_DE);
+        if (prison)
+            tenter_sortir_prison(de);
+        else {
+            if (de==FACE_CAGNOTTE && !esclave)
+                prendre_cagnotte(cag);
+            mouv(P,de);}}
+}
+
 void Joueur::mouv(Plateau& P,const int& de) {
     if (esclave) {
         case_esclave+=de;
@@ -97,6 +107,7 @@ void Joueur::mouv(Plateau& P,const int& de) {
             case_esclave=0;} // Case 0 de toute période est un stop
     else {
         unsigned int ancienne_case_libre=case_libre;
+        if (de<0) a_fini=false; // On réveille le joueur s'il doit reculer et qu'il a fini
         case_libre+=de;
         if (case_libre>=0) {
             if (P.depasse_periode(carriere,periode,case_libre)) {

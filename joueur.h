@@ -31,11 +31,11 @@ public:
     void cash_flow(const int& gain); // Augmente l'argent du joueur de gain (peut être négatif)
     void verif_dettes(); // Vérifie s'il faut emprunter ou s'il est possible de rembourser des dettes
     void add_conseil();
-    void play(Plateau& P); // TESTE: FINI PRISON ESCLAVE Gère le tour du joueur
+    void play(Plateau& P,unsigned int& cag); // Gère le tour du joueur
     void mouv(Plateau& P,const int& de); // Effectue le mouvement des joueurs et les effets des cases
     void carriere_nouv_periode(); // Renvoie la carrière correspondant à la période !!! À CHANGER SI L'ON RAJOUTE DES CARRIERES !!!
     int decision_chemin_risque_sur(); // Effectue la décision du chemin risqué ou sûr
-    void prendre_cagnotte(unsigned int& cag,const int& de); // Vérifie si le joueur a obtenu la cagnotte et la lui donne le cas échéant
+    void prendre_cagnotte(unsigned int& cag); // Donne la cagnotte au joueur (ne vérifie pas)
     void passer_salaire(); // Gère les coupons, le revenu des conseils et des propriétés
     void aller_prison();
     void tenter_sortir_prison(const int& de);
