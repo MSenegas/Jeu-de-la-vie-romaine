@@ -1,7 +1,8 @@
 #pragma once
 #include <vector>
 
-class Plateau;
+#include "plateau.h"
+
 class Carte;
 
 class Joueur {
@@ -53,7 +54,7 @@ public:
     void add_carte_symbole(Carte* C);
     void remove_carte_symbole();
     void reset(const int& n_carr); // Réinitialise le joueur
-    void dessine_icone(int i0,int j0) const;
-    void affichage() const;// Affiche le joueur
+    void dessine_icone(int i0,int j0,int taille_cadre=TAILLE_CASES_AFFICHAGE) const; // Affiche le joueur
+    friend void Plateau::affichage(std::vector<const Joueur*>) const;
     // évtl. faire variante générations
 };

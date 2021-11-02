@@ -40,6 +40,6 @@ public:
     void tomber(const int& n_carr,const int& n_per,const unsigned int& n_case,Joueur& J);
     void passer(const int& n_carr,const int& n_per,const unsigned int& n_case,Joueur& J);
     void reset_cases(); // Réinitialise les cases du plateau
-    void affichage() const; // Affiche le plateau
+    void affichage(std::vector<const Joueur*> LJ) const; // Affiche le plateau et les joueurs
     inline static unsigned int indice_plateau(const int& n_carr,const int& n_per) {return N_CARRIERES*(n_per-1)+n_carr;}
 };

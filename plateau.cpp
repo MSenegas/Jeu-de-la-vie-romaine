@@ -106,11 +106,74 @@ void Plateau::reset_cases() {
     for (unsigned int i=0;i<plateau.size();i++)
         plateau.at(i).reset_cases();}
 
-void Plateau::affichage() const {
+void affichejoueurs(const std::vector<const Joueur*>& LJ,int i0,int j0) {
+    switch (LJ.size()) {
+    case 1:
+        LJ.front()->dessine_icone(i0,j0);
+        return;
+    case 2:
+        LJ.front()->dessine_icone(i0+0.22*TAILLE_CASES_AFFICHAGE,j0,0.56*TAILLE_CASES_AFFICHAGE);
+        LJ.back()->dessine_icone(i0+0.22*TAILLE_CASES_AFFICHAGE,j0+0.5*TAILLE_CASES_AFFICHAGE,0.56*TAILLE_CASES_AFFICHAGE);
+        return;
+    case 3:
+        LJ.front()->dessine_icone(i0,j0+0.22*TAILLE_CASES_AFFICHAGE,0.56*TAILLE_CASES_AFFICHAGE);
+        LJ.at(1)->dessine_icone(i0+0.38*TAILLE_CASES_AFFICHAGE,j0,0.56*TAILLE_CASES_AFFICHAGE);
+        LJ.back()->dessine_icone(i0+0.38*TAILLE_CASES_AFFICHAGE,j0+0.5*TAILLE_CASES_AFFICHAGE,0.56*TAILLE_CASES_AFFICHAGE);
+        return;
+    case 4:
+        LJ.front()->dessine_icone(i0,j0,0.56*TAILLE_CASES_AFFICHAGE);
+        LJ.at(1)->dessine_icone(i0,j0+0.5*TAILLE_CASES_AFFICHAGE,0.56*TAILLE_CASES_AFFICHAGE);
+        LJ.at(2)->dessine_icone(i0+0.44*TAILLE_CASES_AFFICHAGE,j0,0.56*TAILLE_CASES_AFFICHAGE);
+        LJ.back()->dessine_icone(i0+0.44*TAILLE_CASES_AFFICHAGE,j0+0.5*TAILLE_CASES_AFFICHAGE,0.56*TAILLE_CASES_AFFICHAGE);
+        return;
+    case 5:
+        LJ.front()->dessine_icone(i0,j0+0.28*TAILLE_CASES_AFFICHAGE,0.44*TAILLE_CASES_AFFICHAGE);
+        LJ.at(1)->dessine_icone(i0+0.2*TAILLE_CASES_AFFICHAGE,j0,0.44*TAILLE_CASES_AFFICHAGE);
+        LJ.at(2)->dessine_icone(i0+0.53*TAILLE_CASES_AFFICHAGE,j0+0.11*TAILLE_CASES_AFFICHAGE,0.44*TAILLE_CASES_AFFICHAGE);
+        LJ.at(3)->dessine_icone(i0+0.53*TAILLE_CASES_AFFICHAGE,j0+0.45*TAILLE_CASES_AFFICHAGE,0.44*TAILLE_CASES_AFFICHAGE);
+        LJ.back()->dessine_icone(i0+0.2*TAILLE_CASES_AFFICHAGE,j0+0.56*TAILLE_CASES_AFFICHAGE,0.44*TAILLE_CASES_AFFICHAGE);
+        return;
+    case 6:
+        LJ.front()->dessine_icone(i0,j0+0.15*TAILLE_CASES_AFFICHAGE,0.39*TAILLE_CASES_AFFICHAGE);
+        LJ.at(1)->dessine_icone(i0,j0+0.46*TAILLE_CASES_AFFICHAGE,0.39*TAILLE_CASES_AFFICHAGE);
+        LJ.at(2)->dessine_icone(i0+0.27*TAILLE_CASES_AFFICHAGE,j0,0.39*TAILLE_CASES_AFFICHAGE);
+        LJ.at(3)->dessine_icone(i0+0.53*TAILLE_CASES_AFFICHAGE,j0+0.15*TAILLE_CASES_AFFICHAGE,0.39*TAILLE_CASES_AFFICHAGE);
+        LJ.at(4)->dessine_icone(i0+0.53*TAILLE_CASES_AFFICHAGE,j0+0.46*TAILLE_CASES_AFFICHAGE,0.39*TAILLE_CASES_AFFICHAGE);
+        LJ.back()->dessine_icone(i0+0.27*TAILLE_CASES_AFFICHAGE,j0+0.61*TAILLE_CASES_AFFICHAGE,0.39*TAILLE_CASES_AFFICHAGE);
+        return;
+    default:
+        throw std::invalid_argument("No players");}
+}
+
+void Plateau::affichage(std::vector<const Joueur*> LJ) const {
+    // Plateau
     plateau.at(0).affichage(0,0);
     for (int n_carr=1;n_carr<=N_CARRIERES;n_carr++) {
         int n_per=1;
         while (!derniere_periode(n_per-1)) {
             plateau.at(indice_plateau(n_carr,n_per)).affichage(TAILLE_CASES_AFFICHAGE*indice_plateau(n_carr,n_per),0);
             n_per++;}}
-}
+    // Joueurs
+    std::vector<const Joueur*> joueurs_meme_case;
+    while (!LJ.empty()) {
+        const Joueur* curr_player=LJ.back();
+        LJ.pop_back();
+        std::vector<const Joueur*>::iterator ind_j=LJ.end()-1;
+        while (ind_j!=LJ.begin()-1) {
+            if ((curr_player->esclave && (**ind_j).esclave &&
+                 (**ind_j).case_esclave==curr_player->case_esclave) ||
+                (!curr_player->esclave && !(**ind_j).esclave &&
+                 (**ind_j).case_libre==curr_player->case_libre &&
+                 (**ind_j).periode==curr_player->periode &&
+                 (**ind_j).carriere==curr_player->carriere)) {
+                joueurs_meme_case.push_back(*ind_j);
+                std::vector<const Joueur*>::iterator ind_rmv=ind_j;
+                ind_j--;
+                LJ.erase(ind_rmv);}
+            else ind_j--;}
+        joueurs_meme_case.push_back(curr_player);
+        if (curr_player->esclave)
+            affichejoueurs(joueurs_meme_case,0,TAILLE_CASES_AFFICHAGE*curr_player->case_esclave);
+        else
+            affichejoueurs(joueurs_meme_case,TAILLE_CASES_AFFICHAGE*indice_plateau(curr_player->carriere,curr_player->periode),TAILLE_CASES_AFFICHAGE*curr_player->case_libre);
+        joueurs_meme_case.clear();}}

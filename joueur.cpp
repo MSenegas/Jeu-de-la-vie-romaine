@@ -2,7 +2,6 @@
 #include <Imagine/Graphics.h>
 
 #include "joueur.h"
-#include "plateau.h"
 
 Joueur::Joueur(const int& n_carr):
     money(ARGENT_INITIAL),dettes(0),carriere(n_carr),periode(1),
@@ -147,15 +146,8 @@ void Joueur::reset(const int& n_carr) {
     cartes_symboles.clear();
 }
 
-void Joueur::dessine_icone(int i0, int j0) const {
-    int lx[3]={j0+int(TAILLE_CASES_AFFICHAGE/2),j0+int(TAILLE_CASES_AFFICHAGE*0.79),j0+int(TAILLE_CASES_AFFICHAGE*0.21)};
-    int ly[3]={i0+int(TAILLE_CASES_AFFICHAGE*0.25),i0+int(TAILLE_CASES_AFFICHAGE*0.75),i0+int(TAILLE_CASES_AFFICHAGE*0.75)};
+void Joueur::dessine_icone(int i0, int j0,int taille_cadre) const {
+    int lx[3]={j0+int(taille_cadre/2),j0+int(taille_cadre*0.79),j0+int(taille_cadre*0.21)};
+    int ly[3]={i0+int(taille_cadre*0.25),i0+int(taille_cadre*0.75),i0+int(taille_cadre*0.75)};
     Imagine::drawPoly(lx,ly,3,Imagine::RED);
-}
-
-void Joueur::affichage() const {
-    if (esclave)
-        dessine_icone(0,TAILLE_CASES_AFFICHAGE*case_esclave);
-    else
-        dessine_icone(TAILLE_CASES_AFFICHAGE*Plateau::indice_plateau(carriere,periode),TAILLE_CASES_AFFICHAGE*case_libre);
 }
