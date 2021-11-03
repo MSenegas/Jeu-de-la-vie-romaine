@@ -20,6 +20,7 @@ public:
     void mouv_joueur(Joueur& J,const int& de); // Appelle la fonction mouv du joueur (utilisée par les cases, cartes)
     void reset(); // Réinitialise la partie
     friend void CaseCashJoueurs::tomber(Joueur&);
+    friend void CaseCashCagnotte::tomber(Joueur&);
     friend void CaseCashCagnotteJoueurs::tomber(Joueur&);
     friend void CaseChance::tomber(Joueur&);
     friend void CaseTresor::tomber(Joueur&);
