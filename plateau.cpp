@@ -37,8 +37,7 @@ Periode::Periode(const std::vector<std::string> paragraph,Game& G) {
         else if (case_type=="cash_cagnotte_joueurs") cases.push_back(new CaseCashCagnotteJoueurs(G,case_cash));
         else {
             std::string err_msg=" n'est pas un nom de case reconnu";
-            throw std::invalid_argument(case_type+err_msg);}
-    }
+            throw std::invalid_argument(case_type+err_msg);}}
 }
 
 bool Periode::is_empty() const {return cases.empty();}
@@ -78,8 +77,7 @@ Plateau::Plateau(const std::string path,Game& G) {
             std::string err_msg=" n'est pas un nom de période reconnu. Si vous avez rajouté des carrières, merci de mettre à jour sans oublier les paramètres";
             throw std::invalid_argument(nom_periode+err_msg);}
         paragraph_list.at(i).erase(paragraph_list.at(i).begin());
-        plateau.at(indice_plateau(n_carr,n_per))=Periode(paragraph_list.at(i),G);
-    }
+        plateau.at(indice_plateau(n_carr,n_per))=Periode(paragraph_list.at(i),G);}
     while (!plateau.empty() && plateau.back().is_empty())
         plateau.pop_back();
 }

@@ -1,5 +1,8 @@
+#include <Imagine/Common.h>
 #include <stdexcept>
+#include <algorithm>
 
+#include "game.h"
 #include "paquet.h"
 
 void Paquet::interprete_ligne(const std::string& ligne,std::string& comm,int& arg1,int& arg2,double& arg3) {
@@ -23,11 +26,45 @@ void Paquet::interprete_ligne(const std::string& ligne,std::string& comm,int& ar
                 *args12.at(yeah)=std::stoi(ligne.substr(ancien_ind_espace+1,ind_espace-ancien_ind_espace-1));}}}
 }
 
+Paquet::Paquet(std::vector<std::string> paragraph,Game& G) {
+    std::string carte_type;
+    for (unsigned int i=0;i<paragraph.size();i++) {
+        int carte_cost=0;int carte_rv=0;double carte_prc=0;
+        interprete_ligne(paragraph.at(i),carte_type,carte_cost,carte_rv,carte_prc);
+        if (carte_type=="") paquet.push_back(new Carte()); // À compléter !!!!!!!!!!!!!!
+        else {
+            std::string err_msg=" n'est pas un nom de carte reconnu";
+            throw std::invalid_argument(carte_type+err_msg);}}
+}
+
+Collection::Collection(const std::string path,Game& G) {
+    std::vector<std::vector<std::string>> paragraph_list;
+    Game::lire_fichier(paragraph_list,path);
+    for (unsigned int i=0;i<paragraph_list.size();i++) {
+        std::string nom_paquet=paragraph_list.at(i).front();
+        paragraph_list.at(i).erase(paragraph_list.at(i).begin());
+        if (nom_paquet=="chance")
+            paquet_chance=Paquet(paragraph_list.at(i),G);
+        else if (nom_paquet=="tresor")
+            paquet_tresor=Paquet(paragraph_list.at(i),G);
+        else if (nom_paquet=="bonus")
+            paquet_bonus=Paquet(paragraph_list.at(i),G);
+        else if (nom_paquet=="achetez")
+            paquet_achetez=Paquet(paragraph_list.at(i),G);
+        else if (nom_paquet=="enfant")
+            paquet_enfant=Paquet(paragraph_list.at(i),G);
+        else if (nom_paquet=="propriete")
+            paquet_propriete=Paquet(paragraph_list.at(i),G);
+        else if (nom_paquet=="symboles")
+            paquet_symboles=Paquet(paragraph_list.at(i),G);
+        else {
+            std::string err_msg=" n'est pas un nom de paquet reconnu.";
+            throw std::invalid_argument(nom_paquet+err_msg);}}
+}
+
 Pioche::Pioche(const Paquet& Pq): paquet_source(Pq) {melanger();}
 
-void Pioche::melanger() {
-    for (unsigned int i=0;i<paquet_source.paquet.size();i++)
-        pioche.push_back(paquet_source.paquet.at(i));}
+void Pioche::melanger() {} // À refaire !!!!!!!!
 
 Banque::Banque(const Collection& Coll): collection_source(Coll),
     pioche_chance(Coll.paquet_chance),pioche_tresor(Coll.paquet_tresor),
