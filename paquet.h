@@ -7,11 +7,13 @@ class Game;
 class Joueur;
 
 class Paquet { // Paquet de cartes initial
-public:
     std::vector<Carte*> paquet;
+public:
     Paquet()=default;
     Paquet(std::vector<std::string> paragraph,Game& G);
     static void interprete_ligne(const std::string& ligne,std::string& comm,int& arg1,int& arg2,double& arg3);
+    unsigned int size() const;
+    const Carte* operator()(unsigned int i) const;
 };
 
 class Collection { // ~ J'ai pas de mot pour "ensemble de paquets"
@@ -32,7 +34,7 @@ class Pioche { // Pioche utilisée en jeu
 public:
     Pioche(const Paquet& Pq);
     void melanger(); // Réinitialise la pioche et mélange le paquet
-    void pop_back(); // Retire une carte de la pioche si s'est possible, sinon, mélange
+    const Carte* pop(); // Retire une carte de la pioche si s'est possible, sinon, mélange
     void tirer(Joueur& J); // Tire une carte et joue son effet sur le joueur J
 };
 

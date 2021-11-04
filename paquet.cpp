@@ -1,6 +1,6 @@
-#include <Imagine/Common.h>
 #include <stdexcept>
 #include <algorithm>
+#include <random>
 
 #include "game.h"
 #include "paquet.h"
@@ -37,6 +37,10 @@ Paquet::Paquet(std::vector<std::string> paragraph,Game& G) {
             throw std::invalid_argument(carte_type+err_msg);}}
 }
 
+unsigned int Paquet::size() const {return paquet.size();}
+
+const Carte* Paquet::operator()(unsigned int i) const {return paquet.at(i);}
+
 Collection::Collection(const std::string path,Game& G) {
     std::vector<std::vector<std::string>> paragraph_list;
     Game::lire_fichier(paragraph_list,path);
@@ -64,10 +68,33 @@ Collection::Collection(const std::string path,Game& G) {
 
 Pioche::Pioche(const Paquet& Pq): paquet_source(Pq) {melanger();}
 
-void Pioche::melanger() {} // À refaire !!!!!!!!
+void Pioche::melanger() {
+    pioche.clear();
+    for (unsigned int i=0;i<paquet_source.size();i++)
+        pioche.push_back(paquet_source(i));
+    std::shuffle(pioche.begin(),pioche.end(),std::default_random_engine());
+}
+
+const Carte* Pioche::pop() {
+    if (pioche.empty())
+        melanger();
+    const Carte* rep=pioche.back();
+    pioche.pop_back();
+    return rep;
+}
 
 Banque::Banque(const Collection& Coll): collection_source(Coll),
     pioche_chance(Coll.paquet_chance),pioche_tresor(Coll.paquet_tresor),
     pioche_bonus(Coll.paquet_bonus),pioche_achetez(Coll.paquet_achetez),
     pioche_enfant(Coll.paquet_enfant),pioche_propriete(Coll.paquet_propriete),
     pioche_symboles(Coll.paquet_symboles) {}
+
+void Banque::melange_pioches() {
+    pioche_chance.melanger();
+    pioche_tresor.melanger();
+    pioche_bonus.melanger();
+    pioche_achetez.melanger();
+    pioche_enfant.melanger();
+    pioche_propriete.melanger();
+    pioche_symboles.melanger();
+}
