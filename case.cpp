@@ -127,7 +127,7 @@ CaseCashCagnotteJoueurs::CaseCashCagnotteJoueurs(Game& G,const int& gain):
     CaseCashJoueurs(G,gain) {
     if (gift>0) throw std::domain_error("La cagnotte ne verse pas d'argent de cette manière.");}
 
-void CaseCashCagnotteJoueurs::tomber(Joueur& J) {
+void CaseCashCagnotteJoueurs::tomber(Joueur&) {
     for (unsigned int i=0;i<current_game.liste_joueurs.size();i++)
         current_game.liste_joueurs.at(i).cash_flow(gift);
     current_game.cagnotte-=current_game.liste_joueurs.size()*gift;

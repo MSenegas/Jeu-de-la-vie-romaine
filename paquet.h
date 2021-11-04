@@ -10,6 +10,7 @@ class Paquet { // Paquet de cartes initial
     std::vector<Carte*> paquet;
 public:
     Paquet()=default;
+    ~Paquet();
     Paquet(std::vector<std::string> paragraph,Game& G);
     static void interprete_ligne(const std::string& ligne,std::string& comm,int& arg1,int& arg2,double& arg3);
     unsigned int size() const;

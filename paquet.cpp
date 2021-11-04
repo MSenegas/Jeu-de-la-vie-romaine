@@ -31,11 +31,15 @@ Paquet::Paquet(std::vector<std::string> paragraph,Game& G) {
     for (unsigned int i=0;i<paragraph.size();i++) {
         int carte_cost=0;int carte_rv=0;double carte_prc=0;
         interprete_ligne(paragraph.at(i),carte_type,carte_cost,carte_rv,carte_prc);
-        if (carte_type=="") paquet.push_back(new Carte()); // À compléter !!!!!!!!!!!!!!
+        if (carte_type=="") paquet.push_back(new Carte());
         else {
             std::string err_msg=" n'est pas un nom de carte reconnu";
             throw std::invalid_argument(carte_type+err_msg);}}
 }
+
+Paquet::~Paquet() {
+    for (unsigned int i=0;i<paquet.size();i++)
+        delete paquet.at(i);}
 
 unsigned int Paquet::size() const {return paquet.size();}
 
@@ -82,6 +86,8 @@ const Carte* Pioche::pop() {
     pioche.pop_back();
     return rep;
 }
+
+void Pioche::tirer(Joueur& J) {pop()->tirer(J);}
 
 Banque::Banque(const Collection& Coll): collection_source(Coll),
     pioche_chance(Coll.paquet_chance),pioche_tresor(Coll.paquet_tresor),

@@ -10,13 +10,16 @@ public:
     virtual ~Case()=default;
     Case(const Case&)=delete;
     Case& operator=(const Case&)=delete;
-    virtual void tomber(Joueur&) {} // Effet déclenché lorsque le joueur J tombe sur la case
+    virtual void tomber(Joueur&)=0; // Effet déclenché lorsque le joueur J tombe sur la case
     virtual void passer(Joueur&) {} // Paye le salaire du joueur J (seul. salaire)
     virtual void reset_case() {} // Réinitialise la case
     virtual void affichage(int i0,int j0) const; // Affiche la case
 };
 
-class CaseStop: public Case {};
+class CaseStop: public Case {
+public:
+    void tomber(Joueur&) {}
+};
 
 class CaseChance: public Case {
     Game& current_game;
@@ -96,7 +99,10 @@ public:
     void tomber(Joueur& J);
 };
 
-class CaseVacances: public Case {};
+class CaseVacances: public Case {
+public:
+    void tomber(Joueur&) {}
+};
 
 class CaseMarche: public Case {
     Game& current_game;
