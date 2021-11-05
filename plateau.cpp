@@ -7,7 +7,7 @@ void Periode::interprete_ligne(const std::string& ligne,std::string& comm,int& a
     // Interprète une chaîne de caractères de la forme <chaîne> [numéro] (seul le 1er numéro sera pris en compte)
     unsigned int ind_apres_espace=ligne.find(' ');
     comm=ligne.substr(0,ind_apres_espace);
-    while (ligne.at(ind_apres_espace)==' ') ind_apres_espace++;
+    while (ind_apres_espace<ligne.size() && ligne.at(ind_apres_espace)==' ') ind_apres_espace++;
     if (ind_apres_espace<=ligne.size())
         arg=std::stoi(ligne.substr(ind_apres_espace));
 }

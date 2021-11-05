@@ -10,7 +10,7 @@ void Paquet::interprete_ligne(const std::string& ligne,std::string& comm,int& ar
     unsigned int ancien_ind_apres_espace;
     unsigned int ind_apres_espace=ligne.find(' ');
     comm=ligne.substr(0,ind_apres_espace);
-    while (ligne.at(ind_apres_espace)==' ') ind_apres_espace++;
+    while (ind_apres_espace<ligne.size() && ligne.at(ind_apres_espace)==' ') ind_apres_espace++;
     std::vector<int*> args12;args12.push_back(&arg1);args12.push_back(&arg2);
     for (unsigned int yeah=0;yeah<3;yeah++) {
         if (ind_apres_espace<=ligne.size()) {
@@ -24,7 +24,7 @@ void Paquet::interprete_ligne(const std::string& ligne,std::string& comm,int& ar
             else {
                 ancien_ind_apres_espace=ind_apres_espace;
                 ind_apres_espace=ligne.find(' ',ind_apres_espace);
-                while (ligne.at(ind_apres_espace)==' ') ind_apres_espace++;
+                while (ind_apres_espace<ligne.size() && ligne.at(ind_apres_espace)==' ') ind_apres_espace++;
                 *args12.at(yeah)=std::stoi(ligne.substr(ancien_ind_apres_espace,ind_apres_espace-ancien_ind_apres_espace-1));}}}
 }
 
