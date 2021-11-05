@@ -6,7 +6,7 @@ class Game;
 
 class Case {
 public:
-    Case();
+    Case()=default;
     virtual ~Case()=default;
     Case(const Case&)=delete;
     Case& operator=(const Case&)=delete;
