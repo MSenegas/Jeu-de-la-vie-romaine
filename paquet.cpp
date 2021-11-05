@@ -16,6 +16,7 @@ void Paquet::interprete_ligne(const std::string& ligne,std::string& comm,int& ar
         if (ind_apres_espace<=ligne.size()) {
             if (yeah==2) {
                 std::string lstarg=ligne.substr(ind_apres_espace);
+                while (lstarg.back()==' ') lstarg.pop_back();
                 if (lstarg.back()=='%') {
                     lstarg.pop_back();
                     arg3=std::stod(lstarg)/100;}
