@@ -7,23 +7,25 @@
 
 void Paquet::interprete_ligne(const std::string& ligne,std::string& comm,int& arg1,int& arg2,double& arg3) {
     // Interprète une chaîne de caractères de la forme <chaîne> [int1] [int2] [double3]
-    unsigned int ancien_ind_espace;
-    unsigned int ind_espace=ligne.find(' ');
-    comm=ligne.substr(0,ind_espace);
+    unsigned int ancien_ind_apres_espace;
+    unsigned int ind_apres_espace=ligne.find(' ');
+    comm=ligne.substr(0,ind_apres_espace);
+    while (ligne.at(ind_apres_espace)==' ') ind_apres_espace++;
     std::vector<int*> args12;args12.push_back(&arg1);args12.push_back(&arg2);
     for (unsigned int yeah=0;yeah<3;yeah++) {
-        if (ind_espace!=(unsigned int)std::string::npos) {
+        if (ind_apres_espace<=ligne.size()) {
             if (yeah==2) {
-                std::string lstarg=ligne.substr(ind_espace+1);
+                std::string lstarg=ligne.substr(ind_apres_espace);
                 if (lstarg.back()=='%') {
                     lstarg.pop_back();
                     arg3=std::stod(lstarg)/100;}
                 else
                     arg3=std::stod(lstarg);}
             else {
-                ancien_ind_espace=ind_espace;
-                ind_espace=ligne.find(' ',ind_espace+1);
-                *args12.at(yeah)=std::stoi(ligne.substr(ancien_ind_espace+1,ind_espace-ancien_ind_espace-1));}}}
+                ancien_ind_apres_espace=ind_apres_espace;
+                ind_apres_espace=ligne.find(' ',ind_apres_espace);
+                while (ligne.at(ind_apres_espace)==' ') ind_apres_espace++;
+                *args12.at(yeah)=std::stoi(ligne.substr(ancien_ind_apres_espace,ind_apres_espace-ancien_ind_apres_espace-1));}}}
 }
 
 Paquet::Paquet(std::vector<std::string> paragraph,Game& G) {

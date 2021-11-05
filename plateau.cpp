@@ -5,10 +5,11 @@
 
 void Periode::interprete_ligne(const std::string& ligne,std::string& comm,int& arg) {
     // Interprète une chaîne de caractères de la forme <chaîne> [numéro] (seul le 1er numéro sera pris en compte)
-    unsigned int ind_espace=ligne.find(' ');
-    comm=ligne.substr(0,ind_espace);
-    if (ind_espace!=(unsigned int)std::string::npos)
-        arg=std::stoi(ligne.substr(ind_espace+1));
+    unsigned int ind_apres_espace=ligne.find(' ');
+    comm=ligne.substr(0,ind_apres_espace);
+    while (ligne.at(ind_apres_espace)==' ') ind_apres_espace++;
+    if (ind_apres_espace<=ligne.size())
+        arg=std::stoi(ligne.substr(ind_apres_espace));
 }
 
 Periode::Periode(const std::vector<std::string> paragraph,Game& G) {
