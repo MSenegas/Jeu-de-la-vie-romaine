@@ -12,6 +12,8 @@ class Periode {
 public:
     Periode()=default;
     ~Periode();
+    Periode(Periode&& P);
+    Periode& operator=(Periode&& P);
     Periode(std::vector<std::string> paragraph,Game& G);
     static void interprete_ligne(const std::string& ligne,std::string& comm,int& arg);
     bool is_empty() const;

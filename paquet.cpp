@@ -37,6 +37,17 @@ Paquet::Paquet(std::vector<std::string> paragraph,Game& G) {
             throw std::invalid_argument(carte_type+err_msg);}}
 }
 
+Paquet::Paquet(Paquet&& P): paquet(P.paquet) {P.paquet.clear();}
+
+Paquet& Paquet::operator=(Paquet&& P) {
+    if (this!=&P) {
+        for (unsigned int i=0;i<paquet.size();i++)
+            delete paquet.at(i);
+        paquet=P.paquet;
+        P.paquet.clear();}
+    return *this;
+}
+
 Paquet::~Paquet() {
     for (unsigned int i=0;i<paquet.size();i++)
         delete paquet.at(i);}
