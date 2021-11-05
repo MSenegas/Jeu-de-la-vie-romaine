@@ -13,7 +13,7 @@ void Paquet::interprete_ligne(const std::string& ligne,std::string& comm,int& ar
     while (ind_apres_espace<ligne.size() && ligne.at(ind_apres_espace)==' ') ind_apres_espace++;
     std::vector<int*> args12;args12.push_back(&arg1);args12.push_back(&arg2);
     for (unsigned int yeah=0;yeah<3;yeah++) {
-        if (ind_apres_espace<=ligne.size()) {
+        if (ind_apres_espace<ligne.size()) {
             if (yeah==2) {
                 std::string lstarg=ligne.substr(ind_apres_espace);
                 while (lstarg.back()==' ') lstarg.pop_back();
