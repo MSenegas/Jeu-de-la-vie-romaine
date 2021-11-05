@@ -40,21 +40,6 @@ Periode::Periode(const std::vector<std::string> paragraph,Game& G) {
             throw std::invalid_argument(case_type+err_msg);}}
 }
 
-Periode::Periode(Periode&& P): cases(P.cases) {P.cases.clear();}
-
-Periode& Periode::operator=(Periode&& P) {
-    if(this!=&P) {
-        for (unsigned int i=0;i<cases.size();i++)
-            delete cases.at(i);
-        cases=P.cases;
-        P.cases.clear();}
-    return *this;
-}
-
-Periode::~Periode() {
-    for (unsigned int i=0;i<cases.size();i++)
-        delete cases.at(i);}
-
 bool Periode::is_empty() const {return cases.empty();}
 
 unsigned int Periode::size() const {return cases.size();}
