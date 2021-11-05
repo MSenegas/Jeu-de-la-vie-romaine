@@ -6,7 +6,7 @@ class Game;
 
 class Case {
 public:
-    Case()=default;
+    Case();
     virtual ~Case()=default;
     Case(const Case&)=delete;
     Case& operator=(const Case&)=delete;
@@ -18,6 +18,7 @@ public:
 
 class CaseStop: public Case {
 public:
+    CaseStop()=default;
     void tomber(Joueur&) {}
 };
 
@@ -91,16 +92,19 @@ public:
 
 class CasePrison: public Case {
 public:
+    CasePrison()=default;
     void tomber(Joueur& J);
 };
 
 class CaseEsclave: public Case {
 public:
+    CaseEsclave()=default;
     void tomber(Joueur& J);
 };
 
 class CaseVacances: public Case {
 public:
+    CaseVacances()=default;
     void tomber(Joueur&) {}
 };
 
@@ -113,6 +117,7 @@ public:
 
 class CaseConseil: public Case {
 public:
+    CaseConseil()=default;
     void tomber(Joueur& J);
 };
 

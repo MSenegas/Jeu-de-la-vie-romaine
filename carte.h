@@ -5,7 +5,7 @@ class Joueur;
 
 class Carte {
 public:
-    Carte()=default;
+    Carte();
     virtual ~Carte()=default;
     Carte(const Carte&)=delete;
     Carte& operator=(const Carte&)=delete;

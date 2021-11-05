@@ -88,11 +88,10 @@ const Carte* Pioche::pop() {
 
 void Pioche::tirer(Joueur& J) {pop()->tirer(J);}
 
-Banque::Banque(const Collection& Coll): collection_source(Coll),
-    pioche_chance(Coll.paquet_chance),pioche_tresor(Coll.paquet_tresor),
-    pioche_bonus(Coll.paquet_bonus),pioche_achetez(Coll.paquet_achetez),
-    pioche_enfant(Coll.paquet_enfant),pioche_propriete(Coll.paquet_propriete),
-    pioche_symboles(Coll.paquet_symboles) {}
+Banque::Banque(const Collection& Coll): pioche_chance(Coll.paquet_chance),
+    pioche_tresor(Coll.paquet_tresor),pioche_bonus(Coll.paquet_bonus),
+    pioche_achetez(Coll.paquet_achetez),pioche_enfant(Coll.paquet_enfant),
+    pioche_propriete(Coll.paquet_propriete),pioche_symboles(Coll.paquet_symboles) {}
 
 void Banque::melange_pioches() {
     pioche_chance.melanger();

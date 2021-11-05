@@ -39,7 +39,6 @@ public:
 };
 
 class Banque { // ~ J'ai pas de mot pour "ensemble de pioches"
-    const Collection& collection_source;
     Pioche pioche_chance;
     Pioche pioche_tresor;
     Pioche pioche_bonus;
