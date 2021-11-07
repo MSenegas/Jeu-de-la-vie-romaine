@@ -72,6 +72,7 @@ Pioche::Pioche(const Paquet& Pq): paquet_source(Pq) {melanger();}
 
 void Pioche::melanger() {
     pioche.clear();
+    // Pb avec cartes qui sont aux mains des joueurs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     for (unsigned int i=0;i<paquet_source.size();i++)
         pioche.push_back(paquet_source(i));
     std::shuffle(pioche.begin(),pioche.end(),std::default_random_engine());

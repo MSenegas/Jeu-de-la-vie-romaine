@@ -25,7 +25,7 @@ void Game::lire_fichier(std::vector<std::vector<std::string>>& paragraph_list,co
 
 std::mt19937_64 Game::gene_alea=std::mt19937_64();
 std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> Game::lancer_de=std::bind(LANCER_DE,gene_alea);
-std::_Bind<std::uniform_int_distribution<bool>(std::mt19937_64)> Game::lancer_piece=std::bind(LANCER_PIECE,gene_alea);
+std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> Game::lancer_piece=std::bind(LANCER_PIECE,gene_alea);
 std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> Game::lancer_de_mise_pari_loto=std::bind(LANCER_DE_MISE_PARI_LOTO,gene_alea);
 std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> Game::lancer_de_gain_loto=std::bind(LANCER_DE_GAIN_LOTO,gene_alea);
 

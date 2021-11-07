@@ -39,6 +39,7 @@ public:
 };
 
 class Banque { // ~ J'ai pas de mot pour "ensemble de pioches"
+public:
     Pioche pioche_chance;
     Pioche pioche_tresor;
     Pioche pioche_bonus;
@@ -46,7 +47,6 @@ class Banque { // ~ J'ai pas de mot pour "ensemble de pioches"
     Pioche pioche_enfant;
     Pioche pioche_propriete;
     Pioche pioche_symboles;
-public:
     Banque(const Collection& Coll);
     void melange_pioches(); // Réinitialise la banque
 };

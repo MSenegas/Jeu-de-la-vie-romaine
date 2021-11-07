@@ -15,7 +15,7 @@ class Game {
     unsigned int cagnotte;
 public:
     static std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> lancer_de; // Générateurs de nombres aléatoires selon une loi
-    static std::_Bind<std::uniform_int_distribution<bool>(std::mt19937_64)> lancer_piece;
+    static std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> lancer_piece;
     static std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> lancer_de_mise_pari_loto;
     static std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> lancer_de_gain_loto;
     Game(const std::string path_plateau,const std::string path_cartes,const unsigned int nb_joueurs);

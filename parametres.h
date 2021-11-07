@@ -22,6 +22,6 @@ const int FACTEUR_LOTO=50; // Nombre par lequel on doit multiplier le résultat 
 const int FACES_DE_GAIN_LOTO=10; // Nombre de faces du dé du dé de gain au loto
 
 const std::uniform_int_distribution<> LANCER_DE(1,FACES_DE); // Lois de probabilité
-const std::uniform_int_distribution<bool> LANCER_PIECE(0,1);
+const std::uniform_int_distribution<> LANCER_PIECE(0,1);
 const std::uniform_int_distribution<> LANCER_DE_MISE_PARI_LOTO(1,FACES_DE_MISE_PARI_LOTO);
 const std::uniform_int_distribution<> LANCER_DE_GAIN_LOTO(1,FACES_DE_GAIN_LOTO);

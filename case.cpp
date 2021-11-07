@@ -11,26 +11,20 @@ void Case::affichage(int i0, int j0) const {
 CaseChance::CaseChance(Game& G):
     current_game(G) {}
 
-//void CaseChance::tomber(Joueur& J) {}
-//    // pioche_chance->back()->tirer(J);
-//    // METTRE J.add_carte_chance_tresor(&this); DANS CarteSortezPrison::tirer(Joueur& J)
-//    // pioche_chance->pop_back();
+void CaseChance::tomber(Joueur& J) {
+    current_game.banque.pioche_chance.tirer(J);}
 
 CaseTresor::CaseTresor(Game& G):
     current_game(G) {}
 
-//void CaseTresor::tomber(Joueur& J) {}
-//    // pioche_tresor->back()->tirer(J);
-//    // METTRE J.add_carte_chance_tresor(&this); DANS CarteSortezPrison::tirer(Joueur& J)
-//    // pioche_tresor->pop_back();
+void CaseTresor::tomber(Joueur& J) {
+    current_game.banque.pioche_tresor.tirer(J);}
 
 CaseSalaire::CaseSalaire(Game& G,const int& sal):
     current_game(G),salaire(sal) {}
 
-//void CaseSalaire::tomber(Joueur& J) {}
-//    // pioche_bonus->back()->tirer(J);
-//    // METTRE J.cash_flow(gift); DANS CarteCash::tirer(Joueur& J)
-//    // pioche_bonus->pop_back();
+void CaseSalaire::tomber(Joueur& J) {
+    current_game.banque.pioche_bonus.tirer(J);}
 
 void CaseSalaire::passer(Joueur& J) {
     bool a_payer=true;
@@ -82,9 +76,8 @@ void CaseReculezAvancez::tomber(Joueur& J) {
 CaseEnfant::CaseEnfant(Game& G):
     current_game(G) {}
 
-//void CaseEnfant::tomber(Joueur& J) {}
-//    // J.add_enfant(pioche_enfant->back()->nb_enfants());
-//    // pioche_enfant->pop_back();
+void CaseEnfant::tomber(Joueur& J) {
+    current_game.banque.pioche_enfant.tirer(J);}
 
 void CasePrison::tomber(Joueur& J) {
     J.aller_prison();}
@@ -96,6 +89,7 @@ CaseMarche::CaseMarche(Game& G):
     current_game(G) {}
 
 //void CaseMarche::tomber(Joueur& J) {}
+// IF decision_acheter_vendre() etc..
 
 void CaseConseil::tomber(Joueur& J) {J.add_conseil();}
 
