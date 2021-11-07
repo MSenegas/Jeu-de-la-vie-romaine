@@ -1,6 +1,6 @@
-#include <Imagine/Common.h>
 #include <Imagine/Graphics.h>
 
+#include "game.h"
 #include "joueur.h"
 
 Joueur::Joueur(const int& n_carr):
@@ -81,11 +81,11 @@ void Joueur::carriere_nouv_periode() {
         carriere=decision_chemin_risque_sur();}
 
 int Joueur::decision_chemin_risque_sur() const {
-    return Imagine::intRandom(1,2);} // à améliorer
+    return 1+Game::lancer_piece();} // à améliorer
 
 void Joueur::play(Plateau& P,unsigned int& cag) {
     if (!a_fini) {
-        int de=Imagine::intRandom(1,FACES_DE);
+        int de=Game::lancer_de();
         if (prison)
             tenter_sortir_prison(de);
         else {

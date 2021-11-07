@@ -23,6 +23,12 @@ void Game::lire_fichier(std::vector<std::vector<std::string>>& paragraph_list,co
     paragraph_list.push_back(paragraph);
 }
 
+std::mt19937_64 Game::gene_alea=std::mt19937_64();
+std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> Game::lancer_de=std::bind(LANCER_DE,gene_alea);
+std::_Bind<std::uniform_int_distribution<bool>(std::mt19937_64)> Game::lancer_piece=std::bind(LANCER_PIECE,gene_alea);
+std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> Game::lancer_de_mise_pari_loto=std::bind(LANCER_DE_MISE_PARI_LOTO,gene_alea);
+std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> Game::lancer_de_gain_loto=std::bind(LANCER_DE_GAIN_LOTO,gene_alea);
+
 Game::Game(const std::string path_plateau,const std::string path_cartes,const unsigned int nb_joueurs):
     t(0),plateau(path_plateau,*this),collection(path_cartes,*this),banque(collection),cagnotte(0) {
     std::vector<int> liste_n_carr=tirage_carrieres(nb_joueurs);
@@ -35,7 +41,7 @@ std::vector<int> Game::tirage_carrieres(const unsigned int nb_joueurs) {
     unsigned int nb_politicien=nb_joueurs/2;
     unsigned int nb_commercant=nb_joueurs-nb_politicien;
     while (nb_politicien!=0 || nb_commercant!=0) {
-        liste_carrieres.push_back(Imagine::intRandom(1,2));
+        liste_carrieres.push_back(lancer_piece()+1);
         switch (liste_carrieres.back()) {
             case 1:
                 if (nb_politicien==0)

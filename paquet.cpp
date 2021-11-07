@@ -1,6 +1,5 @@
 #include <stdexcept>
 #include <algorithm>
-#include <random>
 
 #include "game.h"
 #include "paquet.h"

@@ -1,4 +1,3 @@
-#include <Imagine/Common.h>
 #include <Imagine/Graphics.h>
 #include <stdexcept>
 
@@ -68,16 +67,16 @@ CaseRejouez::CaseRejouez(Game& G):
     current_game(G) {}
 
 void CaseRejouez::tomber(Joueur& J) {
-    current_game.mouv_joueur(J,Imagine::intRandom(1,FACES_DE));}
+    current_game.mouv_joueur(J,Game::lancer_de());}
 
 CaseReculezAvancez::CaseReculezAvancez(Game& G):
     current_game(G) {}
 
 void CaseReculezAvancez::tomber(Joueur& J) {
-    if (Imagine::intRandom(0,1))
-        current_game.mouv_joueur(J,Imagine::intRandom(1,FACES_DE));
+    if (Game::lancer_piece())
+        current_game.mouv_joueur(J,Game::lancer_de());
     else
-        current_game.mouv_joueur(J,-Imagine::intRandom(1,FACES_DE));
+        current_game.mouv_joueur(J,-Game::lancer_de());
 }
 
 CaseEnfant::CaseEnfant(Game& G):
