@@ -6,7 +6,6 @@
 #include "joueur.h"
 
 class Game {
-    static std::mt19937_64 gene_alea; // Générateur aléatoire
     unsigned int t; // Temps écoulé
     Plateau plateau;
     Collection collection;
@@ -14,6 +13,7 @@ class Game {
     std::vector<Joueur> liste_joueurs;
     unsigned int cagnotte;
 public:
+    static std::mt19937_64 gene_alea; // Générateur aléatoire
     static std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> lancer_de; // Générateurs de nombres aléatoires selon une loi
     static std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> lancer_piece;
     static std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> lancer_de_mise_pari_loto;
