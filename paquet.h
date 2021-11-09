@@ -31,9 +31,11 @@ public:
 class Pioche { // Pioche utilisée en jeu
     const Paquet& paquet_source;
     std::vector<const Carte*> pioche;
+    std::vector<const Carte*> defausse;
 public:
     Pioche(const Paquet& Pq);
-    void melanger(); // Réinitialise la pioche et mélange le paquet
+    void melanger(); // Mélange la pioche à partir de la défausse
+    void reset(); // Réinitialise la pioche à partir du paquet source
     const Carte* pop(); // Retire une carte de la pioche si s'est possible, sinon, mélange
     void tirer(Joueur& J); // Tire une carte et joue son effet sur le joueur J
 };
@@ -48,5 +50,5 @@ public:
     Pioche pioche_propriete;
     Pioche pioche_symboles;
     Banque(const Collection& Coll);
-    void melange_pioches(); // Réinitialise la banque
+    void reset(); // Réinitialise la banque
 };

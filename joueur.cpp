@@ -3,10 +3,7 @@
 #include "game.h"
 #include "joueur.h"
 
-Joueur::Joueur(const int& n_carr):
-    money(ARGENT_INITIAL),dettes(0),carriere(n_carr),periode(1),
-    case_libre(0),a_fini(false),prison(false),essais_prison(0),
-    esclave(false),case_esclave(0),conseils(0),enfants(0) {}
+Joueur::Joueur(const int& n_carr) {reset(n_carr);}
 
 void Joueur::cash_flow(const int& gain) {money+=gain;}
 

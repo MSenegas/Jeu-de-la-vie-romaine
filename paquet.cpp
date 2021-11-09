@@ -68,13 +68,19 @@ Collection::Collection(const std::string path,Game& G) {
             throw std::invalid_argument(nom_paquet+err_msg);}}
 }
 
-Pioche::Pioche(const Paquet& Pq): paquet_source(Pq) {melanger();}
+Pioche::Pioche(const Paquet& Pq): paquet_source(Pq) {reset();}
 
-void Pioche::melanger() {
-    pioche.clear();
-    // Pb avec cartes qui sont aux mains des joueurs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void Pioche::reset() {
+    pioche.clear();defausse.clear();
     for (unsigned int i=0;i<paquet_source.size();i++)
         pioche.push_back(paquet_source(i));
+    std::shuffle(pioche.begin(),pioche.end(),Game::gene_alea);
+}
+
+void Pioche::melanger() {
+    for (unsigned int i=0;i<defausse.size();i++)
+        pioche.push_back(defausse.at(i));
+    defausse.clear();
     std::shuffle(pioche.begin(),pioche.end(),Game::gene_alea);
 }
 
@@ -93,12 +99,12 @@ Banque::Banque(const Collection& Coll): pioche_chance(Coll.paquet_chance),
     pioche_achetez(Coll.paquet_achetez),pioche_enfant(Coll.paquet_enfant),
     pioche_propriete(Coll.paquet_propriete),pioche_symboles(Coll.paquet_symboles) {}
 
-void Banque::melange_pioches() {
-    pioche_chance.melanger();
-    pioche_tresor.melanger();
-    pioche_bonus.melanger();
-    pioche_achetez.melanger();
-    pioche_enfant.melanger();
-    pioche_propriete.melanger();
-    pioche_symboles.melanger();
+void Banque::reset() {
+    pioche_chance.reset();
+    pioche_tresor.reset();
+    pioche_bonus.reset();
+    pioche_achetez.reset();
+    pioche_enfant.reset();
+    pioche_propriete.reset();
+    pioche_symboles.reset();
 }

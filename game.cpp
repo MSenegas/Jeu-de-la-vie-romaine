@@ -30,11 +30,7 @@ std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> Game::lancer_de_mis
 std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> Game::lancer_de_gain_loto=std::bind(LANCER_DE_GAIN_LOTO,gene_alea);
 
 Game::Game(const std::string path_plateau,const std::string path_cartes,const unsigned int nb_joueurs):
-    t(0),plateau(path_plateau,*this),collection(path_cartes,*this),banque(collection),cagnotte(0) {
-    std::vector<int> liste_n_carr=tirage_carrieres(nb_joueurs);
-    for (unsigned int i=0;i<nb_joueurs;i++)
-        liste_joueurs.push_back(Joueur(liste_n_carr.at(i)));
-}
+    plateau(path_plateau,*this),collection(path_cartes,*this),banque(collection) {reset();}
 
 std::vector<int> Game::tirage_carrieres(const unsigned int nb_joueurs) {
     std::vector<int> liste_carrieres;
@@ -83,7 +79,7 @@ void Game::reset() {
     t=0;
     cagnotte=0;
     plateau.reset_cases();
-    banque.melange_pioches();
+    banque.reset();
     std::vector<int> liste_n_carr=tirage_carrieres(liste_joueurs.size());
     for (unsigned int i=0;i<liste_joueurs.size();i++)
         liste_joueurs.at(i).reset(liste_n_carr.at(i));
