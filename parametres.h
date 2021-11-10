@@ -20,6 +20,8 @@ const int TAILLE_CASES_AFFICHAGE=20; // Taille des cases
 const int FACES_DE_MISE_PARI_LOTO=12; // Nombre de faces du dé dont on achète les cases pour le pari/loto
 const int FACTEUR_LOTO=50; // Nombre par lequel on doit multiplier le résultat du dé du gain de loto pour obtenir le gain
 const int FACES_DE_GAIN_LOTO=10; // Nombre de faces du dé du dé de gain au loto
+const int MAX_CARTES_ACHETEZ_ACHAT=2; // Nombre maximal de cartes achetez que l'on peut acheter en même temps
+const int MAX_CARTES_ACHETEZ_VENTE=2; // Nombre maximal de cartes achetez que l'on peut vendre en même temps
 
 const std::uniform_int_distribution<> LANCER_DE(1,FACES_DE); // Lois de probabilité
 const std::uniform_int_distribution<> LANCER_PIECE(0,1);

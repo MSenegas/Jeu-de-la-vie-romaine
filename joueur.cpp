@@ -48,7 +48,8 @@ void Joueur::aller_prison() {
 void Joueur::sortir_prison() {prison=false;}
 
 void Joueur::tenter_sortir_prison(const int& de) {
-    // RAJOUTER EFFET CARTE SORTEZ DE PRISON !!!
+    if (remove_carte_sortez_prison())
+        sortir_prison();
     if (essais_prison<N_MAX_ESSAIS_PRISON) {
         essais_prison++;
         if (de==FACE_SORTIR_PRISON)
@@ -66,11 +67,52 @@ void Joueur::sortir_esclavage() {
     cash_flow(-FRAIS_SORTIE_ESCLAVAGE);
     esclave=false;}
 
-void Joueur::add_enfant(const int& nb_enfants) {
-    if (enfants+nb_enfants>MAX_ENFANTS)
+void Joueur::add_carte_enfant(Carte* C) {
+    unsigned int enfants=0;
+    for (unsigned int i=0;i<cartes_enfant.size();i++)
+        enfants+=cartes_enfant.at(i)->nb();
+    if (enfants+C->nb()>MAX_ENFANTS) {
         cash_flow(INDEMNITE_SUBSTITUTION_ENFANTS);
+        C->defausser();}
     else
-        enfants+=nb_enfants;
+        cartes_enfant.push_back(C);
+}
+
+void Joueur::add_carte_sortez_prison(Carte *C) {cartes_sortez_prison.push_back(C);}
+
+bool Joueur::remove_carte_sortez_prison() {
+    if (cartes_sortez_prison.empty())
+        return false;
+    cartes_sortez_prison.pop_back();
+    return true;
+}
+
+void Joueur::acheter_cartes_achetez(std::vector<Carte *> LC) {
+    for (unsigned int i=0;i<LC.size();i++) {
+        cash_flow(-LC.at(i)->le_prix_d_achat_evidemment());
+        cartes_achetez.push_back(LC.at(i));}
+}
+
+void Joueur::vendre_cartes_achetez() {
+    std::sort(cartes_achetez.begin(),cartes_achetez.end(),bah_le_foncteur_de_comparaison_des_cartes_achetez);
+    for (unsigned int i=0;i<MAX_CARTES_ACHETEZ_VENTE;i++)
+        if (!cartes_achetez.empty()) {
+            int de=Game::lancer_de();
+            switch (de) {
+            case 1:
+            case 2:
+                cash_flow();
+                break;
+            case 3:
+            case 4:
+                cash_flow();
+                break;
+            case 5:
+            case 6:
+                cash_flow();
+            }
+            cartes_achetez.pop_back();
+        }
 }
 
 void Joueur::carriere_nouv_periode() {
@@ -136,9 +178,9 @@ void Joueur::reset(const int& n_carr) {
     esclave=false;
     case_esclave=0;
     conseils=0;
-    enfants=0;
-    cartes_chance_tresor.clear();
+    cartes_sortez_prison.clear();
     cartes_achetez.clear();
+    cartes_enfant.clear();
     cartes_propriete.clear();
     cartes_symboles.clear();
 }

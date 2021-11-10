@@ -36,7 +36,7 @@ public:
     Pioche(const Paquet& Pq);
     void melanger(); // Mélange la pioche à partir de la défausse
     void reset(); // Réinitialise la pioche à partir du paquet source
-    const Carte* pop(); // Retire une carte de la pioche si s'est possible, sinon, mélange
+    const Carte* pop(); // Retire une carte de la pioche (mélange si nécessaire)
     void tirer(Joueur& J); // Tire une carte et joue son effet sur le joueur J
 };
 

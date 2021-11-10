@@ -19,12 +19,12 @@ class Joueur {
     unsigned int essais_prison;
     bool esclave;
     int case_esclave;
+    // Enfants
+    std::vector<Carte*> cartes_enfant;
     // Autres
     unsigned int conseils;
-    unsigned int enfants;
-    // Cartes
-    std::vector<Carte*> cartes_chance_tresor;
-    std::vector<Carte*> cartes_achetez; // Trier avant vente
+    std::vector<Carte*> cartes_sortez_prison;
+    std::vector<Carte*> cartes_achetez;
     std::vector<Carte*> cartes_propriete;
     std::vector<Carte*> cartes_symboles;
 public:
@@ -44,9 +44,9 @@ public:
     void sortir_prison();
     void aller_esclavage();
     void sortir_esclavage();
-    void add_enfant(const int& nb_enfants); // Vérifie si c'est possible
-    void add_carte_chance_tresor(Carte* C); // Gestion des cartes sortez de prison
-    void remove_carte_chance_tresor();
+    void add_carte_enfant(Carte* C); // Vérifie si c'est possible
+    void add_carte_sortez_prison(Carte* C);
+    bool remove_carte_sortez_prison(); // Regarde s'il y a une carte sortez de prison et la retire le cas échéant
     void acheter_cartes_achetez(std::vector<Carte*> LC);
     void vendre_cartes_achetez();
     void add_carte_propriete(Carte* C);
