@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
 
-class Joueur;
 class Game;
+class Joueur;
 
 class Case {
 public:

@@ -38,6 +38,7 @@ public:
     void reset(); // Réinitialise la pioche à partir du paquet source
     const Carte* pop(); // Retire une carte de la pioche (mélange si nécessaire)
     void tirer(Joueur& J); // Tire une carte et joue son effet sur le joueur J
+    void defausser(const Carte* C); // Met une carte dans la défausse
 };
 
 class Banque { // ~ J'ai pas de mot pour "ensemble de pioches"

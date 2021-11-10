@@ -94,6 +94,8 @@ const Carte* Pioche::pop() {
 
 void Pioche::tirer(Joueur& J) {pop()->tirer(J);}
 
+void Pioche::defausser(const Carte* C) {defausse.push_back(C);}
+
 Banque::Banque(const Collection& Coll): pioche_chance(Coll.paquet_chance),
     pioche_tresor(Coll.paquet_tresor),pioche_bonus(Coll.paquet_bonus),
     pioche_achetez(Coll.paquet_achetez),pioche_enfant(Coll.paquet_enfant),
