@@ -49,13 +49,13 @@ CasePari::CasePari(Game& G):
 CaseLoto::CaseLoto(Game& G):
     current_game(G) {}
 
-//void CasePari::tomber(Joueur& J) {} // Laissés vides pour l'instant
-//void CaseLoto::tomber(Joueur& J) {}
+void CasePari::tomber(Joueur& J) {std::cerr << "Warning: Case Pari non implémentée" << std::endl;}
+void CaseLoto::tomber(Joueur& J) {std::cerr << "Warning: Case Loto non implémentée" << std::endl;}
 
 CaseJustice::CaseJustice(Game& G):
     current_game(G) {}
 
-//void CaseJustice::tomber(Joueur& J) {} // IA NÉCESSAIRE
+void CaseJustice::tomber(Joueur& J) {std::cerr << "Warning: Case Justice non implémentée" << std::endl;} // IA NÉCESSAIRE
 
 CaseRejouez::CaseRejouez(Game& G):
     current_game(G) {}
@@ -88,8 +88,16 @@ void CaseEsclave::tomber(Joueur& J) {
 CaseMarche::CaseMarche(Game& G):
     current_game(G) {}
 
-//void CaseMarche::tomber(Joueur& J) {}
-// IF decision_acheter_vendre() etc..
+void CaseMarche::tomber(Joueur& J) {
+    if (J.decision_acheter_vendre()) {
+        std::vector<const Carte*> LC;
+        for (int i=0;i<MAX_CARTES_ACHETEZ_ACHAT;i++)
+            LC.push_back(current_game.banque.pioche_achetez.pop());
+        J.decision_acheter_cartes(LC);
+        J.acheter_cartes_achetez(LC);}
+    else
+        J.vendre_cartes_achetez();
+}
 
 void CaseConseil::tomber(Joueur& J) {J.add_conseil();}
 

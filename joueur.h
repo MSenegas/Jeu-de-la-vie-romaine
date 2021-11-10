@@ -20,13 +20,13 @@ class Joueur {
     bool esclave;
     int case_esclave;
     // Enfants
-    std::vector<Carte*> cartes_enfant;
+    std::vector<const Carte*> cartes_enfant;
     // Autres
     unsigned int conseils;
-    std::vector<Carte*> cartes_sortez_prison;
-    std::vector<Carte*> cartes_achetez;
-    std::vector<Carte*> cartes_propriete;
-    std::vector<Carte*> cartes_symboles;
+    std::vector<const Carte*> cartes_sortez_prison;
+    std::vector<const Carte*> cartes_achetez;
+    std::vector<const Carte*> cartes_propriete;
+    std::vector<const Carte*> cartes_symboles;
 public:
     Joueur(const int& n_carr);
     void cash_flow(const int& gain); // Augmente l'argent du joueur de gain (peut être négatif)
@@ -44,14 +44,16 @@ public:
     void sortir_prison();
     void aller_esclavage();
     void sortir_esclavage();
-    void add_carte_enfant(Carte* C); // Vérifie si c'est possible
-    void add_carte_sortez_prison(Carte* C);
+    void add_carte_enfant(const Carte* C); // Vérifie si c'est possible
+    void add_carte_sortez_prison(const Carte* C);
     bool remove_carte_sortez_prison(); // Regarde s'il y a une carte sortez de prison et la retire le cas échéant
-    void acheter_cartes_achetez(std::vector<Carte*> LC);
+    bool decision_acheter_vendre() const; // Effectue la décision d'acheter ou de vendre
+    void decision_acheter_cartes(std::vector<const Carte*>& LC) const; // Décide des cartes à acheter ou non
+    void acheter_cartes_achetez(const std::vector<const Carte*>& LC);
     void vendre_cartes_achetez();
-    void add_carte_propriete(Carte* C);
+    void add_carte_propriete(const Carte* C);
     // évtl. faire un système de vente entre joueurs
-    void add_carte_symbole(Carte* C);
+    void add_carte_symbole(const Carte* C);
     void remove_carte_symbole();
     void reset(const int& n_carr); // Réinitialise le joueur
     void dessine_icone(int i0,int j0,int taille_cadre=TAILLE_CASES_AFFICHAGE) const; // Affiche le joueur

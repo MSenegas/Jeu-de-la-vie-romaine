@@ -37,8 +37,7 @@ void Joueur::passer_salaire() {
         interets++;
     cash_flow(-interets);
     cash_flow(conseils*REVENU_CONSEILS);
-    for (unsigned int i=0;i<cartes_propriete.size();i++) {}
-    // REVENU DES CARTES PROPRIÉTÉ !!!
+    for (unsigned int i=0;i<cartes_propriete.size();i++) {std::cerr << "Warning: Cartes propriété n'ont pas d'effet." << std::endl;}
 }
 
 void Joueur::aller_prison() {
@@ -67,7 +66,7 @@ void Joueur::sortir_esclavage() {
     cash_flow(-FRAIS_SORTIE_ESCLAVAGE);
     esclave=false;}
 
-void Joueur::add_carte_enfant(Carte* C) {
+void Joueur::add_carte_enfant(const Carte* C) {
     unsigned int enfants=0;
     for (unsigned int i=0;i<cartes_enfant.size();i++)
         enfants+=cartes_enfant.at(i)->nb();
@@ -78,18 +77,32 @@ void Joueur::add_carte_enfant(Carte* C) {
         cartes_enfant.push_back(C);
 }
 
-void Joueur::add_carte_sortez_prison(Carte *C) {cartes_sortez_prison.push_back(C);}
+void Joueur::add_carte_sortez_prison(const Carte* C) {cartes_sortez_prison.push_back(C);}
 
 bool Joueur::remove_carte_sortez_prison() {
     if (cartes_sortez_prison.empty())
         return false;
+    cartes_sortez_prison.back()->defausser();
     cartes_sortez_prison.pop_back();
     return true;
 }
 
-void Joueur::acheter_cartes_achetez(std::vector<Carte *> LC) {
-    for (unsigned int i=0;i<LC.size();i++) {
-        cash_flow(-LC.at(i)->le_prix_d_achat_evidemment());
+bool Joueur::decision_acheter_vendre() const {
+    std::cerr << "Warning: Le joueur ne fera qu'acheter" << std::endl;
+    return true; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!! À CHANGER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+}
+
+void Joueur::decision_acheter_cartes(std::vector<const Carte *> &LC) const {
+    // Trier par qualité décroissante:
+    // std::sort(LC.begin(),LC.end(),le_super_foncteur_de_comparaison_des_nullités_de_cartes);
+    // Si on retire un carte, faire:
+    // LC.back()->defausser();
+    // LC.pop_back();
+}
+
+void Joueur::acheter_cartes_achetez(const std::vector<const Carte*>& LC) {
+    for (unsigned int i=0;i<LC.size();i++)
+        cash_flow(-LC.at(i)->le_prix_d_achat_evidemment);
         cartes_achetez.push_back(LC.at(i));}
 }
 
@@ -97,20 +110,22 @@ void Joueur::vendre_cartes_achetez() {
     std::sort(cartes_achetez.begin(),cartes_achetez.end(),bah_le_foncteur_de_comparaison_des_cartes_achetez);
     for (unsigned int i=0;i<MAX_CARTES_ACHETEZ_VENTE;i++)
         if (!cartes_achetez.empty()) {
+            const Carte* C=cartes_achetez.back();
             int de=Game::lancer_de();
             switch (de) {
             case 1:
             case 2:
-                cash_flow();
+                cash_flow(round(C->le_prix_de_vente*(1-C->la_variation)));
                 break;
             case 3:
             case 4:
-                cash_flow();
+                cash_flow(C->le_prix_de_vente);
                 break;
             case 5:
             case 6:
-                cash_flow();
+                cash_flow(round(C->le_prix_de_vente*(1+C->la_variation)));
             }
+            C->defausser();
             cartes_achetez.pop_back();
         }
 }
