@@ -66,7 +66,7 @@ void Joueur::sortir_esclavage() {
     cash_flow(-FRAIS_SORTIE_ESCLAVAGE);
     esclave=false;}
 
-void Joueur::add_carte_enfant(const Carte* C) {
+void Joueur::add_carte_enfant(const CarteEnfant* C) {
     unsigned int enfants=0;
     for (unsigned int i=0;i<cartes_enfant.size();i++)
         enfants+=cartes_enfant.at(i)->nb();
@@ -77,7 +77,7 @@ void Joueur::add_carte_enfant(const Carte* C) {
         cartes_enfant.push_back(C);
 }
 
-void Joueur::add_carte_sortez_prison(const Carte* C) {cartes_sortez_prison.push_back(C);}
+void Joueur::add_carte_sortez_prison(const CarteSortezPrison* C) {cartes_sortez_prison.push_back(C);}
 
 bool Joueur::remove_carte_sortez_prison() {
     if (cartes_sortez_prison.empty())
@@ -87,43 +87,52 @@ bool Joueur::remove_carte_sortez_prison() {
     return true;
 }
 
+bool NulliteAchat(const CarteAchetez* A,const CarteAchetez* B) {
+    std::cerr << "Warning: Mauvaise fonction de comparaison d'achat" << std::endl;
+    return A->sale_value()>B->sale_value(); // !!!!!!!!!!!!!!!!! À CHANGER !!!!!!!!!!!!!!!!!
+}
+bool QualiteVente(const CarteAchetez* A,const CarteAchetez* B) {
+    // Vérifier s'il faut aussi prendre en compte la variance
+    std::cerr << "Warning: Mauvaise fonction de comparaison de vente" << std::endl;
+    return A->sale_value()<B->sale_value();
+}
+
 bool Joueur::decision_acheter_vendre() const {
     std::cerr << "Warning: Le joueur ne fera qu'acheter" << std::endl;
     return true; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!! À CHANGER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }
 
-void Joueur::decision_acheter_cartes(std::vector<const Carte *> &LC) const {
-    // Trier par qualité décroissante:
-    // std::sort(LC.begin(),LC.end(),le_super_foncteur_de_comparaison_des_nullités_de_cartes);
+void Joueur::decision_acheter_cartes(std::vector<const CarteAchetez*> &LC) const {
+    // std::sort(LC.begin(),LC.end(),NulliteAchat);
     // Si on retire un carte, faire:
     // LC.back()->defausser();
     // LC.pop_back();
 }
 
-void Joueur::acheter_cartes_achetez(const std::vector<const Carte*>& LC) {
+void Joueur::acheter_cartes_achetez(const std::vector<const CarteAchetez*>& LC) {
     for (unsigned int i=0;i<LC.size();i++) {
-        cash_flow(-LC.at(i)->le_prix_d_achat_evidemment);
+        cash_flow(-LC.at(i)->base_value());
         cartes_achetez.push_back(LC.at(i));}
 }
 
 void Joueur::vendre_cartes_achetez() {
-    std::sort(cartes_achetez.begin(),cartes_achetez.end(),bah_le_foncteur_de_comparaison_des_cartes_achetez);
+    std::sort(cartes_achetez.begin(),cartes_achetez.end(),QualiteVente);
     for (unsigned int i=0;i<MAX_CARTES_ACHETEZ_VENTE;i++)
         if (!cartes_achetez.empty()) {
-            const Carte* C=cartes_achetez.back();
+            const CarteAchetez* C=cartes_achetez.back();
             int de=Game::lancer_de();
             switch (de) {
             case 1:
             case 2:
-                cash_flow(round(C->le_prix_de_vente*(1-C->la_variation)));
+                cash_flow(round(C->sale_value()*(1-C->variation())));
                 break;
             case 3:
             case 4:
-                cash_flow(C->le_prix_de_vente);
+                cash_flow(C->sale_value());
                 break;
             case 5:
             case 6:
-                cash_flow(round(C->le_prix_de_vente*(1+C->la_variation)));
+                cash_flow(round(C->sale_value()*(1+C->variation())));
             }
             C->defausser();
             cartes_achetez.pop_back();

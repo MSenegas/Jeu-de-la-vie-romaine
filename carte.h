@@ -63,6 +63,7 @@ class CarteEnfant: public Carte {
 public:
     CarteEnfant(Pioche& P,int nb): Carte(P),enfants(nb) {}
     void tirer(Joueur& J) const;
+    int nb() const {return enfants;}
 };
 
 class CarteRejouez: public Carte {
