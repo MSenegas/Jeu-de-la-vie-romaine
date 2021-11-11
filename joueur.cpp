@@ -101,7 +101,7 @@ void Joueur::decision_acheter_cartes(std::vector<const Carte *> &LC) const {
 }
 
 void Joueur::acheter_cartes_achetez(const std::vector<const Carte*>& LC) {
-    for (unsigned int i=0;i<LC.size();i++)
+    for (unsigned int i=0;i<LC.size();i++) {
         cash_flow(-LC.at(i)->le_prix_d_achat_evidemment);
         cartes_achetez.push_back(LC.at(i));}
 }

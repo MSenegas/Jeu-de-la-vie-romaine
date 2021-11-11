@@ -22,6 +22,10 @@ const int FACTEUR_LOTO=50; // Nombre par lequel on doit multiplier le résultat 
 const int FACES_DE_GAIN_LOTO=10; // Nombre de faces du dé du dé de gain au loto
 const int MAX_CARTES_ACHETEZ_ACHAT=2; // Nombre maximal de cartes achetez que l'on peut acheter en même temps
 const int MAX_CARTES_ACHETEZ_VENTE=2; // Nombre maximal de cartes achetez que l'on peut vendre en même temps
+const int INDEMNITE_AUTRE_CARTE_BONUS=47; // Indemnité que les joueurs recoivent pour renoncer à la carte bonus s'ils tirent la carte chance leur proposant de le faire
+const int MIN_MISE_POSSIBLE_JEU_HASARD_AVANTAGE=5; // Sommes que l'on peut miser au jeu de hasard avantageux lorsque l'on tire la carte chance correspondante
+const int MAX_MISE_POSSIBLE_JEU_HASARD_AVANTAGE=75;
+const int FACTEUR_JEU_HASARD_AVANTAGE=8; // Nombre de fois que l'on gagne la mise si l'on joue à ce jeu
 
 const std::uniform_int_distribution<> LANCER_DE(1,FACES_DE); // Lois de probabilité
 const std::uniform_int_distribution<> LANCER_PIECE(0,1);

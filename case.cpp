@@ -8,20 +8,11 @@ void Case::affichage(int i0, int j0) const {
     Imagine::drawRect(j0,i0,TAILLE_CASES_AFFICHAGE,TAILLE_CASES_AFFICHAGE,Imagine::BLACK);
 }
 
-CaseChance::CaseChance(Game& G):
-    current_game(G) {}
-
 void CaseChance::tomber(Joueur& J) {
     current_game.banque.pioche_chance.tirer(J);}
 
-CaseTresor::CaseTresor(Game& G):
-    current_game(G) {}
-
 void CaseTresor::tomber(Joueur& J) {
     current_game.banque.pioche_tresor.tirer(J);}
-
-CaseSalaire::CaseSalaire(Game& G,const int& sal):
-    current_game(G),salaire(sal) {}
 
 void CaseSalaire::tomber(Joueur& J) {
     current_game.banque.pioche_bonus.tirer(J);}
@@ -43,28 +34,13 @@ void CaseSalaire::ajouter_joueur_deja_paye(Joueur& J) {
 void CaseSalaire::reset_case() {
     collected=std::vector<Joueur*>();}
 
-CasePari::CasePari(Game& G):
-    current_game(G) {}
-
-CaseLoto::CaseLoto(Game& G):
-    current_game(G) {}
-
 void CasePari::tomber(Joueur& J) {std::cerr << "Warning: Case Pari non implémentée" << std::endl;}
 void CaseLoto::tomber(Joueur& J) {std::cerr << "Warning: Case Loto non implémentée" << std::endl;}
 
-CaseJustice::CaseJustice(Game& G):
-    current_game(G) {}
-
 void CaseJustice::tomber(Joueur& J) {std::cerr << "Warning: Case Justice non implémentée" << std::endl;} // IA NÉCESSAIRE
-
-CaseRejouez::CaseRejouez(Game& G):
-    current_game(G) {}
 
 void CaseRejouez::tomber(Joueur& J) {
     current_game.mouv_joueur(J,Game::lancer_de());}
-
-CaseReculezAvancez::CaseReculezAvancez(Game& G):
-    current_game(G) {}
 
 void CaseReculezAvancez::tomber(Joueur& J) {
     if (Game::lancer_piece())
@@ -72,9 +48,6 @@ void CaseReculezAvancez::tomber(Joueur& J) {
     else
         current_game.mouv_joueur(J,-Game::lancer_de());
 }
-
-CaseEnfant::CaseEnfant(Game& G):
-    current_game(G) {}
 
 void CaseEnfant::tomber(Joueur& J) {
     current_game.banque.pioche_enfant.tirer(J);}
@@ -84,9 +57,6 @@ void CasePrison::tomber(Joueur& J) {
 
 void CaseEsclave::tomber(Joueur& J) {
     J.aller_esclavage();}
-
-CaseMarche::CaseMarche(Game& G):
-    current_game(G) {}
 
 void CaseMarche::tomber(Joueur& J) {
     if (J.decision_acheter_vendre()) {
@@ -101,9 +71,6 @@ void CaseMarche::tomber(Joueur& J) {
 
 void CaseConseil::tomber(Joueur& J) {J.add_conseil();}
 
-CaseCash::CaseCash(const int& gain):
-    gift(gain) {}
-
 void CaseCash::tomber(Joueur& J) {
     J.cash_flow(gift);}
 
@@ -114,9 +81,6 @@ CaseCashCagnotte::CaseCashCagnotte(Game& G,const int& gain):
 void CaseCashCagnotte::tomber(Joueur& J) {
     J.cash_flow(gift);
     current_game.cagnotte-=gift;}
-
-CaseCashJoueurs::CaseCashJoueurs(Game& G,const int& gain):
-    CaseCash(gain), current_game(G) {}
 
 void CaseCashJoueurs::tomber(Joueur& J) {
     for (unsigned int i=0;i<current_game.liste_joueurs.size();i++)

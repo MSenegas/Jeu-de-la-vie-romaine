@@ -25,14 +25,14 @@ public:
 class CaseChance: public Case {
     Game& current_game;
 public:
-    CaseChance(Game& G);
+    CaseChance(Game& G): current_game(G) {}
     void tomber(Joueur& J);
 };
 
 class CaseTresor: public Case {
     Game& current_game;
 public:
-    CaseTresor(Game& G);
+    CaseTresor(Game& G): current_game(G) {}
     void tomber(Joueur& J);
 };
 
@@ -41,7 +41,7 @@ class CaseSalaire: public Case {
     Game& current_game;
     int salaire; // Montant du salaire
 public:
-    CaseSalaire(Game& G,const int& sal);
+    CaseSalaire(Game& G,const int& sal): current_game(G),salaire(sal) {}
     void tomber(Joueur& J);
     void passer(Joueur& J);
     void ajouter_joueur_deja_paye(Joueur& J); // Ajoute le joueur J à ceux qui ont déjà reçu leur salaire
@@ -51,42 +51,42 @@ public:
 class CasePari: public Case {
     Game& current_game;
 public:
-    CasePari(Game& G);
+    CasePari(Game& G): current_game(G) {}
     void tomber(Joueur& J);
 };
 
 class CaseLoto: public Case {
     Game& current_game;
 public:
-    CaseLoto(Game& G);
+    CaseLoto(Game& G): current_game(G) {}
     void tomber(Joueur& J);
 };
 
 class CaseJustice: public Case {
     Game& current_game;
 public:
-    CaseJustice(Game& G);
+    CaseJustice(Game& G): current_game(G) {}
     void tomber(Joueur& J);
 };
 
 class CaseRejouez: public Case {
     Game& current_game;
 public:
-    CaseRejouez(Game& G);
+    CaseRejouez(Game& G): current_game(G) {}
     void tomber(Joueur& J);
 };
 
 class CaseReculezAvancez: public Case {
     Game& current_game;
 public:
-    CaseReculezAvancez(Game& G);
+    CaseReculezAvancez(Game& G): current_game(G) {}
     void tomber(Joueur& J);
 };
 
 class CaseEnfant: public Case {
     Game& current_game;
 public:
-    CaseEnfant(Game& G);
+    CaseEnfant(Game& G): current_game(G) {}
     void tomber(Joueur& J);
 };
 
@@ -111,7 +111,7 @@ public:
 class CaseMarche: public Case {
     Game& current_game;
 public:
-    CaseMarche(Game& G);
+    CaseMarche(Game& G): current_game(G) {}
     void tomber(Joueur& J);
 };
 
@@ -125,7 +125,7 @@ class CaseCash: public Case {
 protected:
     int gift;
 public:
-    CaseCash(const int& gain);
+    CaseCash(const int& gain): gift(gain) {}
     virtual void tomber(Joueur& J); // donne gain au joueur
 };
 
@@ -141,7 +141,7 @@ class CaseCashJoueurs: public CaseCash {
 protected:
     Game& current_game;
 public:
-    CaseCashJoueurs(Game& G,const int& gain);
+    CaseCashJoueurs(Game& G,const int& gain): CaseCash(gain), current_game(G) {}
     virtual void tomber(Joueur& J); // ordonne à tous les joueurs LJ de donner gain au joueur J
 };
 
