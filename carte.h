@@ -14,6 +14,9 @@ public:
     Carte(const Carte&)=delete;
     Carte& operator=(const Carte&)=delete;
     virtual void tirer(Joueur&) const=0;
+    virtual int base_value() const;
+    virtual int operator()() const;
+    virtual double variation() const;
     void defausser() const;
 };
 
@@ -25,7 +28,7 @@ public:
     CarteAchetez(Pioche& P,int pa,int pv,double v): Carte(P),prix_achat(pa),prix_vente(pv),risk(v) {}
     void tirer(Joueur&) const;
     int base_value() const {return prix_achat;}
-    int sale_value() const {return prix_vente;}
+    int operator()() const {return prix_vente;}
     double variation() const {return risk;}
 };
 
@@ -43,7 +46,7 @@ class CarteMettezProprieteEncheres: public Carte {
     Game& current_game;
 public:
     CarteMettezProprieteEncheres(Pioche& P,Game& G): Carte(P),current_game(G) {}
-    void tirer(Joueur& J) const;
+    void tirer(Joueur&) const; // Faire particulièrement attention à la conservation des cartes
 };
 
 class CarteSortezPrison: public Carte {
@@ -53,8 +56,9 @@ public:
 };
 
 class CarteTirezEnfant: public Carte {
+    Game& current_game;
 public:
-    CarteTirezEnfant(Pioche& P): Carte(P) {}
+    CarteTirezEnfant(Pioche& P,Game& G): Carte(P),current_game(G) {}
     void tirer(Joueur& J) const;
 };
 
@@ -63,40 +67,43 @@ class CarteEnfant: public Carte {
 public:
     CarteEnfant(Pioche& P,int nb): Carte(P),enfants(nb) {}
     void tirer(Joueur& J) const;
-    int nb() const {return enfants;}
+    int operator()() const {return enfants;}
 };
 
 class CarteRejouez: public Carte {
+    Game& current_game;
 public:
-    CarteRejouez(Pioche& P): Carte(P) {}
+    CarteRejouez(Pioche& P,Game& G): Carte(P),current_game(G) {}
     void tirer(Joueur& J) const;
 };
 
 class CarteReculezAvancez: public Carte {
 protected:
+    Game& current_game;
     int amount;
 public:
-    CarteReculezAvancez(Pioche& P,int cases): Carte(P),amount(cases) {}
+    CarteReculezAvancez(Pioche& P,Game& G,int cases): Carte(P),current_game(G),amount(cases) {}
     virtual void tirer(Joueur& J) const;
 };
 
 class CarteReculezAvancezJoueurs: public CarteReculezAvancez {
-    Game& current_game;
 public:
-    CarteReculezAvancezJoueurs(Pioche& P,Game& G,int cases): CarteReculezAvancez(P,cases),current_game(G) {}
+    CarteReculezAvancezJoueurs(Pioche& P,Game& G,int cases): CarteReculezAvancez(P,G,cases) {}
     void tirer(Joueur&) const;
 };
 
 class CarteAutreChanceTresor: public Carte {
+    Game& current_game;
 public:
-    CarteAutreChanceTresor(Pioche& P): Carte(P) {}
-    void tirer(Joueur& J) const; // Faire particulièrement attention à la conservation des cartes
+    CarteAutreChanceTresor(Pioche& P,Game& G): Carte(P),current_game(G) {}
+    void tirer(Joueur& J) const;
 };
 
 class CarteAutreCashBonus: public Carte {
+    Game& current_game;
 public:
-    CarteAutreCashBonus(Pioche& P): Carte(P) {}
-    void tirer(Joueur& J) const; // Faire particulièrement attention à la conservation des cartes
+    CarteAutreCashBonus(Pioche& P,Game& G): Carte(P),current_game(G) {}
+    void tirer(Joueur& J) const;
 };
 
 class CarteJeuHasardAvantage: public Carte {
@@ -137,7 +144,7 @@ protected:
     Game& current_game;
 public:
     CarteCashJoueurs(Pioche& P,Game& G,int gain): CarteCash(P,gain),current_game(G) {}
-    virtual void tirer(Joueur&) const;
+    virtual void tirer(Joueur& J) const;
 };
 
 class CarteCashCagnotteJoueurs: public CarteCashJoueurs {

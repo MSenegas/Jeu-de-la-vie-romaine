@@ -34,4 +34,11 @@ public:
     friend void CaseSalaire::tomber(Joueur&);
     friend void CaseEnfant::tomber(Joueur&);
     friend void CaseMarche::tomber(Joueur&);
+    friend void CarteMettezProprieteEncheres::tirer(Joueur&) const;
+    friend void CarteTirezEnfant::tirer(Joueur&) const;
+    friend void CarteReculezAvancezJoueurs::tirer(Joueur&) const;
+    friend void CarteAutreChanceTresor::tirer(Joueur&) const;
+    friend void CarteAutreCashBonus::tirer(Joueur&) const;
+    friend void CarteCashJoueurs::tirer(Joueur&) const;
+    friend void CarteCashCagnotteJoueurs::tirer(Joueur&) const;
 };

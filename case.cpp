@@ -37,7 +37,7 @@ void CaseSalaire::reset_case() {
 void CasePari::tomber(Joueur& J) {std::cerr << "Warning: Case Pari non implémentée" << std::endl;}
 void CaseLoto::tomber(Joueur& J) {std::cerr << "Warning: Case Loto non implémentée" << std::endl;}
 
-void CaseJustice::tomber(Joueur& J) {std::cerr << "Warning: Case Justice non implémentée" << std::endl;} // IA NÉCESSAIRE
+void CaseJustice::tomber(Joueur& J) {std::cerr << "Warning: Case Justice non implémentée" << std::endl;}
 
 void CaseRejouez::tomber(Joueur& J) {
     current_game.mouv_joueur(J,Game::lancer_de());}
@@ -61,8 +61,8 @@ void CaseEsclave::tomber(Joueur& J) {
 void CaseMarche::tomber(Joueur& J) {
     if (J.decision_acheter_vendre()) {
         std::vector<const Carte*> LC;
-        for (int i=0;i<MAX_CARTES_ACHETEZ_ACHAT;i++)
-            LC.push_back(current_game.banque.pioche_achetez.pop());
+        for (int i=0;i<MAX_CARTES_ACHETEZ_ACHAT;i++) {
+            LC.push_back(current_game.banque.pioche_achetez.pop());}
         J.decision_acheter_cartes(LC);
         J.acheter_cartes_achetez(LC);}
     else

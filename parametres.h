@@ -7,6 +7,7 @@ const int N_MAX_ESSAIS_PRISON=3; // Nombre maximal d'essais pour sortir de priso
 const int FACE_SORTIR_PRISON=6; // Face du dé qu'il faut obtenir pour sortir de prison
 const int FRAIS_SORTIE_PRISON=100; // Frais qu'il faut payer pour sortir de prison si on a pas de dé favorable
 const int FRAIS_SORTIE_ESCLAVAGE=100; // Frais que l'on paye à la fin de la période d'esclavage
+const int N_MAX_ESCLAVAGE=2; // Nombre maximum de fois que l'on peut aller en esclavage
 const double TAUX_COUPON=0.05; // Taux d'intérêt
 const int MIN_DETTES=50; // Quantité minimale de dettes que l'on peut contracter
 const int FACE_CAGNOTTE=6; // Face du dé nécessaire pour prendre la cagnotte
@@ -26,6 +27,7 @@ const int INDEMNITE_AUTRE_CARTE_BONUS=47; // Indemnité que les joueurs recoiven
 const int MIN_MISE_POSSIBLE_JEU_HASARD_AVANTAGE=5; // Sommes que l'on peut miser au jeu de hasard avantageux lorsque l'on tire la carte chance correspondante
 const int MAX_MISE_POSSIBLE_JEU_HASARD_AVANTAGE=75;
 const int FACTEUR_JEU_HASARD_AVANTAGE=8; // Nombre de fois que l'on gagne la mise si l'on joue à ce jeu
+const int FACE_JEU_HASARD_AVANTAGE=6; // Face du dé correspondant à la victoire dans ce jeu
 
 const std::uniform_int_distribution<> LANCER_DE(1,FACES_DE); // Lois de probabilité
 const std::uniform_int_distribution<> LANCER_PIECE(0,1);
