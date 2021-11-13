@@ -25,9 +25,7 @@ void interprete_attributs(const std::string& ligne,std::string& comm,int& arg1,i
                 ind_apres_espace=ligne.find(' ',ind_apres_espace);
                 while (ind_apres_espace<ligne.size() && ligne.at(ind_apres_espace)==' ') ind_apres_espace++;
                 *args12.at(yeah)=std::stoi(ligne.substr(ancien_ind_apres_espace,ind_apres_espace-ancien_ind_apres_espace-1));}}}
-}
-
-void interprete_symboles(const std::string& ligne,std::vector<int>& sym) {
+}void interprete_symboles(const std::string& ligne,std::vector<int>& sym) {
     unsigned int ancien_ind_apres_espace;
     unsigned int ind_espace=0;
     while (ind_espace<ligne.size()) {
@@ -45,7 +43,7 @@ void Pioche::interprete_ligne(const std::string& ligne,std::string& comm,int& ar
     if (ind_barre<ligne.size()) interprete_symboles(ligne.substr(ind_barre+1),sym);
 }
 
-Pioche::Pioche(std::vector<std::string> paragraph,Game& G) {
+Pioche::Pioche(const std::vector<std::string>& paragraph,Game& G) {
     std::string carte_type;
     for (unsigned int i=0;i<paragraph.size();i++) {
         int carte_cost=0;int carte_rv=0;double carte_prc=0;std::vector<int> sym;
