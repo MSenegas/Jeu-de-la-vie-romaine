@@ -4,6 +4,7 @@
 class Game;
 class Joueur;
 class Pioche;
+class CarteSymboles;
 
 class Carte {
 protected:
@@ -16,6 +17,7 @@ public:
     virtual void tirer(Joueur&) const=0;
     virtual int base_value() const;
     virtual int operator()() const;
+    virtual const std::vector<int>& symboles() const;
     virtual double variation() const;
     void defausser() const;
 };
@@ -33,13 +35,15 @@ public:
 };
 
 class CartePropriete: public Carte {
+    std::vector<int> val_symb;
     int prix_base;
     int revenu;
 public:
-    CartePropriete(Pioche& P,int b,int r): Carte(P),prix_base(b),revenu(r) {}
-    void tirer(Joueur&) const;
+    CartePropriete(Pioche& P,const std::vector<int>& v,int b,int r): Carte(P),val_symb(v),prix_base(b),revenu(r) {}
+    void tirer(Joueur& J) const;
     int base_value() const {return prix_base;}
     int operator()() const {return revenu;}
+    const std::vector<int>& symboles() const {return val_symb;}
 };
 
 class CarteMettezProprieteEncheres: public Carte {
@@ -154,5 +158,9 @@ public:
 };
 
 class CarteSymboles: public Carte {
-    // Réfléchir aux symboles possibles
+    std::vector<int> symb;
+public:
+    CarteSymboles(Pioche& P,const std::vector<int>& C): Carte(P),symb(C) {}
+    void tirer(Joueur&) const;
+    const std::vector<int>& symboles() const {return symb;}
 };

@@ -145,6 +145,11 @@ void Joueur::vendre_cartes_achetez() {
 
 void Joueur::add_carte_propriete(const Carte *C) {cartes_propriete.push_back(C);}
 
+int Joueur::decision_enchere_carte_propriete(Game& G, const Carte* C, int reduction) const {
+    std::cerr << "Warning: Le joueur achètera les propriétés à leur prix de base" << std::endl;
+    return C->base_value()+reduction; // !!!!!!!!!!!!!!!!!! À AMÉLIORER !!!!!!!!!!!!!!!!!!!!!
+}
+
 void Joueur::carriere_nouv_periode() {
     if (periode==PERIODE_CHEMIN_SUR_RISQUE)
         carriere=decision_chemin_risque_sur();}

@@ -13,14 +13,43 @@
 int Carte::base_value() const {throw std::logic_error("Seules les cartes achetez et propriété définissent la fonction base_value");}
 int Carte::operator()() const {throw std::logic_error("Seules les cartes enfant,achetez et propriété définissent la fonction d'appel");}
 double Carte::variation() const {throw std::logic_error("Seules les cartes achetez définissent la fonction variation");}
+const std::vector<int>& Carte::symboles() const {throw std::logic_error("Seules les cartes propriété et symboles définissent la fonction symboles");}
 
 void CarteAchetez::tirer(Joueur&) const {std::logic_error("Les cartes achetez ne devraient pas activer la fonction tirer");}
 void CartePropriete::tirer(Joueur&) const {std::logic_error("Les cartes propriété ne devraient pas activer la fonction tirer");}
+void CarteSymboles::tirer(Joueur&) const {std::logic_error("Les cartes symboles ne devraient pas activer la fonction tirer");}
 
 // S'assurer qu'aucune autre action ne doit être prise lors de la restitution d'une carte
 void Carte::defausser() const {pioche_source.defausser(this);}
 
-//void CarteMettezProprieteEncheres::tirer(Joueur &) const {}
+int operator*(const std::vector<int>& a,const std::vector<int>& b) {
+    int rep=0;
+    for (unsigned int i=0;i<a.size();i++)
+        rep+=a.at(i)*b.at(i);
+    return rep;
+}
+
+void CarteMettezProprieteEncheres::tirer(Joueur& J) const {
+    const Carte* P=current_game.banque.pioche_propriete.pop();
+    unsigned int ind_j=0;
+    while (&current_game.liste_joueurs.at(ind_j)!=&J) ind_j++; // On favorise les joueurs faisant l'enchère en premier (en particulier celui qui tire la carte)
+    unsigned int joueur_gagnant=ind_j;
+    int enchere_gagnante=P->base_value();
+    int reduction_gagnante=0;
+    for (unsigned int i=ind_j,start=1;i!=ind_j || start;i++,i%=current_game.liste_joueurs.size(),start=0) {
+        const Carte* S=current_game.banque.pioche_symboles.pop();
+        int reduction=P->symboles()*S->symboles();
+        int enchere=current_game.liste_joueurs.at(i).decision_enchere_carte_propriete(current_game,P,reduction);
+        if (enchere>enchere_gagnante) {
+            joueur_gagnant=i;
+            enchere_gagnante=enchere;
+            reduction_gagnante=reduction;}
+        S->defausser();
+    }
+    current_game.liste_joueurs.at(joueur_gagnant).cash_flow(reduction_gagnante-enchere_gagnante);
+    current_game.liste_joueurs.at(joueur_gagnant).add_carte_propriete(P);
+    defausser();
+}
 
 void CarteSortezPrison::tirer(Joueur& J) const {
     J.add_carte_sortez_prison(this);
@@ -52,7 +81,7 @@ void CarteReculezAvancezJoueurs::tirer(Joueur&) const {
 }
 
 void CarteAutreChanceTresor::tirer(Joueur& J) const {
-    if ()
+    if (J.decision_autre_chance_tresor())
         current_game.banque.pioche_chance.tirer(J);
     else
         current_game.banque.pioche_tresor.tirer(J);
@@ -60,7 +89,7 @@ void CarteAutreChanceTresor::tirer(Joueur& J) const {
 }
 
 void CarteAutreCashBonus::tirer(Joueur& J) const {
-    if ()
+    if (J.decision_autre_cash_bonus())
         current_game.banque.pioche_bonus.tirer(J);
     else
         J.cash_flow(INDEMNITE_AUTRE_CARTE_BONUS);
@@ -68,7 +97,7 @@ void CarteAutreCashBonus::tirer(Joueur& J) const {
 }
 
 void CarteJeuHasardAvantage::tirer(Joueur& J) const {
-    int mise=;
+    int mise=J.decision_jeu_hasard_avantage();
     J.cash_flow(-mise);
     if (Game::lancer_de()==FACE_JEU_HASARD_AVANTAGE)
         J.cash_flow(FACTEUR_JEU_HASARD_AVANTAGE*mise);

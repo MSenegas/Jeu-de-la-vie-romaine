@@ -52,10 +52,12 @@ public:
     void decision_acheter_cartes(std::vector<const Carte*>& LC) const; // Décide des cartes à acheter ou non
     void acheter_cartes_achetez(const std::vector<const Carte*>& LC);
     void vendre_cartes_achetez();
+    int decision_enchere_carte_propriete(Game& G,const Carte* C,int reduction) const; // Décide combien proposer pour cette carte propriété
     void add_carte_propriete(const Carte* C);
-    // évtl. faire un système de vente entre joueurs
+    bool decision_autre_chance_tresor() const; // Décide si tirer une carte chance ou trésor lorsque la carte le demandant est tirée
+    bool decision_autre_cash_bonus() const; // Décide si tirer une carte bonus ou de l'argent
+    int decision_jeu_hasard_avantage() const; // Décide combien miser au jeu de harard avantageux
     void reset(const int& n_carr); // Réinitialise le joueur
     void dessine_icone(int i0,int j0,int taille_cadre=TAILLE_CASES_AFFICHAGE) const; // Affiche le joueur
     friend void Plateau::affichage(std::vector<const Joueur*>) const;
-    // évtl. faire variante générations
 };
