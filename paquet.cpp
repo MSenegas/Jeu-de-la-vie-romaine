@@ -4,7 +4,7 @@
 #include "game.h"
 #include "paquet.h"
 
-void Pioche::interprete_ligne(const std::string& ligne,std::string& comm,int& arg1,int& arg2,double& arg3) {
+void Pioche::interprete_ligne(const std::string& ligne,std::string& comm,int& arg1,int& arg2,double& arg3,std::vector<int>& sym) {
     // Interprète une chaîne de caractères de la forme <chaîne> [int1] [int2] [double3]
     unsigned int ancien_ind_apres_espace;
     unsigned int ind_apres_espace=ligne.find(' ');
@@ -31,10 +31,10 @@ void Pioche::interprete_ligne(const std::string& ligne,std::string& comm,int& ar
 Pioche::Pioche(std::vector<std::string> paragraph,Game& G) {
     std::string carte_type;
     for (unsigned int i=0;i<paragraph.size();i++) {
-        int carte_cost=0;int carte_rv=0;double carte_prc=0;
-        interprete_ligne(paragraph.at(i),carte_type,carte_cost,carte_rv,carte_prc);
+        int carte_cost=0;int carte_rv=0;double carte_prc=0;std::vector<int> sym;
+        interprete_ligne(paragraph.at(i),carte_type,carte_cost,carte_rv,carte_prc,sym);
         if (carte_type=="achetez") pioche.push_back(new CarteAchetez(*this,carte_cost,carte_rv,carte_prc));
-        else if (carte_type=="propriete") pioche.push_back(new CartePropriete(*this,carte_cost,carte_rv,));
+        else if (carte_type=="propriete") pioche.push_back(new CartePropriete(*this,carte_cost,carte_rv,sym));
         else if (carte_type=="encheres") pioche.push_back(new CarteMettezProprieteEncheres(*this,G));
         else if (carte_type=="sortez_prison") pioche.push_back(new CarteSortezPrison(*this));
         else if (carte_type=="tirez_enfant") pioche.push_back(new CarteTirezEnfant(*this,G));
@@ -51,7 +51,7 @@ Pioche::Pioche(std::vector<std::string> paragraph,Game& G) {
         else if (carte_type=="cash") pioche.push_back(new CarteCash(*this,carte_cost));
         else if (carte_type=="cash_joueurs") pioche.push_back(new CarteCashJoueurs(*this,G,carte_cost));
         else if (carte_type=="cash_cagnotte_joueurs") pioche.push_back(new CarteCashCagnotteJoueurs(*this,G,carte_cost));
-        else if (carte_type=="symboles") pioche.push_back(new CarteSymboles(*this,));
+        else if (carte_type=="symboles") pioche.push_back(new CarteSymboles(*this,sym));
         else {
             std::string err_msg=" n'est pas un nom de carte reconnu";
             throw std::invalid_argument(carte_type+err_msg);}}
