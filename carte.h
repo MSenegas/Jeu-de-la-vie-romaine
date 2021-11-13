@@ -39,7 +39,7 @@ class CartePropriete: public Carte {
     int prix_base;
     int revenu;
 public:
-    CartePropriete(Pioche& P,const std::vector<int>& v,int b,int r): Carte(P),val_symb(v),prix_base(b),revenu(r) {}
+    CartePropriete(Pioche& P,int b,int r,const std::vector<int>& v): Carte(P),val_symb(v),prix_base(b),revenu(r) {}
     void tirer(Joueur& J) const;
     int base_value() const {return prix_base;}
     int operator()() const {return revenu;}

@@ -12,7 +12,7 @@ void Periode::interprete_ligne(const std::string& ligne,std::string& comm,int& a
         arg=std::stoi(ligne.substr(ind_apres_espace));
 }
 
-Periode::Periode(const std::vector<std::string> paragraph,Game& G) {
+Periode::Periode(const std::vector<std::string>& paragraph,Game& G) {
     std::string case_type;
     for (unsigned int i=0;i<paragraph.size();i++) {
         int case_cash=0;
@@ -45,10 +45,10 @@ bool Periode::is_empty() const {return cases.empty();}
 
 unsigned int Periode::size() const {return cases.size();}
 
-void Periode::tomber(const unsigned int &n_case, Joueur &J) {
+void Periode::tomber(const unsigned int n_case, Joueur &J) {
     cases.at(n_case)->tomber(J);}
 
-void Periode::passer(const unsigned int &n_case, Joueur &J) {
+void Periode::passer(const unsigned int n_case, Joueur &J) {
     cases.at(n_case)->passer(J);}
 
 void Periode::reset_cases() {
@@ -59,7 +59,7 @@ void Periode::affichage(int i0, int j0) const {
     for (unsigned int i=0;i<cases.size();i++)
         cases.at(i)->affichage(i0,j0+TAILLE_CASES_AFFICHAGE*i);}
 
-Plateau::Plateau(const std::string path,Game& G) {
+Plateau::Plateau(const std::string& path,Game& G) {
     std::vector<std::vector<std::string>> paragraph_list;
     Game::lire_fichier(paragraph_list,path);
     plateau=std::vector<Periode>(indice_plateau(N_CARRIERES,paragraph_list.size())+1,Periode());
@@ -83,22 +83,22 @@ Plateau::Plateau(const std::string path,Game& G) {
         plateau.pop_back();
 }
 
-bool Plateau::depasse_periode(const int& n_carr, const int& n_per, const unsigned int& n_case) const {
+bool Plateau::depasse_periode(const int n_carr, const int n_per, const unsigned int n_case) const {
     if (n_case>=plateau.at(indice_plateau(n_carr,n_per)).size())
         return true;
     else return false;
 }
 
-bool Plateau::derniere_periode(const int &n_per) const {
+bool Plateau::derniere_periode(const int n_per) const {
     return (indice_plateau(1,n_per+1)>=plateau.size());}
 
-unsigned int Plateau::size_periode(const int &n_carr, const int &n_per) const {
+unsigned int Plateau::size_periode(const int n_carr, const int n_per) const {
     return plateau.at(indice_plateau(n_carr,n_per)).size();}
 
-void Plateau::tomber(const int &n_carr, const int &n_per, const unsigned int &n_case, Joueur &J) {
+void Plateau::tomber(const int n_carr, const int n_per, const unsigned int n_case, Joueur &J) {
     plateau.at(indice_plateau(n_carr,n_per)).tomber(n_case,J);}
 
-void Plateau::passer(const int &n_carr, const int &n_per, const unsigned int &n_case, Joueur &J) {
+void Plateau::passer(const int n_carr, const int n_per, const unsigned int n_case, Joueur &J) {
     plateau.at(indice_plateau(n_carr,n_per)).passer(n_case,J);}
 
 void Plateau::reset_cases() {

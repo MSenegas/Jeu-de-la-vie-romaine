@@ -29,8 +29,8 @@ std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> Game::lancer_piece=
 std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> Game::lancer_de_mise_pari_loto=std::bind(LANCER_DE_MISE_PARI_LOTO,gene_alea);
 std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> Game::lancer_de_gain_loto=std::bind(LANCER_DE_GAIN_LOTO,gene_alea);
 
-Game::Game(const std::string path_plateau,const std::string path_cartes,const unsigned int nb_joueurs):
-    plateau(path_plateau,*this),collection(path_cartes,*this),banque(collection) {reset();}
+Game::Game(const std::string& path_plateau,const std::string& path_cartes,unsigned int nb_joueurs):
+    plateau(path_plateau,*this),banque(path_cartes,*this),liste_joueurs(nb_joueurs) {reset();}
 
 std::vector<int> Game::tirage_carrieres(const unsigned int nb_joueurs) {
     std::vector<int> liste_carrieres;

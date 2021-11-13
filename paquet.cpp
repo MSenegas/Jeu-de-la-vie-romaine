@@ -4,7 +4,7 @@
 #include "game.h"
 #include "paquet.h"
 
-void Paquet::interprete_ligne(const std::string& ligne,std::string& comm,int& arg1,int& arg2,double& arg3) {
+void Pioche::interprete_ligne(const std::string& ligne,std::string& comm,int& arg1,int& arg2,double& arg3) {
     // Interprète une chaîne de caractères de la forme <chaîne> [int1] [int2] [double3]
     unsigned int ancien_ind_apres_espace;
     unsigned int ind_apres_espace=ligne.find(' ');
@@ -28,53 +28,58 @@ void Paquet::interprete_ligne(const std::string& ligne,std::string& comm,int& ar
                 *args12.at(yeah)=std::stoi(ligne.substr(ancien_ind_apres_espace,ind_apres_espace-ancien_ind_apres_espace-1));}}}
 }
 
-Paquet::Paquet(std::vector<std::string> paragraph,Game& G) {
+Pioche::Pioche(std::vector<std::string> paragraph,Game& G) {
     std::string carte_type;
     for (unsigned int i=0;i<paragraph.size();i++) {
         int carte_cost=0;int carte_rv=0;double carte_prc=0;
         interprete_ligne(paragraph.at(i),carte_type,carte_cost,carte_rv,carte_prc);
-        if (carte_type=="") paquet.push_back(new Carte());
+        if (carte_type=="achetez") pioche.push_back(new CarteAchetez(*this,carte_cost,carte_rv,carte_prc));
+        else if (carte_type=="propriete") pioche.push_back(new CartePropriete(*this,carte_cost,carte_rv,));
+        else if (carte_type=="encheres") pioche.push_back(new CarteMettezProprieteEncheres(*this,G));
+        else if (carte_type=="sortez_prison") pioche.push_back(new CarteSortezPrison(*this));
+        else if (carte_type=="tirez_enfant") pioche.push_back(new CarteTirezEnfant(*this,G));
+        else if (carte_type=="enfant") pioche.push_back(new CarteEnfant(*this,carte_cost));
+        else if (carte_type=="rejouez") pioche.push_back(new CarteRejouez(*this,G));
+        else if (carte_type=="reculez_avancez") pioche.push_back(new CarteReculezAvancez(*this,G,carte_cost));
+        else if (carte_type=="reculez_avancez_joueurs") pioche.push_back(new CarteReculezAvancezJoueurs(*this,G,carte_cost));
+        else if (carte_type=="autre_chance_tresor") pioche.push_back(new CarteAutreChanceTresor(*this,G));
+        else if (carte_type=="cash_ou_bonus") pioche.push_back(new CarteAutreCashBonus(*this,G));
+        else if (carte_type=="jeu_avantage") pioche.push_back(new CarteJeuHasardAvantage(*this));
+        else if (carte_type=="pari") pioche.push_back(new CartePari(*this,G));
+        else if (carte_type=="prison") pioche.push_back(new CartePrison(*this));
+        else if (carte_type=="esclave") pioche.push_back(new CarteEsclave(*this));
+        else if (carte_type=="cash") pioche.push_back(new CarteCash(*this,carte_cost));
+        else if (carte_type=="cash_joueurs") pioche.push_back(new CarteCashJoueurs(*this,G,carte_cost));
+        else if (carte_type=="cash_cagnotte_joueurs") pioche.push_back(new CarteCashCagnotteJoueurs(*this,G,carte_cost));
+        else if (carte_type=="symboles") pioche.push_back(new CarteSymboles(*this,));
         else {
             std::string err_msg=" n'est pas un nom de carte reconnu";
             throw std::invalid_argument(carte_type+err_msg);}}
 }
 
-unsigned int Paquet::size() const {return paquet.size();}
-
-const Carte* Paquet::operator()(unsigned int i) const {return paquet.at(i);}
-
-Collection::Collection(const std::string path,Game& G) {
+Banque::Banque(const std::string& path,Game& G) {
     std::vector<std::vector<std::string>> paragraph_list;
     Game::lire_fichier(paragraph_list,path);
     for (unsigned int i=0;i<paragraph_list.size();i++) {
         std::string nom_paquet=paragraph_list.at(i).front();
         paragraph_list.at(i).erase(paragraph_list.at(i).begin());
         if (nom_paquet=="chance")
-            paquet_chance=Paquet(paragraph_list.at(i),G);
+            pioche_chance=Pioche(paragraph_list.at(i),G);
         else if (nom_paquet=="tresor")
-            paquet_tresor=Paquet(paragraph_list.at(i),G);
+            pioche_tresor=Pioche(paragraph_list.at(i),G);
         else if (nom_paquet=="bonus")
-            paquet_bonus=Paquet(paragraph_list.at(i),G);
+            pioche_bonus=Pioche(paragraph_list.at(i),G);
         else if (nom_paquet=="achetez")
-            paquet_achetez=Paquet(paragraph_list.at(i),G);
+            pioche_achetez=Pioche(paragraph_list.at(i),G);
         else if (nom_paquet=="enfant")
-            paquet_enfant=Paquet(paragraph_list.at(i),G);
+            pioche_enfant=Pioche(paragraph_list.at(i),G);
         else if (nom_paquet=="propriete")
-            paquet_propriete=Paquet(paragraph_list.at(i),G);
+            pioche_propriete=Pioche(paragraph_list.at(i),G);
         else if (nom_paquet=="symboles")
-            paquet_symboles=Paquet(paragraph_list.at(i),G);
+            pioche_symboles=Pioche(paragraph_list.at(i),G);
         else {
             std::string err_msg=" n'est pas un nom de paquet reconnu.";
             throw std::invalid_argument(nom_paquet+err_msg);}}
-}
-
-Pioche::Pioche(const Paquet& Pq): paquet_source(Pq) {reset();}
-
-void Pioche::reset() {
-    pioche.clear();defausse.clear();
-    for (unsigned int i=0;i<paquet_source.size();i++)
-        pioche.push_back(paquet_source(i));
-    std::shuffle(pioche.begin(),pioche.end(),Game::gene_alea);
 }
 
 void Pioche::melanger() {
@@ -96,17 +101,12 @@ void Pioche::tirer(Joueur& J) {pop()->tirer(J);}
 
 void Pioche::defausser(const Carte* C) {defausse.push_back(C);}
 
-Banque::Banque(const Collection& Coll): pioche_chance(Coll.paquet_chance),
-    pioche_tresor(Coll.paquet_tresor),pioche_bonus(Coll.paquet_bonus),
-    pioche_achetez(Coll.paquet_achetez),pioche_enfant(Coll.paquet_enfant),
-    pioche_propriete(Coll.paquet_propriete),pioche_symboles(Coll.paquet_symboles) {}
-
 void Banque::reset() {
-    pioche_chance.reset();
-    pioche_tresor.reset();
-    pioche_bonus.reset();
-    pioche_achetez.reset();
-    pioche_enfant.reset();
-    pioche_propriete.reset();
-    pioche_symboles.reset();
+    pioche_chance.melanger();
+    pioche_tresor.melanger();
+    pioche_bonus.melanger();
+    pioche_achetez.melanger();
+    pioche_enfant.melanger();
+    pioche_propriete.melanger();
+    pioche_symboles.melanger();
 }

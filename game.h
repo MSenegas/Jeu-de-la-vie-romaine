@@ -8,7 +8,6 @@
 class Game {
     unsigned int t; // Temps écoulé
     Plateau plateau;
-    Collection collection;
     Banque banque;
     std::vector<Joueur> liste_joueurs;
     unsigned int cagnotte;
@@ -18,7 +17,7 @@ public:
     static std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> lancer_piece;
     static std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> lancer_de_mise_pari_loto;
     static std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> lancer_de_gain_loto;
-    Game(const std::string path_plateau,const std::string path_cartes,const unsigned int nb_joueurs);
+    Game(const std::string& path_plateau,const std::string& path_cartes,unsigned int nb_joueurs);
     static std::vector<int> tirage_carrieres(const unsigned int nb_joueurs); // Effectue le tirage au sort pour les carrières des joueurs !!! À CHANGER SI L'ON RAJOUTE DES CARRIERES !!!
     static void lire_fichier(std::vector<std::vector<std::string>>& paragraph_list,const std::string path);
     void play_full_game(); // Lance une partie en entier
