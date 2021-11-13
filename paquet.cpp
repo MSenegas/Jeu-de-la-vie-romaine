@@ -29,7 +29,7 @@ void interprete_attributs(const std::string& ligne,std::string& comm,int& arg1,i
     unsigned int ancien_ind_apres_espace;
     unsigned int ind_espace=0;
     while (ind_espace<ligne.size()) {
-        if (!ind_espace==0) sym.push_back(std::stoi(ligne.substr(ancien_ind_apres_espace,ind_espace)));
+        if (ind_espace!=0) sym.push_back(std::stoi(ligne.substr(ancien_ind_apres_espace,ind_espace)));
         while (ind_espace<ligne.size() && ligne.at(ind_espace)==' ') ind_espace++;
         ancien_ind_apres_espace=ind_espace;
         ind_espace=ligne.find(' ',ind_espace);
