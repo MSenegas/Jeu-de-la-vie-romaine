@@ -25,14 +25,14 @@ public:
     void game_loop(); // Gestion du tour
     void mouv_joueur(Joueur& J,const int& de); // Appelle la fonction mouv du joueur (utilisée par les cases, cartes)
     void reset(); // Réinitialise la partie
-    friend void CaseCashJoueurs::tomber(Joueur&);
-    friend void CaseCashCagnotte::tomber(Joueur&);
-    friend void CaseCashCagnotteJoueurs::tomber(Joueur&);
-    friend void CaseChance::tomber(Joueur&);
-    friend void CaseTresor::tomber(Joueur&);
-    friend void CaseSalaire::tomber(Joueur&);
-    friend void CaseEnfant::tomber(Joueur&);
-    friend void CaseMarche::tomber(Joueur&);
+    friend void CaseCashJoueurs::tomber(Joueur&) const;
+    friend void CaseCashCagnotte::tomber(Joueur&) const;
+    friend void CaseCashCagnotteJoueurs::tomber(Joueur&) const;
+    friend void CaseChance::tomber(Joueur&) const;
+    friend void CaseTresor::tomber(Joueur&) const;
+    friend void CaseSalaire::tomber(Joueur&) const;
+    friend void CaseEnfant::tomber(Joueur&) const;
+    friend void CaseMarche::tomber(Joueur&) const;
     friend void CarteMettezProprieteEncheres::tirer(Joueur&) const;
     friend void CarteTirezEnfant::tirer(Joueur&) const;
     friend void CarteReculezAvancezJoueurs::tirer(Joueur&) const;

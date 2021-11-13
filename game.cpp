@@ -30,7 +30,7 @@ std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> Game::lancer_de_mis
 std::_Bind<std::uniform_int_distribution<>(std::mt19937_64)> Game::lancer_de_gain_loto=std::bind(LANCER_DE_GAIN_LOTO,gene_alea);
 
 Game::Game(const std::string& path_plateau,const std::string& path_cartes,unsigned int nb_joueurs):
-    plateau(path_plateau,*this),banque(path_cartes,*this),liste_joueurs(nb_joueurs) {reset();}
+    plateau(path_plateau,*this),banque(path_cartes,*this),liste_joueurs(nb_joueurs,Joueur(1)) {reset();}
 
 std::vector<int> Game::tirage_carrieres(const unsigned int nb_joueurs) {
     std::vector<int> liste_carrieres;
@@ -78,7 +78,6 @@ void Game::mouv_joueur(Joueur& J, const int& de) {J.mouv(plateau,de);}
 void Game::reset() {
     t=0;
     cagnotte=0;
-    plateau.reset_cases();
     banque.reset();
     std::vector<int> liste_n_carr=tirage_carrieres(liste_joueurs.size());
     for (unsigned int i=0;i<liste_joueurs.size();i++)

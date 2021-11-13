@@ -4,9 +4,9 @@
 #include "game.h"
 #include "joueur.h"
 
-Joueur::Joueur(const int& n_carr) {reset(n_carr);}
+Joueur::Joueur(const int n_carr) {reset(n_carr);}
 
-void Joueur::cash_flow(const int& gain) {money+=gain;}
+void Joueur::cash_flow(const int gain) {money+=gain;}
 
 void Joueur::verif_dettes() {
     if (money<0) {
@@ -42,13 +42,15 @@ void Joueur::passer_salaire() {
         cash_flow((*cartes_propriete.at(i))());
 }
 
+void Joueur::ajouter_salaire_deja_recu(const Case* C) {salaires_recus.push_back(C);}
+
 void Joueur::aller_prison() {
     essais_prison=0;
     prison=true;}
 
 void Joueur::sortir_prison() {prison=false;}
 
-void Joueur::tenter_sortir_prison(const int& de) {
+void Joueur::tenter_sortir_prison(const int de) {
     if (remove_carte_sortez_prison())
         sortir_prison();
     if (essais_prison<N_MAX_ESSAIS_PRISON) {
@@ -108,7 +110,7 @@ bool Joueur::decision_acheter_vendre() const {
 
 void Joueur::decision_acheter_cartes(std::vector<const Carte*>& LC) const {
     // std::sort(LC.begin(),LC.end(),NulliteAchat);
-    // Si on retire un carte, faire:
+    // Si on retire une carte, faire:
     // LC.back()->defausser();
     // LC.pop_back();
 }
@@ -150,6 +152,19 @@ int Joueur::decision_enchere_carte_propriete(Game& G, const Carte* C, int reduct
     return C->base_value()+reduction; // !!!!!!!!!!!!!!!!!! À AMÉLIORER !!!!!!!!!!!!!!!!!!!!!
 }
 
+bool Joueur::decision_autre_chance_tresor() const {
+    return Game::lancer_piece(); // à améliorer
+}
+
+bool Joueur::decision_autre_cash_bonus() const {
+    return Game::lancer_piece(); // à améliorer
+}
+
+int Joueur::decision_jeu_hasard_avantage() const {
+    std::cerr << "Warning: Le joueur mettra toujours la mise maximale" << std::endl;
+    return MAX_MISE_POSSIBLE_JEU_HASARD_AVANTAGE; // à améliorer
+}
+
 void Joueur::carriere_nouv_periode() {
     if (periode==PERIODE_CHEMIN_SUR_RISQUE)
         carriere=decision_chemin_risque_sur();}
@@ -168,7 +183,7 @@ void Joueur::play(Plateau& P,unsigned int& cag) {
             mouv(P,de);}}
 }
 
-void Joueur::mouv(Plateau& P,const int& de) {
+void Joueur::mouv(Plateau& P,const int de) {
     if (esclave) {
         case_esclave+=de;
         if (case_esclave>=0) {
@@ -208,6 +223,7 @@ void Joueur::reset(const int& n_carr) {
     periode=1;
     case_libre=0;
     a_fini=false;
+    salaires_recus.clear();
     prison=false;
     essais_prison=0;
     esclave=false;

@@ -4,8 +4,7 @@
 #include "game.h"
 #include "paquet.h"
 
-void Pioche::interprete_ligne(const std::string& ligne,std::string& comm,int& arg1,int& arg2,double& arg3,std::vector<int>& sym) {
-    // Interprète une chaîne de caractères de la forme <chaîne> [int1] [int2] [double3]
+void interprete_attributs(const std::string& ligne,std::string& comm,int& arg1,int& arg2,double& arg3) {
     unsigned int ancien_ind_apres_espace;
     unsigned int ind_apres_espace=ligne.find(' ');
     comm=ligne.substr(0,ind_apres_espace);
@@ -26,6 +25,24 @@ void Pioche::interprete_ligne(const std::string& ligne,std::string& comm,int& ar
                 ind_apres_espace=ligne.find(' ',ind_apres_espace);
                 while (ind_apres_espace<ligne.size() && ligne.at(ind_apres_espace)==' ') ind_apres_espace++;
                 *args12.at(yeah)=std::stoi(ligne.substr(ancien_ind_apres_espace,ind_apres_espace-ancien_ind_apres_espace-1));}}}
+}
+
+void interprete_symboles(const std::string& ligne,std::vector<int>& sym) {
+    unsigned int ancien_ind_apres_espace;
+    unsigned int ind_espace=0;
+    while (ind_espace<ligne.size()) {
+        while (ind_espace<ligne.size() && ligne.at(ind_espace)==' ') ind_espace++;
+        ancien_ind_apres_espace=ind_espace;
+        ind_espace=ligne.find(' ',ind_espace);
+        sym.push_back(std::stoi(ligne.substr(ancien_ind_apres_espace,ind_espace)));
+    }
+}
+
+void Pioche::interprete_ligne(const std::string& ligne,std::string& comm,int& arg1,int& arg2,double& arg3,std::vector<int>& sym) {
+    // Interprète une chaîne de caractères de la forme <chaîne> [int1] [int2] [double3] | [vector<int>]
+    unsigned int ind_barre=ligne.find('|');
+    interprete_attributs(ligne.substr(0,ind_barre),comm,arg1,arg2,arg3);
+    if (ind_barre<ligne.size()) interprete_symboles(ligne.substr(ind_barre+1),sym);
 }
 
 Pioche::Pioche(std::vector<std::string> paragraph,Game& G) {

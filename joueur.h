@@ -14,6 +14,7 @@ class Joueur {
     int periode;
     int case_libre;
     bool a_fini;
+    std::vector<const Case*> salaires_recus;
     // Prison & Esclave
     bool prison;
     unsigned int essais_prison;
@@ -27,19 +28,20 @@ class Joueur {
     std::vector<const Carte*> cartes_enfant;
     std::vector<const Carte*> cartes_propriete;
 public:
-    Joueur(const int& n_carr);
-    void cash_flow(const int& gain); // Augmente l'argent du joueur de gain (peut être négatif)
+    Joueur(const int n_carr);
+    void cash_flow(const int gain); // Augmente l'argent du joueur de gain (peut être négatif)
     void verif_dettes(); // Vérifie s'il faut emprunter ou s'il est possible de rembourser des dettes
     void add_conseil();
     void play(Plateau& P,unsigned int& cag); // Gère le tour du joueur
-    void mouv(Plateau& P,const int& de); // Effectue le mouvement des joueurs et les effets des cases
+    void mouv(Plateau& P,const int de); // Effectue le mouvement des joueurs et les effets des cases
     bool is_over() const;
     void carriere_nouv_periode(); // Renvoie la carrière correspondant à la période !!! À CHANGER SI L'ON RAJOUTE DES CARRIERES !!!
     int decision_chemin_risque_sur() const; // Effectue la décision du chemin risqué ou sûr
     void prendre_cagnotte(unsigned int& cag); // Donne la cagnotte au joueur (ne vérifie pas)
     void passer_salaire(); // Gère les coupons, le revenu des conseils et des propriétés
+    void ajouter_salaire_deja_recu(const Case* C); // Ajoute à la liste des salaires déjà reçus
     void aller_prison();
-    void tenter_sortir_prison(const int& de);
+    void tenter_sortir_prison(const int de);
     void sortir_prison();
     void aller_esclavage();
     void sortir_esclavage();
@@ -59,5 +61,6 @@ public:
     int decision_jeu_hasard_avantage() const; // Décide combien miser au jeu de harard avantageux
     void reset(const int& n_carr); // Réinitialise le joueur
     void dessine_icone(int i0,int j0,int taille_cadre=TAILLE_CASES_AFFICHAGE) const; // Affiche le joueur
+    friend void CaseSalaire::passer(Joueur&) const;
     friend void Plateau::affichage(std::vector<const Joueur*>) const;
 };

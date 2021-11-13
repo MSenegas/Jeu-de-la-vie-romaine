@@ -45,15 +45,11 @@ bool Periode::is_empty() const {return cases.empty();}
 
 unsigned int Periode::size() const {return cases.size();}
 
-void Periode::tomber(const unsigned int n_case, Joueur &J) {
+void Periode::tomber(const unsigned int n_case, Joueur &J) const {
     cases.at(n_case)->tomber(J);}
 
-void Periode::passer(const unsigned int n_case, Joueur &J) {
+void Periode::passer(const unsigned int n_case, Joueur &J) const {
     cases.at(n_case)->passer(J);}
-
-void Periode::reset_cases() {
-    for (unsigned int i=0;i<cases.size();i++)
-        cases.at(i)->reset_case();}
 
 void Periode::affichage(int i0, int j0) const {
     for (unsigned int i=0;i<cases.size();i++)
@@ -95,15 +91,11 @@ bool Plateau::derniere_periode(const int n_per) const {
 unsigned int Plateau::size_periode(const int n_carr, const int n_per) const {
     return plateau.at(indice_plateau(n_carr,n_per)).size();}
 
-void Plateau::tomber(const int n_carr, const int n_per, const unsigned int n_case, Joueur &J) {
+void Plateau::tomber(const int n_carr, const int n_per, const unsigned int n_case, Joueur &J) const {
     plateau.at(indice_plateau(n_carr,n_per)).tomber(n_case,J);}
 
-void Plateau::passer(const int n_carr, const int n_per, const unsigned int n_case, Joueur &J) {
+void Plateau::passer(const int n_carr, const int n_per, const unsigned int n_case, Joueur &J) const {
     plateau.at(indice_plateau(n_carr,n_per)).passer(n_case,J);}
-
-void Plateau::reset_cases() {
-    for (unsigned int i=0;i<plateau.size();i++)
-        plateau.at(i).reset_cases();}
 
 void affichejoueurs(const std::vector<const Joueur*>& LJ,int i0,int j0) {
     switch (LJ.size()) {
