@@ -147,5 +147,10 @@ void CarteCashCagnotteJoueurs::tirer(Joueur&) const {
 }
 
 void Carte::affichage(int i0, int j0) const {
-    Imagine::drawRect(j0,i0,TAILLE_CASES_AFFICHAGE,TAILLE_CASES_AFFICHAGE,Imagine::BLACK);
+    Imagine::drawRect(j0,i0,1.4*TAILLE_CASES_AFFICHAGE,TAILLE_CASES_AFFICHAGE,Imagine::BLACK);
+}
+
+void CarteAchetez::affichage(int i0, int j0) const {
+    Carte::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Achetez",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
 }
