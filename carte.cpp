@@ -155,7 +155,7 @@ void CartePropriete::affichage(int i0, int j0) const {
     Carte::affichage(i0,j0);
     Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Propriete",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
     Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(prix_base),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
-    Imagine::drawString(j0+0.5*TAILLE_CASES_AFFICHAGE,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(revenu),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0+0.8*TAILLE_CASES_AFFICHAGE,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(revenu),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
 }
 
 void CarteMettezProprieteEncheres::affichage(int i0, int j0) const {

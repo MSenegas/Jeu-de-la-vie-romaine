@@ -19,6 +19,7 @@ public:
     const Carte* pop(); // Retire une carte de la pioche (mélange si nécessaire)
     void tirer(Joueur& J); // Tire une carte et joue son effet sur le joueur J
     void defausser(const Carte* C); // Met une carte dans la défausse
+    void affichage(int i0,int j0) const; // Affiche la pioche
 };
 
 class Banque { // ~ J'ai pas de mot pour "ensemble de pioches"
@@ -31,5 +32,6 @@ public:
     Pioche pioche_propriete;
     Pioche pioche_symboles;
     Banque(const std::string& path,Game& G);
+    void affichage(int i0,int j0) const;
     void reset(); // Réinitialise la banque
 };

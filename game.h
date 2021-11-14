@@ -26,7 +26,7 @@ public:
     void mouv_joueur(Joueur& J,const int& de); // Appelle la fonction mouv du joueur (utilisée par les cases, cartes)
     void affichage() const; // Affiche tous les éléments de la partie
     void reset(); // Réinitialise la partie
-    friend void Plateau::affichage(std::vector<const Joueur*>&) const;
+    friend void Plateau::affichage(int,int,std::vector<const Joueur*>&) const;
     friend void CaseCashJoueurs::tomber(Joueur&) const;
     friend void CaseCashCagnotte::tomber(Joueur&) const;
     friend void CaseCashCagnotteJoueurs::tomber(Joueur&) const;

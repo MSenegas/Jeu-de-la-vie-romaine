@@ -124,6 +124,23 @@ void Pioche::tirer(Joueur& J) {
 
 void Pioche::defausser(const Carte* C) {defausse.push_back(C);}
 
+void Pioche::affichage(int i0, int j0) const {
+    for (unsigned int i=0;i<pioche.size();i++)
+        pioche.at(i)->affichage(i0+i*TAILLE_CASES_AFFICHAGE,j0);
+    for (unsigned int i=0;i<defausse.size();i++)
+        defausse.at(i)->affichage(i0+i*TAILLE_CASES_AFFICHAGE,j0+1.4*TAILLE_CASES_AFFICHAGE);
+}
+
+void Banque::affichage(int i0, int j0) const {
+    pioche_chance.affichage(i0,j0);
+    pioche_tresor.affichage(i0,j0+2.8*TAILLE_CASES_AFFICHAGE);
+    pioche_bonus.affichage(i0,j0+4.2*TAILLE_CASES_AFFICHAGE);
+    pioche_achetez.affichage(i0,j0+5.6*TAILLE_CASES_AFFICHAGE);
+    pioche_enfant.affichage(i0,j0+7*TAILLE_CASES_AFFICHAGE);
+    pioche_propriete.affichage(i0,j0+8.4*TAILLE_CASES_AFFICHAGE);
+    pioche_symboles.affichage(i0,j0+9.8*TAILLE_CASES_AFFICHAGE);
+}
+
 void Banque::reset() {
     pioche_chance.melanger();
     pioche_tresor.melanger();

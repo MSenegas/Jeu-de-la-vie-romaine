@@ -80,11 +80,14 @@ void Game::game_loop() {
 void Game::mouv_joueur(Joueur& J, const int& de) {J.mouv(plateau,de);}
 
 void Game::affichage() const {
+    // À AMÉLIORER: PASSER LES FENÊTRES EN RÉFÉRENCE ET METTRE CHAQUE CHOSE DANS UNE FENÊTRE DIFFÉRENTE
     std::vector<const Joueur*> LJ(liste_joueurs.size());
     for (unsigned int i=0;i<liste_joueurs.size();i++)
         LJ.at(i)=&liste_joueurs.at(i);
-    plateau.affichage(LJ);
-    // AFFICHER LA BANQUE ET LES ATTRIBUTS DU JOUEUR
+    plateau.affichage(0,0,LJ);
+    banque.affichage(0,500);
+    for (unsigned int i=0;i<liste_joueurs.size();i++)
+        liste_joueurs.at(i).affiche_cartes(300,250*i);
 }
 
 void Game::reset() {

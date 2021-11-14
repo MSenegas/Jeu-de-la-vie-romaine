@@ -63,6 +63,7 @@ public:
     int decision_jeu_hasard_avantage() const; // Décide combien miser au jeu de harard avantageux
     void reset(const int& n_carr); // Réinitialise le joueur
     void dessine_icone(int i0,int j0,int taille_cadre=TAILLE_CASES_AFFICHAGE) const; // Affiche le joueur
+    void affiche_cartes(int i0,int j0) const; // Affiche l'argent et les cartes du joueur
     friend void CaseSalaire::passer(Joueur&) const;
-    friend void Plateau::affichage(std::vector<const Joueur*>&) const;
+    friend void Plateau::affichage(int,int,std::vector<const Joueur*>&) const;
 };

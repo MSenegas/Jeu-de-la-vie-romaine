@@ -40,6 +40,6 @@ public:
     unsigned int size_periode(const int n_carr,const int n_per) const;
     void tomber(const int n_carr,const int n_per,const unsigned int n_case,Joueur& J) const;
     void passer(const int n_carr,const int n_per,const unsigned int n_case,Joueur& J) const;
-    void affichage(std::vector<const Joueur*>& LJ) const; // Affiche le plateau et les joueurs
+    void affichage(int i0,int j0,std::vector<const Joueur*>& LJ) const; // Affiche le plateau et les joueurs
     inline static unsigned int indice_plateau(const int& n_carr,const int& n_per) {return N_CARRIERES*(n_per-1)+n_carr;}
 };

@@ -136,13 +136,13 @@ void affichejoueurs(const std::vector<const Joueur*>& LJ,int i0,int j0) {
         throw std::invalid_argument("No players");}
 }
 
-void Plateau::affichage(std::vector<const Joueur*>& LJ) const {
+void Plateau::affichage(int i0,int j0,std::vector<const Joueur*>& LJ) const {
     // Plateau
-    plateau.at(0).affichage(0,0);
+    plateau.at(0).affichage(i0,j0);
     for (int n_carr=1;n_carr<=N_CARRIERES;n_carr++) {
         int n_per=1;
         while (!derniere_periode(n_per-1)) {
-            plateau.at(indice_plateau(n_carr,n_per)).affichage(TAILLE_CASES_AFFICHAGE*indice_plateau(n_carr,n_per),0);
+            plateau.at(indice_plateau(n_carr,n_per)).affichage(i0+TAILLE_CASES_AFFICHAGE*indice_plateau(n_carr,n_per),j0);
             n_per++;}}
     // Joueurs
     std::vector<const Joueur*> joueurs_meme_case;
@@ -164,7 +164,7 @@ void Plateau::affichage(std::vector<const Joueur*>& LJ) const {
             else ind_j--;}
         joueurs_meme_case.push_back(curr_player);
         if (curr_player->esclave)
-            affichejoueurs(joueurs_meme_case,0,TAILLE_CASES_AFFICHAGE*curr_player->case_esclave);
+            affichejoueurs(joueurs_meme_case,i0,j0+TAILLE_CASES_AFFICHAGE*curr_player->case_esclave);
         else
-            affichejoueurs(joueurs_meme_case,TAILLE_CASES_AFFICHAGE*indice_plateau(curr_player->carriere,curr_player->periode),TAILLE_CASES_AFFICHAGE*curr_player->case_libre);
+            affichejoueurs(joueurs_meme_case,i0+TAILLE_CASES_AFFICHAGE*indice_plateau(curr_player->carriere,curr_player->periode),j0+TAILLE_CASES_AFFICHAGE*curr_player->case_libre);
         joueurs_meme_case.clear();}}

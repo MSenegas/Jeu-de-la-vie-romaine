@@ -242,3 +242,16 @@ void Joueur::dessine_icone(int i0, int j0,int taille_cadre) const {
     int ly[3]={i0+int(taille_cadre*0.25),i0+int(taille_cadre*0.75),i0+int(taille_cadre*0.75)};
     Imagine::drawPoly(lx,ly,3,couleur);
 }
+
+void Joueur::affiche_cartes(int i0, int j0) const {
+    Imagine::drawString(j0,i0,std::to_string(money),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+TAILLE_CASES_AFFICHAGE,std::to_string(dettes),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    for (unsigned int i=0;i<cartes_sortez_prison.size();i++)
+        cartes_sortez_prison.at(i)->affichage(i0+(0.2+i)*TAILLE_CASES_AFFICHAGE,j0);
+    for (unsigned int i=0;i<cartes_achetez.size();i++)
+        cartes_achetez.at(i)->affichage(i0+(0.2+i)*TAILLE_CASES_AFFICHAGE,j0+1.4*TAILLE_CASES_AFFICHAGE);
+    for (unsigned int i=0;i<cartes_enfant.size();i++)
+        cartes_enfant.at(i)->affichage(i0+(0.2+i)*TAILLE_CASES_AFFICHAGE,j0+2.8*TAILLE_CASES_AFFICHAGE);
+    for (unsigned int i=0;i<cartes_propriete.size();i++)
+        cartes_propriete.at(i)->affichage(i0+(0.2+i)*TAILLE_CASES_AFFICHAGE,j0+4.2*TAILLE_CASES_AFFICHAGE);
+}
