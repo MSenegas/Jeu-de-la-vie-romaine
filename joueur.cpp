@@ -3,8 +3,7 @@
 #include "game.h"
 #include "joueur.h"
 
-Joueur::Joueur(const int n_carr): couleur(std::uniform_int_distribution<>(0,255)(Game::gene_alea),std::uniform_int_distribution<>(0,255)(Game::gene_alea),std::uniform_int_distribution<>(0,255)(Game::gene_alea))
-    {reset(n_carr);}
+Joueur::Joueur(const int n_carr) {reset(n_carr);}
 
 void Joueur::cash_flow(const int gain) {money+=gain;}
 
@@ -236,6 +235,7 @@ void Joueur::reset(const int& n_carr) {
     cartes_achetez.clear();
     cartes_enfant.clear();
     cartes_propriete.clear();
+    couleur=Imagine::Color(std::uniform_int_distribution<>(0,255)(Game::gene_alea),std::uniform_int_distribution<>(0,255)(Game::gene_alea),std::uniform_int_distribution<>(0,255)(Game::gene_alea));
 }
 
 void Joueur::dessine_icone(int i0, int j0,int taille_cadre) const {
