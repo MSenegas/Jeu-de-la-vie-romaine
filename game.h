@@ -24,7 +24,9 @@ public:
     bool is_over() const; // Regarde si la partie est terminée
     void game_loop(); // Gestion du tour
     void mouv_joueur(Joueur& J,const int& de); // Appelle la fonction mouv du joueur (utilisée par les cases, cartes)
+    void affichage() const; // Affiche tous les éléments de la partie
     void reset(); // Réinitialise la partie
+    friend void Plateau::affichage(std::vector<const Joueur*>&) const;
     friend void CaseCashJoueurs::tomber(Joueur&) const;
     friend void CaseCashCagnotte::tomber(Joueur&) const;
     friend void CaseCashCagnotteJoueurs::tomber(Joueur&) const;

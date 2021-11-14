@@ -1,21 +1,10 @@
-#include <Imagine/Graphics.h>
 #include <iostream>
 
 #include "game.h"
 #include "joueur.h"
 
-Joueur::~Joueur() {
-    for (unsigned int i=0;i<cartes_sortez_prison.size();i++)
-        delete cartes_sortez_prison.at(i);
-    for (unsigned int i=0;i<cartes_achetez.size();i++)
-        delete cartes_achetez.at(i);
-    for (unsigned int i=0;i<cartes_enfant.size();i++)
-        delete cartes_enfant.at(i);
-    for (unsigned int i=0;i<cartes_propriete.size();i++)
-        delete cartes_propriete.at(i);
-}
-
-Joueur::Joueur(const int n_carr) {reset(n_carr);}
+Joueur::Joueur(const int n_carr): couleur(std::uniform_int_distribution<>(0,255)(Game::gene_alea),std::uniform_int_distribution<>(0,255)(Game::gene_alea),std::uniform_int_distribution<>(0,255)(Game::gene_alea))
+    {reset(n_carr);}
 
 void Joueur::cash_flow(const int gain) {money+=gain;}
 
@@ -252,5 +241,5 @@ void Joueur::reset(const int& n_carr) {
 void Joueur::dessine_icone(int i0, int j0,int taille_cadre) const {
     int lx[3]={j0+int(taille_cadre/2),j0+int(taille_cadre*0.79),j0+int(taille_cadre*0.21)};
     int ly[3]={i0+int(taille_cadre*0.25),i0+int(taille_cadre*0.75),i0+int(taille_cadre*0.75)};
-    Imagine::drawPoly(lx,ly,3,Imagine::RED);
+    Imagine::drawPoly(lx,ly,3,couleur);
 }

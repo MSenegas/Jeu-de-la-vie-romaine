@@ -1,4 +1,5 @@
 #pragma once
+#include <Imagine/Graphics.h>
 #include <vector>
 
 #include "plateau.h"
@@ -27,6 +28,7 @@ class Joueur {
     std::vector<const Carte*> cartes_achetez;
     std::vector<const Carte*> cartes_enfant;
     std::vector<const Carte*> cartes_propriete;
+    Imagine::Color couleur;
 public:
     Joueur(const int n_carr);
     ~Joueur();
@@ -63,5 +65,5 @@ public:
     void reset(const int& n_carr); // Réinitialise le joueur
     void dessine_icone(int i0,int j0,int taille_cadre=TAILLE_CASES_AFFICHAGE) const; // Affiche le joueur
     friend void CaseSalaire::passer(Joueur&) const;
-    friend void Plateau::affichage(std::vector<const Joueur*>) const;
+    friend void Plateau::affichage(std::vector<const Joueur*>&) const;
 };

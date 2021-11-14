@@ -19,6 +19,7 @@ class CaseStop: public Case {
 public:
     CaseStop()=default;
     void tomber(Joueur&) const {}
+    void affichage(int i0,int j0) const;
 };
 
 class CaseChance: public Case {
@@ -26,6 +27,7 @@ class CaseChance: public Case {
 public:
     CaseChance(Game& G): current_game(G) {}
     void tomber(Joueur& J) const;
+    void affichage(int i0,int j0) const;
 };
 
 class CaseTresor: public Case {
@@ -33,6 +35,7 @@ class CaseTresor: public Case {
 public:
     CaseTresor(Game& G): current_game(G) {}
     void tomber(Joueur& J) const;
+    void affichage(int i0,int j0) const;
 };
 
 class CaseSalaire: public Case {
@@ -42,6 +45,7 @@ public:
     CaseSalaire(Game& G,const int& sal): current_game(G),salaire(sal) {}
     void tomber(Joueur& J) const;
     void passer(Joueur& J) const;
+    void affichage(int i0,int j0) const;
 };
 
 class CasePari: public Case {
@@ -49,6 +53,7 @@ class CasePari: public Case {
 public:
     CasePari(Game& G): current_game(G) {}
     void tomber(Joueur& J) const;
+    void affichage(int i0,int j0) const;
 };
 
 class CaseLoto: public Case {
@@ -56,6 +61,7 @@ class CaseLoto: public Case {
 public:
     CaseLoto(Game& G): current_game(G) {}
     void tomber(Joueur& J) const;
+    void affichage(int i0,int j0) const;
 };
 
 class CaseJustice: public Case {
@@ -63,6 +69,7 @@ class CaseJustice: public Case {
 public:
     CaseJustice(Game& G): current_game(G) {}
     void tomber(Joueur& J) const;
+    void affichage(int i0,int j0) const;
 };
 
 class CaseRejouez: public Case {
@@ -70,6 +77,7 @@ class CaseRejouez: public Case {
 public:
     CaseRejouez(Game& G): current_game(G) {}
     void tomber(Joueur& J) const;
+    void affichage(int i0,int j0) const;
 };
 
 class CaseReculezAvancez: public Case {
@@ -77,6 +85,7 @@ class CaseReculezAvancez: public Case {
 public:
     CaseReculezAvancez(Game& G): current_game(G) {}
     void tomber(Joueur& J) const;
+    void affichage(int i0,int j0) const;
 };
 
 class CaseEnfant: public Case {
@@ -84,24 +93,28 @@ class CaseEnfant: public Case {
 public:
     CaseEnfant(Game& G): current_game(G) {}
     void tomber(Joueur& J) const;
+    void affichage(int i0,int j0) const;
 };
 
 class CasePrison: public Case {
 public:
     CasePrison()=default;
     void tomber(Joueur& J) const;
+    void affichage(int i0,int j0) const;
 };
 
 class CaseEsclave: public Case {
 public:
     CaseEsclave()=default;
     void tomber(Joueur& J) const;
+    void affichage(int i0,int j0) const;
 };
 
 class CaseVacances: public Case {
 public:
     CaseVacances()=default;
     void tomber(Joueur&) const {}
+    void affichage(int i0,int j0) const;
 };
 
 class CaseMarche: public Case {
@@ -109,12 +122,14 @@ class CaseMarche: public Case {
 public:
     CaseMarche(Game& G): current_game(G) {}
     void tomber(Joueur& J) const;
+    void affichage(int i0,int j0) const;
 };
 
 class CaseConseil: public Case {
 public:
     CaseConseil()=default;
     void tomber(Joueur& J) const;
+    void affichage(int i0,int j0) const;
 };
 
 class CaseCash: public Case {
@@ -123,6 +138,7 @@ protected:
 public:
     CaseCash(const int& gain): gift(gain) {}
     virtual void tomber(Joueur& J) const; // donne gain au joueur
+    virtual void affichage(int i0,int j0) const;
 };
 
 class CaseCashCagnotte: public CaseCash {
@@ -131,6 +147,7 @@ protected:
 public:
     CaseCashCagnotte(Game& G,const int& gain);
     void tomber(Joueur& J) const; // oblige le joueur à donner -gain à la cagnotte
+    void affichage(int i0,int j0) const;
 };
 
 class CaseCashJoueurs: public CaseCash {
@@ -139,10 +156,12 @@ protected:
 public:
     CaseCashJoueurs(Game& G,const int& gain): CaseCash(gain), current_game(G) {}
     virtual void tomber(Joueur& J) const; // ordonne à tous les joueurs LJ de donner gain au joueur J
+    virtual void affichage(int i0,int j0) const;
 };
 
 class CaseCashCagnotteJoueurs: public CaseCashJoueurs {
 public:
     CaseCashCagnotteJoueurs(Game& G,const int& gain);
     void tomber(Joueur& J) const; // ordonne à tous les joueurs LJ de donner -gain à la cagnotte
+    void affichage(int i0,int j0) const;
 };

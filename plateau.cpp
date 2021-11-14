@@ -141,7 +141,7 @@ void affichejoueurs(const std::vector<const Joueur*>& LJ,int i0,int j0) {
         throw std::invalid_argument("No players");}
 }
 
-void Plateau::affichage(std::vector<const Joueur*> LJ) const {
+void Plateau::affichage(std::vector<const Joueur*>& LJ) const {
     // Plateau
     plateau.at(0).affichage(0,0);
     for (int n_carr=1;n_carr<=N_CARRIERES;n_carr++) {

@@ -75,6 +75,14 @@ void Game::game_loop() {
 
 void Game::mouv_joueur(Joueur& J, const int& de) {J.mouv(plateau,de);}
 
+void Game::affichage() const {
+    std::vector<const Joueur*> LJ(liste_joueurs.size());
+    for (unsigned int i=0;i<liste_joueurs.size();i++)
+        LJ.at(i)=&liste_joueurs.at(i);
+    plateau.affichage(LJ);
+    // AFFICHER LA BANQUE ET LES ATTRIBUTS DU JOUEUR
+}
+
 void Game::reset() {
     t=0;
     cagnotte=0;

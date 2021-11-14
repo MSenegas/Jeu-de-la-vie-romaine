@@ -4,10 +4,6 @@
 #include "case.h"
 #include "game.h"
 
-void Case::affichage(int i0, int j0) const {
-    Imagine::drawRect(j0,i0,TAILLE_CASES_AFFICHAGE,TAILLE_CASES_AFFICHAGE,Imagine::BLACK);
-}
-
 void CaseChance::tomber(Joueur& J) const {
     current_game.banque.pioche_chance.tirer(J);}
 
@@ -90,4 +86,105 @@ void CaseCashCagnotteJoueurs::tomber(Joueur&) const {
     for (unsigned int i=0;i<current_game.liste_joueurs.size();i++)
         current_game.liste_joueurs.at(i).cash_flow(gift);
     current_game.cagnotte-=current_game.liste_joueurs.size()*gift;
+}
+
+void Case::affichage(int i0, int j0) const {
+    Imagine::drawRect(j0,i0,TAILLE_CASES_AFFICHAGE,TAILLE_CASES_AFFICHAGE,Imagine::BLACK);
+}
+
+void CaseStop::affichage(int i0, int j0) const {
+    Case::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Stop",Imagine::RED,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CaseChance::affichage(int i0, int j0) const {
+    Case::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Chance",Imagine::YELLOW,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CaseTresor::affichage(int i0, int j0) const {
+    Case::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Trésor",Imagine::YELLOW,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CaseSalaire::affichage(int i0, int j0) const {
+    Case::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Salaire",Imagine::GREEN,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CasePari::affichage(int i0, int j0) const {
+    Case::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Pari",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CaseLoto::affichage(int i0, int j0) const {
+    Case::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Loto",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CaseJustice::affichage(int i0, int j0) const {
+    Case::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Justice",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CaseRejouez::affichage(int i0, int j0) const {
+    Case::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Rejouez",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CaseReculezAvancez::affichage(int i0, int j0) const {
+    Case::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Reculez",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,"Avancez",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CaseEnfant::affichage(int i0, int j0) const {
+    Case::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Enfant",Imagine::MAGENTA,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CasePrison::affichage(int i0, int j0) const {
+    Case::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Prison",Imagine::Color(128,64,0),0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CaseEsclave::affichage(int i0, int j0) const {
+    Case::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Esclave",Imagine::Color(128,64,0),0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CaseVacances::affichage(int i0, int j0) const {
+    Case::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Vacances",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CaseMarche::affichage(int i0, int j0) const {
+    Case::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Marche",Imagine::ORANGE,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CaseConseil::affichage(int i0, int j0) const {
+    Case::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Conseil",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CaseCash::affichage(int i0, int j0) const {
+    Case::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Cash",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CaseCashCagnotte::affichage(int i0, int j0) const {
+    Case::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Cagnotte",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CaseCashJoueurs::affichage(int i0, int j0) const {
+    Case::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Joueurs",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CaseCashCagnotteJoueurs::affichage(int i0, int j0) const {
+    Case::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Cagnotte",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,"Joueurs",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
 }
