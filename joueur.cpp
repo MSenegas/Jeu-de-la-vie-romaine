@@ -56,8 +56,10 @@ void Joueur::passer_salaire() {
 void Joueur::ajouter_salaire_deja_recu(const Case* C) {salaires_recus.push_back(C);}
 
 void Joueur::aller_prison() {
-    essais_prison=0;
-    prison=true;}
+    if (!remove_carte_sortez_prison()) {
+        essais_prison=0;
+        prison=true;}
+}
 
 void Joueur::sortir_prison() {prison=false;}
 
