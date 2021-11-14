@@ -26,10 +26,10 @@ void interprete_attributs(const std::string& ligne,std::string& comm,int& arg1,i
                 while (ind_apres_espace<ligne.size() && ligne.at(ind_apres_espace)==' ') ind_apres_espace++;
                 *args12.at(yeah)=std::stoi(ligne.substr(ancien_ind_apres_espace,ind_apres_espace-ancien_ind_apres_espace-1));}}}
 }void interprete_symboles(const std::string& ligne,std::vector<int>& sym) {
-    unsigned int ancien_ind_apres_espace;
+    unsigned int ancien_ind_apres_espace=0;
     unsigned int ind_espace=0;
-    while (ind_espace<ligne.size()) {
-        if (ind_espace!=0) sym.push_back(std::stoi(ligne.substr(ancien_ind_apres_espace,ind_espace)));
+    while (ancien_ind_apres_espace<ligne.size()) {
+        if (ind_espace!=0) sym.push_back(std::stoi(ligne.substr(ancien_ind_apres_espace,ind_espace-ancien_ind_apres_espace)));
         while (ind_espace<ligne.size() && ligne.at(ind_espace)==' ') ind_espace++;
         ancien_ind_apres_espace=ind_espace;
         ind_espace=ligne.find(' ',ind_espace);

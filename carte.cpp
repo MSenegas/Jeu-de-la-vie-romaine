@@ -34,7 +34,7 @@ void CarteMettezProprieteEncheres::tirer(Joueur& J) const {
     unsigned int ind_j=0;
     while (&current_game.liste_joueurs.at(ind_j)!=&J) ind_j++; // On favorise les joueurs faisant l'enchère en premier (en particulier celui qui tire la carte)
     unsigned int joueur_gagnant=ind_j;
-    int enchere_gagnante=P->base_value();
+    int enchere_gagnante=P->base_value()-1;
     int reduction_gagnante=0;
     for (unsigned int i=ind_j,start=1;i!=ind_j || start;i++,i%=current_game.liste_joueurs.size(),start=0) {
         const Carte* S=current_game.banque.pioche_symboles.pop();
@@ -46,6 +46,9 @@ void CarteMettezProprieteEncheres::tirer(Joueur& J) const {
             reduction_gagnante=reduction;}
         S->defausser();
     }
+    if (enchere_gagnante<P->base_value()) {
+        P->defausser();
+        return;}
     current_game.liste_joueurs.at(joueur_gagnant).cash_flow(reduction_gagnante-enchere_gagnante);
     current_game.liste_joueurs.at(joueur_gagnant).add_carte_propriete(P);
     defausser();
