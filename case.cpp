@@ -99,17 +99,17 @@ void CaseStop::affichage(int i0, int j0) const {
 
 void CaseChance::affichage(int i0, int j0) const {
     Case::affichage(i0,j0);
-    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Chance",Imagine::ORANGE,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Chance",Imagine::Color(255,216,0),0.2*TAILLE_CASES_AFFICHAGE);
 }
 
 void CaseTresor::affichage(int i0, int j0) const {
     Case::affichage(i0,j0);
-    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Trésor",Imagine::ORANGE,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Trésor",Imagine::Color(255,216,0),0.2*TAILLE_CASES_AFFICHAGE);
 }
 
 void CaseSalaire::affichage(int i0, int j0) const {
     Case::affichage(i0,j0);
-    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Salaire",Imagine::GREEN,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Salaire",Imagine::Color(0,178,0),0.2*TAILLE_CASES_AFFICHAGE);
 }
 
 void CasePari::affichage(int i0, int j0) const {
