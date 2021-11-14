@@ -110,6 +110,7 @@ void CaseTresor::affichage(int i0, int j0) const {
 void CaseSalaire::affichage(int i0, int j0) const {
     Case::affichage(i0,j0);
     Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Salaire",Imagine::Color(0,178,0),0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(salaire),Imagine::Color(0,178,0),0.2*TAILLE_CASES_AFFICHAGE);
 }
 
 void CasePari::affichage(int i0, int j0) const {
@@ -171,21 +172,25 @@ void CaseConseil::affichage(int i0, int j0) const {
 void CaseCash::affichage(int i0, int j0) const {
     Case::affichage(i0,j0);
     Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Cash",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(gift),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
 }
 
 void CaseCashCagnotte::affichage(int i0, int j0) const {
     Case::affichage(i0,j0);
     Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Cagnotte",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(gift),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
 }
 
 void CaseCashJoueurs::affichage(int i0, int j0) const {
     Case::affichage(i0,j0);
     Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Cash",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
     Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,"Joueurs",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.6*TAILLE_CASES_AFFICHAGE,std::to_string(gift),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
 }
 
 void CaseCashCagnotteJoueurs::affichage(int i0, int j0) const {
     Case::affichage(i0,j0);
     Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Cagnotte",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
     Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,"Joueurs",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.6*TAILLE_CASES_AFFICHAGE,std::to_string(gift),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
 }

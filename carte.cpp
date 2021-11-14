@@ -3,13 +3,6 @@
 
 #include "game.h"
 
-// De manière générale, TOUJOURS décider du placement de la carte après le tirage dans Carte::tirer() , s'assurer de la conservation du onmbre de cartes
-// (i.e. mettre defausser() ou J.add_... à la fin)
-
-// METTRE J.add_carte_chance_tresor(this); DANS CarteSortezPrison::tirer(Joueur& J)
-// METTRE J.cash_flow(gift); DANS CarteCash::tirer(Joueur& J)
-// METTRE J.add_enfant(this); DANS CarteEnfant::tirer(Joueur& J)
-
 int Carte::base_value() const {throw std::logic_error("Seules les cartes achetez et propriété définissent la fonction base_value");}
 int Carte::operator()() const {throw std::logic_error("Seules les cartes enfant,achetez et propriété définissent la fonction d'appel");}
 double Carte::variation() const {throw std::logic_error("Seules les cartes achetez définissent la fonction variation");}
@@ -153,4 +146,107 @@ void Carte::affichage(int i0, int j0) const {
 void CarteAchetez::affichage(int i0, int j0) const {
     Carte::affichage(i0,j0);
     Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Achetez",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(prix_achat),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0+0.8*TAILLE_CASES_AFFICHAGE,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(prix_vente),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0+TAILLE_CASES_AFFICHAGE,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(risk),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CartePropriete::affichage(int i0, int j0) const {
+    Carte::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Propriete",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(prix_base),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0+0.5*TAILLE_CASES_AFFICHAGE,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(revenu),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CarteMettezProprieteEncheres::affichage(int i0, int j0) const {
+    Carte::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Enchère",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CarteSortezPrison::affichage(int i0, int j0) const {
+    Carte::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"SortezPrison",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CarteTirezEnfant::affichage(int i0, int j0) const {
+    Carte::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"TirezEnfant",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CarteEnfant::affichage(int i0, int j0) const {
+    Carte::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Enfant",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(enfants),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CarteRejouez::affichage(int i0, int j0) const {
+    Carte::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Rejouez",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CarteReculezAvancez::affichage(int i0, int j0) const {
+    Carte::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Bougez",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(amount),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CarteReculezAvancezJoueurs::affichage(int i0, int j0) const {
+    Carte::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Bougez Tous",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(amount),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CarteAutreChanceTresor::affichage(int i0, int j0) const {
+    Carte::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Tirez",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,"Chance ou Tresor",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CarteAutreCashBonus::affichage(int i0, int j0) const {
+    Carte::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Tirez Bonus",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,"ou"+std::to_string(INDEMNITE_AUTRE_CARTE_BONUS),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CarteJeuHasardAvantage::affichage(int i0, int j0) const {
+    Carte::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"JeuAvantage",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CartePari::affichage(int i0, int j0) const {
+    Carte::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Pari",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CartePrison::affichage(int i0, int j0) const {
+    Carte::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Prison",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CarteEsclave::affichage(int i0, int j0) const {
+    Carte::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Esclave",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CarteCash::affichage(int i0, int j0) const {
+    Carte::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Cash",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(gift),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CarteCashJoueurs::affichage(int i0, int j0) const {
+    Carte::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Cash Joueurs",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(gift),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CarteCashCagnotteJoueurs::affichage(int i0, int j0) const {
+    Carte::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Cagnotte Tous",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(gift),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+}
+
+void CarteSymboles::affichage(int i0, int j0) const {
+    Carte::affichage(i0,j0);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Symboles",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
 }
