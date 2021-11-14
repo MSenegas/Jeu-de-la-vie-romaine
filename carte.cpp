@@ -145,3 +145,7 @@ void CarteCashCagnotteJoueurs::tirer(Joueur&) const {
     current_game.cagnotte-=current_game.liste_joueurs.size()*gift;
     defausser();
 }
+
+void Carte::affichage(int i0, int j0) const {
+    Imagine::drawRect(j0,i0,TAILLE_CASES_AFFICHAGE,TAILLE_CASES_AFFICHAGE,Imagine::BLACK);
+}

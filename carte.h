@@ -19,6 +19,7 @@ public:
     virtual int operator()() const;
     virtual const std::vector<int>& symboles() const;
     virtual double variation() const;
+    virtual void affichage(int i0,int j0) const;
     void defausser() const;
 };
 

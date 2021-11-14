@@ -180,7 +180,8 @@ void CaseCashCagnotte::affichage(int i0, int j0) const {
 
 void CaseCashJoueurs::affichage(int i0, int j0) const {
     Case::affichage(i0,j0);
-    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Joueurs",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Cash",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,"Joueurs",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
 }
 
 void CaseCashCagnotteJoueurs::affichage(int i0, int j0) const {
