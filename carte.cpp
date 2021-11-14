@@ -31,6 +31,7 @@ int operator*(const std::vector<int>& a,const std::vector<int>& b) {
 
 void CarteMettezProprieteEncheres::tirer(Joueur& J) const {
     const Carte* P=current_game.banque.pioche_propriete.pop();
+    if (!P) {defausser();return;}
     unsigned int ind_j=0;
     while (&current_game.liste_joueurs.at(ind_j)!=&J) ind_j++; // On favorise les joueurs faisant l'enchère en premier (en particulier celui qui tire la carte)
     unsigned int joueur_gagnant=ind_j;
@@ -38,6 +39,7 @@ void CarteMettezProprieteEncheres::tirer(Joueur& J) const {
     int reduction_gagnante=0;
     for (unsigned int i=ind_j,start=1;i!=ind_j || start;i++,i%=current_game.liste_joueurs.size(),start=0) {
         const Carte* S=current_game.banque.pioche_symboles.pop();
+        if (!S) throw std::out_of_range("Il n'y a pas de cartes symboles");
         int reduction=P->symboles()*S->symboles();
         int enchere=current_game.liste_joueurs.at(i).decision_enchere_carte_propriete(current_game,P,reduction);
         if (enchere>enchere_gagnante) {

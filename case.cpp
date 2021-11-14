@@ -54,7 +54,9 @@ void CaseMarche::tomber(Joueur& J) const {
     if (J.decision_acheter_vendre()) {
         std::vector<const Carte*> LC;
         for (int i=0;i<MAX_CARTES_ACHETEZ_ACHAT;i++) {
-            LC.push_back(current_game.banque.pioche_achetez.pop());}
+            const Carte* C=current_game.banque.pioche_achetez.pop();
+            if (C)
+                LC.push_back(C);}
         J.decision_acheter_cartes(LC);
         J.acheter_cartes_achetez(LC);}
     else

@@ -1,5 +1,6 @@
 #include <stdexcept>
 #include <algorithm>
+#include <iostream>
 
 #include "game.h"
 #include "paquet.h"
@@ -112,14 +113,21 @@ void Pioche::melanger() {
 }
 
 const Carte* Pioche::pop() {
-    if (pioche.empty())
-        melanger();
+    if (pioche.empty()) {
+        if (defausse.empty()) {
+            std::cerr << "Warning: Il n'y a plus de cartes dans ce paquet" << std::endl;
+            return 0;}
+        melanger();}
     const Carte* rep=pioche.back();
     pioche.pop_back();
     return rep;
 }
 
-void Pioche::tirer(Joueur& J) {pop()->tirer(J);}
+void Pioche::tirer(Joueur& J) {
+    const Carte* C=pop();
+    if (C)
+        C->tirer(J);
+}
 
 void Pioche::defausser(const Carte* C) {defausse.push_back(C);}
 
