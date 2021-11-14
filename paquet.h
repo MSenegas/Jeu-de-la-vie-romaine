@@ -11,7 +11,6 @@ class Pioche { // Pioche utilisée en jeu
     std::vector<const Carte*> defausse;
 public:
     Pioche()=default;
-    ~Pioche();
     Pioche(const Pioche&)=delete;
     Pioche& operator=(const Pioche&)=delete;
     void creer(const std::vector<std::string>& paragraph,Game& G);

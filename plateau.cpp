@@ -41,11 +41,6 @@ void Periode::creer(const std::vector<std::string>& paragraph,Game& G) {
             throw std::invalid_argument(case_type+err_msg);}}
 }
 
-Periode::~Periode() {
-    for (unsigned int i=0;i<cases.size();i++)
-        delete cases.at(i);
-}
-
 bool Periode::is_empty() const {return cases.empty();}
 
 unsigned int Periode::size() const {return cases.size();}

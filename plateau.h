@@ -13,7 +13,6 @@ public:
     Periode()=default;
     Periode(const Periode&)=delete;
     Periode& operator=(const Periode&)=delete;
-    ~Periode();
     void creer(const std::vector<std::string>& paragraph,Game& G);
     static void interprete_ligne(const std::string& ligne,std::string& comm,int& arg);
     bool is_empty() const;

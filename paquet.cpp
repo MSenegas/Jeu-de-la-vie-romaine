@@ -73,13 +73,6 @@ void Pioche::creer(const std::vector<std::string>& paragraph,Game& G) {
             throw std::invalid_argument(carte_type+err_msg);}}
 }
 
-Pioche::~Pioche() {
-    for (unsigned int i=0;i<pioche.size();i++)
-        delete pioche.at(i);
-    for (unsigned int i=0;i<defausse.size();i++)
-        delete defausse.at(i);
-}
-
 Banque::Banque(const std::string& path,Game& G) {
     std::vector<std::vector<std::string>> paragraph_list;
     Game::lire_fichier(paragraph_list,path);
