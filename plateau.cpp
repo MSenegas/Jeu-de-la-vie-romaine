@@ -12,7 +12,7 @@ void Periode::interprete_ligne(const std::string& ligne,std::string& comm,int& a
         arg=std::stoi(ligne.substr(ind_apres_espace));
 }
 
-Periode::Periode(const std::vector<std::string>& paragraph,Game& G) {
+void Periode::creer(const std::vector<std::string>& paragraph,Game& G) {
     std::string case_type;
     for (unsigned int i=0;i<paragraph.size();i++) {
         int case_cash=0;
@@ -41,6 +41,11 @@ Periode::Periode(const std::vector<std::string>& paragraph,Game& G) {
             throw std::invalid_argument(case_type+err_msg);}}
 }
 
+Periode::~Periode() {
+    for (unsigned int i=0;i<cases.size();i++)
+        delete cases.at(i);
+}
+
 bool Periode::is_empty() const {return cases.empty();}
 
 unsigned int Periode::size() const {return cases.size();}
@@ -58,7 +63,7 @@ void Periode::affichage(int i0, int j0) const {
 Plateau::Plateau(const std::string& path,Game& G) {
     std::vector<std::vector<std::string>> paragraph_list;
     Game::lire_fichier(paragraph_list,path);
-    plateau=std::vector<Periode>(indice_plateau(N_CARRIERES,paragraph_list.size())+1,Periode());
+    plateau=std::vector<Periode>(indice_plateau(N_CARRIERES,paragraph_list.size())+1);
     std::string nom_periode;
     for (unsigned int i=0;i<paragraph_list.size();i++) {
         int n_carr;
@@ -74,7 +79,7 @@ Plateau::Plateau(const std::string& path,Game& G) {
             std::string err_msg=" n'est pas un nom de période reconnu. Si vous avez rajouté des carrières, merci de mettre à jour sans oublier les paramètres";
             throw std::invalid_argument(nom_periode+err_msg);}
         paragraph_list.at(i).erase(paragraph_list.at(i).begin());
-        plateau.at(indice_plateau(n_carr,n_per))=Periode(paragraph_list.at(i),G);}
+        plateau.at(indice_plateau(n_carr,n_per)).creer(paragraph_list.at(i),G);}
     while (!plateau.empty() && plateau.back().is_empty())
         plateau.pop_back();
 }

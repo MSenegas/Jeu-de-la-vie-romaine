@@ -29,6 +29,7 @@ class Joueur {
     std::vector<const Carte*> cartes_propriete;
 public:
     Joueur(const int n_carr);
+    ~Joueur();
     void cash_flow(const int gain); // Augmente l'argent du joueur de gain (peut être négatif)
     void verif_dettes(); // Vérifie s'il faut emprunter ou s'il est possible de rembourser des dettes
     void add_conseil();

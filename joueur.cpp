@@ -4,6 +4,17 @@
 #include "game.h"
 #include "joueur.h"
 
+Joueur::~Joueur() {
+    for (unsigned int i=0;i<cartes_sortez_prison.size();i++)
+        delete cartes_sortez_prison.at(i);
+    for (unsigned int i=0;i<cartes_achetez.size();i++)
+        delete cartes_achetez.at(i);
+    for (unsigned int i=0;i<cartes_enfant.size();i++)
+        delete cartes_enfant.at(i);
+    for (unsigned int i=0;i<cartes_propriete.size();i++)
+        delete cartes_propriete.at(i);
+}
+
 Joueur::Joueur(const int n_carr) {reset(n_carr);}
 
 void Joueur::cash_flow(const int gain) {money+=gain;}

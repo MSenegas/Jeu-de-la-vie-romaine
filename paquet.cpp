@@ -43,7 +43,7 @@ void Pioche::interprete_ligne(const std::string& ligne,std::string& comm,int& ar
     if (ind_barre<ligne.size()) interprete_symboles(ligne.substr(ind_barre+1),sym);
 }
 
-Pioche::Pioche(const std::vector<std::string>& paragraph,Game& G) {
+void Pioche::creer(const std::vector<std::string>& paragraph,Game& G) {
     std::string carte_type;
     for (unsigned int i=0;i<paragraph.size();i++) {
         int carte_cost=0;int carte_rv=0;double carte_prc=0;std::vector<int> sym;
@@ -72,6 +72,13 @@ Pioche::Pioche(const std::vector<std::string>& paragraph,Game& G) {
             throw std::invalid_argument(carte_type+err_msg);}}
 }
 
+Pioche::~Pioche() {
+    for (unsigned int i=0;i<pioche.size();i++)
+        delete pioche.at(i);
+    for (unsigned int i=0;i<defausse.size();i++)
+        delete defausse.at(i);
+}
+
 Banque::Banque(const std::string& path,Game& G) {
     std::vector<std::vector<std::string>> paragraph_list;
     Game::lire_fichier(paragraph_list,path);
@@ -79,19 +86,19 @@ Banque::Banque(const std::string& path,Game& G) {
         std::string nom_paquet=paragraph_list.at(i).front();
         paragraph_list.at(i).erase(paragraph_list.at(i).begin());
         if (nom_paquet=="chance")
-            pioche_chance=Pioche(paragraph_list.at(i),G);
+            pioche_chance.creer(paragraph_list.at(i),G);
         else if (nom_paquet=="tresor")
-            pioche_tresor=Pioche(paragraph_list.at(i),G);
+            pioche_tresor.creer(paragraph_list.at(i),G);
         else if (nom_paquet=="bonus")
-            pioche_bonus=Pioche(paragraph_list.at(i),G);
+            pioche_bonus.creer(paragraph_list.at(i),G);
         else if (nom_paquet=="achetez")
-            pioche_achetez=Pioche(paragraph_list.at(i),G);
+            pioche_achetez.creer(paragraph_list.at(i),G);
         else if (nom_paquet=="enfant")
-            pioche_enfant=Pioche(paragraph_list.at(i),G);
+            pioche_enfant.creer(paragraph_list.at(i),G);
         else if (nom_paquet=="propriete")
-            pioche_propriete=Pioche(paragraph_list.at(i),G);
+            pioche_propriete.creer(paragraph_list.at(i),G);
         else if (nom_paquet=="symboles")
-            pioche_symboles=Pioche(paragraph_list.at(i),G);
+            pioche_symboles.creer(paragraph_list.at(i),G);
         else {
             std::string err_msg=" n'est pas un nom de paquet reconnu.";
             throw std::invalid_argument(nom_paquet+err_msg);}}

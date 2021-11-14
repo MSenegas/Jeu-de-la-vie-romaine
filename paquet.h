@@ -11,7 +11,10 @@ class Pioche { // Pioche utilisée en jeu
     std::vector<const Carte*> defausse;
 public:
     Pioche()=default;
-    Pioche(const std::vector<std::string>& paragraph,Game& G);
+    ~Pioche();
+    Pioche(const Pioche&)=delete;
+    Pioche& operator=(const Pioche&)=delete;
+    void creer(const std::vector<std::string>& paragraph,Game& G);
     static void interprete_ligne(const std::string& ligne,std::string& comm,int& arg1,int& arg2,double& arg3,std::vector<int>& sym);
     void melanger(); // Mélange la pioche à partir de la défausse
     const Carte* pop(); // Retire une carte de la pioche (mélange si nécessaire)
