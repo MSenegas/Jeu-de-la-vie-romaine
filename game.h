@@ -21,10 +21,12 @@ public:
     static std::vector<int> tirage_carrieres(const unsigned int nb_joueurs); // Effectue le tirage au sort pour les carrières des joueurs !!! À CHANGER SI L'ON RAJOUTE DES CARRIERES !!!
     static void lire_fichier(std::vector<std::vector<std::string>>& paragraph_list,const std::string path);
     void play_full_game(); // Lance une partie en entier
+    void play_full_game(Imagine::Window& w1,Imagine::Window& w2,Imagine::Window& w3); // avec affichage
     bool is_over() const; // Regarde si la partie est terminée
     void game_loop(); // Gestion du tour
+    void game_loop(Imagine::Window& w1,Imagine::Window& w2,Imagine::Window& w3); // avec affichage
     void mouv_joueur(Joueur& J,const int& de); // Appelle la fonction mouv du joueur (utilisée par les cases, cartes)
-    void affichage(Imagine::Window w1,Imagine::Window w2,Imagine::Window w3) const; // Affiche tous les éléments de la partie
+    void affichage(Imagine::Window& w1,Imagine::Window& w2,Imagine::Window& w3,bool clc=true) const; // Affiche tous les éléments de la partie
     void reset(); // Réinitialise la partie
     friend void Plateau::affichage(int,int,std::vector<const Joueur*>&) const;
     friend void CaseCashJoueurs::tomber(Joueur&) const;

@@ -61,8 +61,13 @@ std::vector<int> Game::tirage_carrieres(const unsigned int nb_joueurs) {
 }
 
 void Game::play_full_game() {
-    while (!is_over()) {
-        game_loop();}
+    while (!is_over())
+        game_loop();
+    reset();
+}void Game::play_full_game(Imagine::Window& w1,Imagine::Window& w2,Imagine::Window& w3) {
+    affichage(w1,w2,w3);
+    while (!is_over())
+        game_loop(w1,w2,w3);
     reset();
 }
 
@@ -75,11 +80,17 @@ bool Game::is_over() const {
 void Game::game_loop() {
     for (unsigned int i=0;i<liste_joueurs.size();i++)
         liste_joueurs.at(i).play(plateau,cagnotte);
-    t++;}
+    t++;
+}void Game::game_loop(Imagine::Window& w1,Imagine::Window& w2,Imagine::Window& w3) {
+    for (unsigned int i=0;i<liste_joueurs.size();i++) {
+        liste_joueurs.at(i).play(plateau,cagnotte);
+        affichage(w1,w2,w3);}
+    t++;
+}
 
 void Game::mouv_joueur(Joueur& J, const int& de) {J.mouv(plateau,de);}
 
-void Game::affichage(Imagine::Window w1, Imagine::Window w2, Imagine::Window w3) const {
+void Game::affichage(Imagine::Window& w1,Imagine::Window& w2,Imagine::Window& w3,bool clc) const {
     std::vector<const Joueur*> LJ(liste_joueurs.size());
     for (unsigned int i=0;i<liste_joueurs.size();i++)
         LJ.at(i)=&liste_joueurs.at(i);
@@ -89,7 +100,11 @@ void Game::affichage(Imagine::Window w1, Imagine::Window w2, Imagine::Window w3)
     banque.affichage(0,0);
     Imagine::setActiveWindow(w3);
     for (unsigned int i=0;i<liste_joueurs.size();i++)
-        liste_joueurs.at(i).affiche_cartes(0,250*i);
+        liste_joueurs.at(i).affiche_cartes(0,4.5*i*TAILLE_CASES_AFFICHAGE);
+    if (clc)
+        Imagine::click();
+    else
+        Imagine::milliSleep(500);
 }
 
 void Game::reset() {
