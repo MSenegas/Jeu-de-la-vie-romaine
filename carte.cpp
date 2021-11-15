@@ -147,8 +147,8 @@ void CarteAchetez::affichage(int i0, int j0) const {
     Carte::affichage(i0,j0);
     Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Achetez",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
     Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(prix_achat),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
-    Imagine::drawString(j0+0.8*TAILLE_CASES_AFFICHAGE,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(prix_vente),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
-    Imagine::drawString(j0+TAILLE_CASES_AFFICHAGE,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(risk),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.6*TAILLE_CASES_AFFICHAGE,std::to_string(prix_vente),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0+0.8*TAILLE_CASES_AFFICHAGE,i0+0.5*TAILLE_CASES_AFFICHAGE,std::to_string((int)round(100*risk))+'%',Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
 }
 
 void CartePropriete::affichage(int i0, int j0) const {
@@ -156,6 +156,7 @@ void CartePropriete::affichage(int i0, int j0) const {
     Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Propriete",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
     Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(prix_base),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
     Imagine::drawString(j0+0.8*TAILLE_CASES_AFFICHAGE,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(revenu),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    affiche_symboles(i0+0.4*TAILLE_CASES_AFFICHAGE,j0);
 }
 
 void CarteMettezProprieteEncheres::affichage(int i0, int j0) const {
@@ -165,7 +166,8 @@ void CarteMettezProprieteEncheres::affichage(int i0, int j0) const {
 
 void CarteSortezPrison::affichage(int i0, int j0) const {
     Carte::affichage(i0,j0);
-    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"SortezPrison",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Sortez de",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,"Prison",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
 }
 
 void CarteTirezEnfant::affichage(int i0, int j0) const {
@@ -199,18 +201,20 @@ void CarteReculezAvancezJoueurs::affichage(int i0, int j0) const {
 void CarteAutreChanceTresor::affichage(int i0, int j0) const {
     Carte::affichage(i0,j0);
     Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Tirez",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
-    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,"Chance ou Tresor",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,"Chance",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.6*TAILLE_CASES_AFFICHAGE,"ou Tresor",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
 }
 
 void CarteAutreCashBonus::affichage(int i0, int j0) const {
     Carte::affichage(i0,j0);
     Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Tirez Bonus",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
-    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,"ou"+std::to_string(INDEMNITE_AUTRE_CARTE_BONUS),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,"ou "+std::to_string(INDEMNITE_AUTRE_CARTE_BONUS),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
 }
 
 void CarteJeuHasardAvantage::affichage(int i0, int j0) const {
     Carte::affichage(i0,j0);
-    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"JeuAvantage",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Jeu Hasard",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,"Avantage",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
 }
 
 void CartePari::affichage(int i0, int j0) const {
@@ -236,17 +240,44 @@ void CarteCash::affichage(int i0, int j0) const {
 
 void CarteCashJoueurs::affichage(int i0, int j0) const {
     Carte::affichage(i0,j0);
-    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Cash Joueurs",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
-    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(gift),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Cash",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,"Joueurs",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.6*TAILLE_CASES_AFFICHAGE,std::to_string(gift),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
 }
 
 void CarteCashCagnotteJoueurs::affichage(int i0, int j0) const {
     Carte::affichage(i0,j0);
-    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Cagnotte Tous",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
-    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,std::to_string(gift),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Cagnotte",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.4*TAILLE_CASES_AFFICHAGE,"Tous",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.6*TAILLE_CASES_AFFICHAGE,std::to_string(gift),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
 }
 
 void CarteSymboles::affichage(int i0, int j0) const {
     Carte::affichage(i0,j0);
     Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,"Symboles",Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    affiche_symboles(i0+0.2*TAILLE_CASES_AFFICHAGE,j0);
+}
+
+void CartePropriete::affiche_symboles(int i0, int j0) const {
+    int max_symboles=0;
+    for (unsigned int j=0;j<val_symb.size();j++)
+        if (val_symb.at(j)>max_symboles)
+            max_symboles=val_symb.at(j);
+    unsigned int taille_icones=std::min(0.6/max_symboles*TAILLE_CASES_AFFICHAGE,1.4/val_symb.size()*TAILLE_CASES_AFFICHAGE);
+    for (unsigned int j=0;j<val_symb.size();j++) {
+        Imagine::Color coul(255*(j==0||j==3||j==5),216*(j==1||j==3||j==4),255*(j==2||j==4||j==5));
+        for (int i=0;i<val_symb.at(j);i++)
+            Imagine::fillCircle(j0+(0.5+j)*taille_icones,i0+(0.5+i)*taille_icones,0.45*taille_icones,coul);}
+}
+
+void CarteSymboles::affiche_symboles(int i0, int j0) const {
+    int max_symboles=0;
+    for (unsigned int j=0;j<symb.size();j++)
+        if (symb.at(j)>max_symboles)
+            max_symboles=symb.at(j);
+    unsigned int taille_icones=std::min(0.8/max_symboles*TAILLE_CASES_AFFICHAGE,1.4/symb.size()*TAILLE_CASES_AFFICHAGE);
+    for (unsigned int j=0;j<symb.size();j++) {
+        Imagine::Color coul(255*(j==0||j==3||j==5),216*(j==1||j==3||j==4),255*(j==2||j==4||j==5));
+        for (int i=0;i<symb.at(j);i++)
+            Imagine::fillCircle(j0+(0.5+j)*taille_icones,i0+(0.5+i)*taille_icones,0.45*taille_icones,coul);}
 }

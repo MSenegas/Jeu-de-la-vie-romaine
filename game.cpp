@@ -79,15 +79,17 @@ void Game::game_loop() {
 
 void Game::mouv_joueur(Joueur& J, const int& de) {J.mouv(plateau,de);}
 
-void Game::affichage() const {
-    // À AMÉLIORER: PASSER LES FENÊTRES EN RÉFÉRENCE ET METTRE CHAQUE CHOSE DANS UNE FENÊTRE DIFFÉRENTE
+void Game::affichage(Imagine::Window w1, Imagine::Window w2, Imagine::Window w3) const {
     std::vector<const Joueur*> LJ(liste_joueurs.size());
     for (unsigned int i=0;i<liste_joueurs.size();i++)
         LJ.at(i)=&liste_joueurs.at(i);
+    Imagine::setActiveWindow(w1);
     plateau.affichage(0,0,LJ);
-    banque.affichage(0,500);
+    Imagine::setActiveWindow(w2);
+    banque.affichage(0,0);
+    Imagine::setActiveWindow(w3);
     for (unsigned int i=0;i<liste_joueurs.size();i++)
-        liste_joueurs.at(i).affiche_cartes(300,250*i);
+        liste_joueurs.at(i).affiche_cartes(0,250*i);
 }
 
 void Game::reset() {

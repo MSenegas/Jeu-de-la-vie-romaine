@@ -47,6 +47,7 @@ public:
     int operator()() const {return revenu;}
     const std::vector<int>& symboles() const {return val_symb;}
     void affichage(int i0,int j0) const;
+    void affiche_symboles(int i0,int j0) const;
 };
 
 class CarteMettezProprieteEncheres: public Carte {
@@ -183,4 +184,5 @@ public:
     void tirer(Joueur&) const;
     const std::vector<int>& symboles() const {return symb;}
     void affichage(int i0,int j0) const;
+    void affiche_symboles(int i0,int j0) const;
 };

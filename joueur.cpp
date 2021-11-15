@@ -244,8 +244,8 @@ void Joueur::dessine_icone(int i0, int j0,int taille_cadre) const {
 }
 
 void Joueur::affiche_cartes(int i0, int j0) const {
-    Imagine::drawString(j0,i0,std::to_string(money),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
-    Imagine::drawString(j0,i0+TAILLE_CASES_AFFICHAGE,std::to_string(dettes),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,std::to_string(money),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0+TAILLE_CASES_AFFICHAGE,i0+0.2*TAILLE_CASES_AFFICHAGE,std::to_string(dettes),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
     for (unsigned int i=0;i<cartes_sortez_prison.size();i++)
         cartes_sortez_prison.at(i)->affichage(i0+(0.2+i)*TAILLE_CASES_AFFICHAGE,j0);
     for (unsigned int i=0;i<cartes_achetez.size();i++)

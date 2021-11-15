@@ -58,7 +58,7 @@ void Pioche::creer(const std::vector<std::string>& paragraph,Game& G) {
         else if (carte_type=="rejouez") pioche.push_back(new CarteRejouez(*this,G));
         else if (carte_type=="reculez_avancez") pioche.push_back(new CarteReculezAvancez(*this,G,carte_cost));
         else if (carte_type=="reculez_avancez_joueurs") pioche.push_back(new CarteReculezAvancezJoueurs(*this,G,carte_cost));
-        else if (carte_type=="autre_chance_tresor") pioche.push_back(new CarteAutreChanceTresor(*this,G));
+        else if (carte_type=="chance_ou_tresor") pioche.push_back(new CarteAutreChanceTresor(*this,G));
         else if (carte_type=="cash_ou_bonus") pioche.push_back(new CarteAutreCashBonus(*this,G));
         else if (carte_type=="jeu_avantage") pioche.push_back(new CarteJeuHasardAvantage(*this));
         else if (carte_type=="pari") pioche.push_back(new CartePari(*this,G));
@@ -134,11 +134,11 @@ void Pioche::affichage(int i0, int j0) const {
 void Banque::affichage(int i0, int j0) const {
     pioche_chance.affichage(i0,j0);
     pioche_tresor.affichage(i0,j0+2.8*TAILLE_CASES_AFFICHAGE);
-    pioche_bonus.affichage(i0,j0+4.2*TAILLE_CASES_AFFICHAGE);
-    pioche_achetez.affichage(i0,j0+5.6*TAILLE_CASES_AFFICHAGE);
-    pioche_enfant.affichage(i0,j0+7*TAILLE_CASES_AFFICHAGE);
-    pioche_propriete.affichage(i0,j0+8.4*TAILLE_CASES_AFFICHAGE);
-    pioche_symboles.affichage(i0,j0+9.8*TAILLE_CASES_AFFICHAGE);
+    pioche_bonus.affichage(i0,j0+5.6*TAILLE_CASES_AFFICHAGE);
+    pioche_achetez.affichage(i0,j0+8.4*TAILLE_CASES_AFFICHAGE);
+    pioche_enfant.affichage(i0,j0+11.2*TAILLE_CASES_AFFICHAGE);
+    pioche_propriete.affichage(i0,j0+14*TAILLE_CASES_AFFICHAGE);
+    pioche_symboles.affichage(i0,j0+16.8*TAILLE_CASES_AFFICHAGE);
 }
 
 void Banque::reset() {
