@@ -244,14 +244,17 @@ void Joueur::dessine_icone(int i0, int j0,int taille_cadre) const {
 }
 
 void Joueur::affiche_cartes(int i0, int j0) const {
-    Imagine::drawString(j0,i0+0.2*TAILLE_CASES_AFFICHAGE,std::to_string(money),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
-    Imagine::drawString(j0+TAILLE_CASES_AFFICHAGE,i0+0.2*TAILLE_CASES_AFFICHAGE,std::to_string(dettes),Imagine::BLACK,0.2*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0,i0+0.25*TAILLE_CASES_AFFICHAGE,"Argent: "+std::to_string(money),Imagine::BLACK,0.25*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(j0+2*TAILLE_CASES_AFFICHAGE,i0+0.25*TAILLE_CASES_AFFICHAGE,"Dettes: "+std::to_string(dettes),Imagine::BLACK,0.25*TAILLE_CASES_AFFICHAGE);
+    if (carriere==1 && periode!=PERIODE_CHEMIN_SUR_RISQUE)
+        Imagine::drawString(j0,i0+0.5*TAILLE_CASES_AFFICHAGE,"Conseils: "+std::to_string(conseils),Imagine::BLACK,0.25*TAILLE_CASES_AFFICHAGE);
+    if (prison) Imagine::drawString(j0+2*TAILLE_CASES_AFFICHAGE,i0+0.5*TAILLE_CASES_AFFICHAGE,"Essais prison: "+std::to_string(essais_prison),Imagine::BLACK,0.25*TAILLE_CASES_AFFICHAGE);
     for (unsigned int i=0;i<cartes_sortez_prison.size();i++)
-        cartes_sortez_prison.at(i)->affichage(i0+(0.2+i)*TAILLE_CASES_AFFICHAGE,j0);
+        cartes_sortez_prison.at(i)->affichage(i0+(0.5+i)*TAILLE_CASES_AFFICHAGE,j0);
     for (unsigned int i=0;i<cartes_achetez.size();i++)
-        cartes_achetez.at(i)->affichage(i0+(0.2+i)*TAILLE_CASES_AFFICHAGE,j0+1.4*TAILLE_CASES_AFFICHAGE);
+        cartes_achetez.at(i)->affichage(i0+(0.5+i)*TAILLE_CASES_AFFICHAGE,j0+1.4*TAILLE_CASES_AFFICHAGE);
     for (unsigned int i=0;i<cartes_enfant.size();i++)
-        cartes_enfant.at(i)->affichage(i0+(0.2+i)*TAILLE_CASES_AFFICHAGE,j0+2.8*TAILLE_CASES_AFFICHAGE);
+        cartes_enfant.at(i)->affichage(i0+(0.5+i)*TAILLE_CASES_AFFICHAGE,j0+2.8*TAILLE_CASES_AFFICHAGE);
     for (unsigned int i=0;i<cartes_propriete.size();i++)
-        cartes_propriete.at(i)->affichage(i0+(0.2+i)*TAILLE_CASES_AFFICHAGE,j0+4.2*TAILLE_CASES_AFFICHAGE);
+        cartes_propriete.at(i)->affichage(i0+(0.5+i)*TAILLE_CASES_AFFICHAGE,j0+4.2*TAILLE_CASES_AFFICHAGE);
 }

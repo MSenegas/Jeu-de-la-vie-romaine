@@ -51,9 +51,11 @@ void Periode::tomber(const unsigned int n_case, Joueur &J) const {
 void Periode::passer(const unsigned int n_case, Joueur &J) const {
     cases.at(n_case)->passer(J);}
 
-void Periode::affichage(int i0, int j0) const {
+void Periode::affichage(int i0, int j0,std::string nom) const {
     for (unsigned int i=0;i<cases.size();i++)
-        cases.at(i)->affichage(i0,j0+TAILLE_CASES_AFFICHAGE*i);}
+        cases.at(i)->affichage(i0,j0+TAILLE_CASES_AFFICHAGE*i);
+    Imagine::drawString(j0+cases.size()*TAILLE_CASES_AFFICHAGE,i0+0.25*TAILLE_CASES_AFFICHAGE,nom,Imagine::BLACK,0.25*TAILLE_CASES_AFFICHAGE);
+}
 
 Plateau::Plateau(const std::string& path,Game& G) {
     std::vector<std::vector<std::string>> paragraph_list;
@@ -138,11 +140,16 @@ void affichejoueurs(const std::vector<const Joueur*>& LJ,int i0,int j0) {
 
 void Plateau::affichage(int i0,int j0,std::vector<const Joueur*>& LJ) const {
     // Plateau
-    plateau.at(0).affichage(i0,j0);
+    plateau.at(0).affichage(i0,j0,"Esclavage");
     for (int n_carr=1;n_carr<=N_CARRIERES;n_carr++) {
         int n_per=1;
         while (!derniere_periode(n_per-1)) {
-            plateau.at(indice_plateau(n_carr,n_per)).affichage(i0+TAILLE_CASES_AFFICHAGE*indice_plateau(n_carr,n_per),j0);
+            std::string nom;if (n_per==PERIODE_CHEMIN_SUR_RISQUE) {
+                if (n_carr==1) nom="Chemin sûr";
+                else nom="Chemin risqué";}
+            else {if (n_carr==1) nom="Politicien "+std::to_string(n_per);
+                else nom="Commerçant "+std::to_string(n_per);}
+            plateau.at(indice_plateau(n_carr,n_per)).affichage(i0+TAILLE_CASES_AFFICHAGE*indice_plateau(n_carr,n_per),j0,nom);
             n_per++;}}
     // Joueurs
     std::vector<const Joueur*> joueurs_meme_case;

@@ -19,7 +19,7 @@ public:
     unsigned int size() const;
     void tomber(const unsigned int n_case,Joueur& J) const;
     void passer(const unsigned int n_case,Joueur& J) const;
-    void affichage(int i0,int j0) const; // Affiche la période
+    void affichage(int i0,int j0,std::string nom) const; // Affiche la période
 };
 
 class Plateau {
@@ -30,8 +30,8 @@ class Plateau {
     //               esclave: n_carr = 0
     //            politicien: n_carr = 1
     //            commerçant: n_carr = 2
-    //            chemin_sûr: n_carr = 1
-    //         chemin_risqué: n_carr = 2
+    //            chemin sûr: n_carr = 1
+    //         chemin risqué: n_carr = 2
 public:
     Plateau(const std::string& path,Game& G);
     bool depasse_periode(const int n_carr,const int n_per,const unsigned int n_case) const;

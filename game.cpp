@@ -96,9 +96,9 @@ void Game::affichage(Imagine::Window& w1,Imagine::Window& w2,Imagine::Window& w3
         LJ.at(i)=&liste_joueurs.at(i);
     Imagine::setActiveWindow(w3);
     Imagine::clearWindow();
-    liste_joueurs.at(curr_player).dessine_icone(0,4.5*curr_player*TAILLE_CASES_AFFICHAGE,0.2*TAILLE_CASES_AFFICHAGE);
+    liste_joueurs.at(curr_player).dessine_icone(0,4.5*curr_player*TAILLE_CASES_AFFICHAGE,0.5*TAILLE_CASES_AFFICHAGE);
     for (unsigned int i=0;i<liste_joueurs.size();i++)
-        liste_joueurs.at(i).affiche_cartes(0.2*TAILLE_CASES_AFFICHAGE,4.5*i*TAILLE_CASES_AFFICHAGE);
+        liste_joueurs.at(i).affiche_cartes(0.5*TAILLE_CASES_AFFICHAGE,4.5*i*TAILLE_CASES_AFFICHAGE);
     Imagine::setActiveWindow(w2);
     Imagine::clearWindow();
     banque.affichage(0,0);
