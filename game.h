@@ -26,7 +26,7 @@ public:
     void game_loop(); // Gestion du tour
     void game_loop(Imagine::Window& w1,Imagine::Window& w2,Imagine::Window& w3); // avec affichage
     void mouv_joueur(Joueur& J,const int& de); // Appelle la fonction mouv du joueur (utilisée par les cases, cartes)
-    void affichage(Imagine::Window& w1,Imagine::Window& w2,Imagine::Window& w3,bool clc=true) const; // Affiche tous les éléments de la partie
+    void affichage(Imagine::Window& w1,Imagine::Window& w2,Imagine::Window& w3) const; // Affiche tous les éléments de la partie
     void reset(); // Réinitialise la partie
     friend void Plateau::affichage(int,int,std::vector<const Joueur*>&) const;
     friend void CaseCashJoueurs::tomber(Joueur&) const;
