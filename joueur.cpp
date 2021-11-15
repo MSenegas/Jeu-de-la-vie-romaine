@@ -54,7 +54,7 @@ void Joueur::sortir_prison() {prison=false;}
 void Joueur::tenter_sortir_prison(const int de) {
     if (remove_carte_sortez_prison())
         sortir_prison();
-    if (essais_prison<N_MAX_ESSAIS_PRISON) {
+    if (essais_prison+1<N_MAX_ESSAIS_PRISON) {
         essais_prison++;
         if (de==FACE_SORTIR_PRISON)
             sortir_prison();}
