@@ -101,7 +101,9 @@ void Game::affichage(Imagine::Window& w1,Imagine::Window& w2,Imagine::Window& w3
         liste_joueurs.at(i).affiche_cartes(0.5*TAILLE_CASES_AFFICHAGE,4.5*i*TAILLE_CASES_AFFICHAGE);
     Imagine::setActiveWindow(w2);
     Imagine::clearWindow();
-    banque.affichage(0,0);
+    Imagine::drawString(0,0,"Tour: "+std::to_string(t),Imagine::BLACK,0.25*TAILLE_CASES_AFFICHAGE);
+    Imagine::drawString(0,TAILLE_CASES_AFFICHAGE,"Cagnotte: "+std::to_string(cagnotte),Imagine::BLACK,0.25*TAILLE_CASES_AFFICHAGE);
+    banque.affichage(0.25*TAILLE_CASES_AFFICHAGE,0);
     Imagine::setActiveWindow(w1);
     Imagine::clearWindow();
     plateau.affichage(0,0,LJ);
