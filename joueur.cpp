@@ -216,7 +216,7 @@ void Joueur::mouv(Plateau& P,const int de) {
         case_libre+=de;
         if (case_libre>=0) {
             if (P.depasse_periode(carriere,periode,case_libre)) {
-                case_libre=P.size_periode(carriere,periode)-1;
+                case_libre=P.size_periode(carriere,periode)-1; // Hyp: la dernière case du plateau est un stop
                 for (int i=ancienne_case_libre+1;i<=case_libre;i++)
                     P.passer(carriere,periode,i,*this);
                 if (P.derniere_periode(periode))
