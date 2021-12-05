@@ -29,33 +29,35 @@ bool Case::demand_pari_loto(int nb_faces,const std::vector<int>& C) {
     return count<=nb_faces || !count;
 }
 
-void CasePari::tomber(Joueur& J) const {
+void Case::tomber_pari_loto(Game& G,Joueur& J,bool loto) {
     std::vector<int> faces_voulues;
-    for (unsigned int i=0;i<current_game.liste_joueurs.size();i++)
-        faces_voulues.push_back(current_game.liste_joueurs.at(i).decision_nb_faces_pari_loto());
+    for (unsigned int i=0;i<G.liste_joueurs.size();i++)
+        faces_voulues.push_back(G.liste_joueurs.at(i).decision_nb_faces_pari_loto(loto));
     unsigned int ind_j=0;
-    while (&current_game.liste_joueurs.at(ind_j)!=&J) ind_j++; // Le joueur J joue en premier
+    while (&G.liste_joueurs.at(ind_j)!=&J) ind_j++; // Le joueur J joue en premier
     std::vector<int> attribution_faces(FACES_DE_MISE_PARI_LOTO,-1);
     {int j=0;
     for (;j<std::min(faces_voulues.at(ind_j),FACES_DE_MISE_PARI_LOTO);j++)
         attribution_faces.at(j)=ind_j;
     faces_voulues.at(ind_j)=0;
-    for (unsigned int i=(ind_j+1)%current_game.liste_joueurs.size();Case::demand_pari_loto(FACES_DE_MISE_PARI_LOTO-j,faces_voulues);j++,i++,i%=current_game.liste_joueurs.size()) {
+    for (unsigned int i=(ind_j+1)%G.liste_joueurs.size();demand_pari_loto(FACES_DE_MISE_PARI_LOTO-j,faces_voulues);j++,i++,i%=G.liste_joueurs.size()) {
         attribution_faces.at(j)=i; // La lecture littérale du mode d'emploi conduit à ce code là, cependant ce n'est pas ce que je m'imaginais lorsque j'ai écrit les règles,
         faces_voulues.at(i)--; // ce n'est pas la solution la plus juste. envisager des changements?
     }}
     int somme=0;
     for (unsigned int i=0;i<attribution_faces.size();i++)
         if (attribution_faces.at(i)!=-1) {
-            current_game.liste_joueurs.at(attribution_faces.at(i)).cash_flow(-MISE_STANDARD_PARI_LOTO);
+            G.liste_joueurs.at(attribution_faces.at(i)).cash_flow(-MISE_STANDARD_PARI_LOTO);
             somme+=MISE_STANDARD_PARI_LOTO;}
     int joueur_gagnant=-1;
     while (joueur_gagnant==-1)
         joueur_gagnant=attribution_faces.at(Game::lancer_de_mise_pari_loto());
-    current_game.liste_joueurs.at(joueur_gagnant).cash_flow(somme);
+    G.liste_joueurs.at(joueur_gagnant).cash_flow(somme);
 }
 
-void CaseLoto::tomber(Joueur& J) const {std::cerr << "Warning: Case Loto non implémentée" << std::endl;}
+void CasePari::tomber(Joueur& J) const {tomber_pari_loto(current_game,J,false);}
+
+void CaseLoto::tomber(Joueur& J) const {tomber_pari_loto(current_game,J,true);}
 
 void CaseJustice::tomber(Joueur& J) const {
     std::vector<const Joueur*> LJ;

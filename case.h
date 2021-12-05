@@ -11,6 +11,7 @@ public:
     Case(const Case&)=delete;
     Case& operator=(const Case&)=delete;
     static bool demand_pari_loto(int nb_faces,const std::vector<int>& C);
+    static void tomber_pari_loto(Game& G,Joueur& J,bool loto);
     virtual void tomber(Joueur&) const=0; // Effet déclenché lorsque le joueur J tombe sur la case
     virtual void passer(Joueur&) const {} // Paye le salaire du joueur J (seul. salaire)
     virtual void affichage(int i0,int j0) const; // Affiche la case

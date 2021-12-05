@@ -35,8 +35,7 @@ public:
     friend void CaseChance::tomber(Joueur&) const;
     friend void CaseTresor::tomber(Joueur&) const;
     friend void CaseSalaire::tomber(Joueur&) const;
-    friend void CasePari::tomber(Joueur&) const;
-    friend void CaseLoto::tomber(Joueur&) const;
+    friend void Case::tomber_pari_loto(Game& G,Joueur& J,bool loto);
     friend void CaseJustice::tomber(Joueur&) const;
     friend void CaseEnfant::tomber(Joueur&) const;
     friend void CaseMarche::tomber(Joueur&) const;
@@ -45,7 +44,6 @@ public:
     friend void CarteReculezAvancezJoueurs::tirer(Joueur&) const;
     friend void CarteAutreChanceTresor::tirer(Joueur&) const;
     friend void CarteAutreCashBonus::tirer(Joueur&) const;
-    friend void CartePari::tirer(Joueur&) const;
     friend void CarteCashJoueurs::tirer(Joueur&) const;
     friend void CarteCashCagnotteJoueurs::tirer(Joueur&) const;
 };
