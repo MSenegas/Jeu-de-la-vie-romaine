@@ -47,6 +47,8 @@ public:
     void sortir_prison();
     void aller_esclavage();
     void sortir_esclavage();
+    int decision_attaquer_justice(const std::vector<const Joueur*>& LJ) const; // Décide quel joueur attaquer en justice
+    int decision_nb_faces_pari_loto(bool loto=false) const; // Décide du nombre de faces du dé à acheter pendant un pari/loto
     void add_carte_enfant(const Carte* C); // Vérifie si c'est possible
     void add_carte_sortez_prison(const Carte* C);
     bool remove_carte_sortez_prison(); // Regarde s'il y a une carte sortez de prison et la retire le cas échéant

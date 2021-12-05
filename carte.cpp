@@ -4,13 +4,13 @@
 #include "game.h"
 
 int Carte::base_value() const {throw std::logic_error("Seules les cartes achetez et propriété définissent la fonction base_value");}
-int Carte::operator()() const {throw std::logic_error("Seules les cartes enfant,achetez et propriété définissent la fonction d'appel");}
+int Carte::operator()() const {throw std::logic_error("Seules les cartes enfant, achetez et propriété définissent la fonction d'appel");}
 double Carte::variation() const {throw std::logic_error("Seules les cartes achetez définissent la fonction variation");}
 const std::vector<int>& Carte::symboles() const {throw std::logic_error("Seules les cartes propriété et symboles définissent la fonction symboles");}
 
-void CarteAchetez::tirer(Joueur&) const {std::logic_error("Les cartes achetez ne devraient pas activer la fonction tirer");}
-void CartePropriete::tirer(Joueur&) const {std::logic_error("Les cartes propriété ne devraient pas activer la fonction tirer");}
-void CarteSymboles::tirer(Joueur&) const {std::logic_error("Les cartes symboles ne devraient pas activer la fonction tirer");}
+void CarteAchetez::tirer(Joueur&) const {throw std::logic_error("Les cartes achetez ne devraient pas activer la fonction tirer");}
+void CartePropriete::tirer(Joueur&) const {throw std::logic_error("Les cartes propriété ne devraient pas activer la fonction tirer");}
+void CarteSymboles::tirer(Joueur&) const {throw std::logic_error("Les cartes symboles ne devraient pas activer la fonction tirer");}
 
 // S'assurer qu'aucune autre action ne doit être prise lors de la restitution d'une carte
 void Carte::defausser() const {pioche_source.defausser(this);}
@@ -103,7 +103,6 @@ void CarteJeuHasardAvantage::tirer(Joueur& J) const {
 }
 
 void CartePari::tirer(Joueur& J) const {
-    std::cerr << "Warning: Carte Pari non implémentée" << std::endl;
     defausser();
 }
 
