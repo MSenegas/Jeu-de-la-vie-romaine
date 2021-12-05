@@ -9,7 +9,7 @@ class Carte;
 class Joueur {
     // Argent
     int money;
-    unsigned int dettes;
+    int dettes;
     // Position
     int carriere;
     int periode;

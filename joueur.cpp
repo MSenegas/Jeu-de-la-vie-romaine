@@ -73,6 +73,22 @@ void Joueur::sortir_esclavage() {
     cash_flow(-FRAIS_SORTIE_ESCLAVAGE);
     esclave=false;}
 
+int Joueur::decision_attaquer_justice(const std::vector<const Joueur*>& LJ) const {
+    int i0=-1,maxcash=INT32_MIN;
+    for (unsigned int i=0;i<LJ.size();i++) {
+        const Joueur* C=LJ.at(i);
+        int currcash=C->money-C->dettes;
+        if (this!=C && maxcash<currcash) {
+            maxcash=currcash;
+            i0=i;}}
+    return i0;
+}
+
+int Joueur::decision_nb_faces_pari_loto(bool) const {
+    std::cerr << "Warning: La décision du nombre de faces à acheter est mauvaise" << std::endl;
+    return FACES_DE_MISE_PARI_LOTO/2+1;
+}
+
 void Joueur::add_carte_enfant(const Carte* C) {
     unsigned int enfants=0;
     for (unsigned int i=0;i<cartes_enfant.size();i++)
